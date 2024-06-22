@@ -60,7 +60,7 @@ TextureImporter:
       213: -9117723553969679865
     second: Town_9
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -77,9 +77,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -88,9 +91,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -111,10 +114,15 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -126,6 +134,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -138,6 +147,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -150,6 +160,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -171,7 +182,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 72b0293cacf26ce50800000000000000
-      internalID: 6829198432864963367
+      internalID: -6470653568274419442
       vertices: []
       indices: 
       edges: []
@@ -192,7 +203,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fafe0d03336755990800000000000000
-      internalID: -7397876850651762769
+      internalID: 8005180987341759987
       vertices: []
       indices: 
       edges: []
@@ -213,7 +224,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8168bd96968ff5850800000000000000
-      internalID: 6368081529756419608
+      internalID: 4956551558906624836
       vertices: []
       indices: 
       edges: []
@@ -234,7 +245,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ed7634a37b670c6b0800000000000000
-      internalID: -5278088233949632546
+      internalID: -9172618674039298964
       vertices: []
       indices: 
       edges: []
@@ -255,7 +266,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: cfa9ab3156d658840800000000000000
-      internalID: 5225703223523449596
+      internalID: -971289391552300662
       vertices: []
       indices: 
       edges: []
@@ -276,7 +287,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: fc5e4661e1e0883c0800000000000000
-      internalID: -4357217117093435953
+      internalID: -852558035132325119
       vertices: []
       indices: 
       edges: []
@@ -291,9 +302,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      Town_0: -6470653568274419442
+      Town_1: 8005180987341759987
+      Town_4: 4956551558906624836
+      Town_5: -9172618674039298964
+      Town_6: -971289391552300662
+      Town_8: -852558035132325119
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

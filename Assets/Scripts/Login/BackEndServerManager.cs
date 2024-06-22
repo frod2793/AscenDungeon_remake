@@ -8,8 +8,8 @@ using BackEnd;
 using LitJson;
 using static BackEnd.SendQueue;
 //  Include GPGS namespace
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+// using GooglePlayGames;
+// using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 
 
@@ -189,19 +189,19 @@ public class BackEndServerManager : Singleton<BackEndServerManager>
 
 #if UNITY_ANDROID
         // ----- GPGS -----
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration
-            .Builder()
-            .RequestServerAuthCode(false)
-            .RequestEmail()
-            .RequestIdToken()
-            .Build();
-
-        //커스텀된 정보로 GPGS 초기화
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        //GPGS 시작.
-        PlayGamesPlatform.Activate();
-#endif
+//         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration
+//             .Builder()
+//             .RequestServerAuthCode(false)
+//             .RequestEmail()
+//             .RequestIdToken()
+//             .Build();
+//
+//         //커스텀된 정보로 GPGS 초기화
+//         PlayGamesPlatform.InitializeInstance(config);
+//         PlayGamesPlatform.DebugLogEnabled = true;
+//         //GPGS 시작.
+//         PlayGamesPlatform.Activate();
+ #endif
         isLogin = false;
    
         // ----- 뒤끝 -----
@@ -612,19 +612,19 @@ public class BackEndServerManager : Singleton<BackEndServerManager>
     public string GetTokens() // 딱히 수정할 필요 없음
     {
 #if UNITY_ANDROID
-        if (PlayGamesPlatform.Instance.localUser.authenticated)
-        {
-            // 유저 토큰 받기 첫번째 방법
-            string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
-            // 두번째 방법
-            // string _IDtoken = ((PlayGamesLocalUser)Social.localUser).GetIdToken();
-            return _IDtoken;
-        }
-        else
-        {
-            MessagePopManager.instance.ShowPop("접속되어있지 않습니다. PlayGamesPlatform.Instance.localUser.authenticated :  fail", 10f);
-            Debug.Log("접속되어있지 않습니다. PlayGamesPlatform.Instance.localUser.authenticated :  fail");
-        }
+        // if (PlayGamesPlatform.Instance.localUser.authenticated)
+        // {
+        //     // 유저 토큰 받기 첫번째 방법
+        //     string _IDtoken = PlayGamesPlatform.Instance.GetIdToken();
+        //     // 두번째 방법
+        //     // string _IDtoken = ((PlayGamesLocalUser)Social.localUser).GetIdToken();
+        //     return _IDtoken;
+        // }
+        // else
+        // {
+        //     MessagePopManager.instance.ShowPop("접속되어있지 않습니다. PlayGamesPlatform.Instance.localUser.authenticated :  fail", 10f);
+        //     Debug.Log("접속되어있지 않습니다. PlayGamesPlatform.Instance.localUser.authenticated :  fail");
+        // }
 #endif
         return null;
     }
