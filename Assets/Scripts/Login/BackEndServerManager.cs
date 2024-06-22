@@ -188,7 +188,7 @@ public class BackEndServerManager : Singleton<BackEndServerManager>
     {
 
 #if UNITY_ANDROID
-        // ----- GPGS -----
+        // // ----- GPGS -----
         // PlayGamesClientConfiguration config = new PlayGamesClientConfiguration
         //     .Builder()
         //     .RequestServerAuthCode(false)
