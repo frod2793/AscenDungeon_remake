@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SmallPotion
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 256
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 207a720bbe89b7741851e27c717ab277, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - abd0c93066e3cba4ea06cc9081cea327: 21300000
+    - a73f55d00d354b24184642c56c187b52: 21300000
+    - 1e8c25f6542b2804ba884bfee9a3e30c: 21300000
+    - e720441a6f432934ab71a0b31099ca0f: 21300000
+    - 388de56d0aedfbe4e829d31bc9c049a9: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: abd0c93066e3cba4ea06cc9081cea327, type: 3}
+  - {fileID: 21300000, guid: a73f55d00d354b24184642c56c187b52, type: 3}
+  - {fileID: 21300000, guid: 1e8c25f6542b2804ba884bfee9a3e30c, type: 3}
+  - {fileID: 21300000, guid: e720441a6f432934ab71a0b31099ca0f, type: 3}
+  - {fileID: 21300000, guid: 388de56d0aedfbe4e829d31bc9c049a9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Small-Potion-1
+  - Small-Potion-2
+  - Small-Potion-4
+  - Small-Potion-3
+  - Small-Potion-5
+  m_RenderDataMap: {}
+  m_Tag: SmallPotion
+  m_IsVariant: 0

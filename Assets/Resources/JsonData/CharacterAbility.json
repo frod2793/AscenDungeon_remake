@@ -1,0 +1,232 @@
+[
+  {
+    "ID": "Player",
+    "MoveSpeed": "3.5",
+    "MaxHealth": "30.0",
+    "AttackPower": "1.0",
+    "Begin_AttackDelay": "1.2",
+    "After_AttackDelay": "1.0",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Goblin_Assassin",
+    "MoveSpeed": "1.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "5.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "3.0",
+    "RecognitionArea": "Room",
+    "Range": "3.0"
+  },
+  {
+    "ID": "Goblin_Chief",
+    "MoveSpeed": "2.0",
+    "MaxHealth": "300.0",
+    "AttackPower": "8.0",
+    "Begin_AttackDelay": "1.2",
+    "After_AttackDelay": "1.2",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
+  },
+  {
+    "ID": "Goblin_Dart",
+    "MoveSpeed": "1.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "4.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "0.5",
+    "RecognitionArea": "Room",
+    "Range": "4.0"
+  },
+  {
+    "ID": "Goblin_Normal",
+    "MoveSpeed": "0.6",
+    "MaxHealth": "30.0",
+    "AttackPower": "5.0",
+    "Begin_AttackDelay": "0.7",
+    "After_AttackDelay": "0.7",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Goblin_Shaman",
+    "MoveSpeed": "1.0",
+    "MaxHealth": "50.0",
+    "AttackPower": "4.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "2.0",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Golem_StoneMini",
+    "MoveSpeed": "0.5",
+    "MaxHealth": "60.0",
+    "AttackPower": "10.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "1.5",
+    "RecognitionArea": "Room",
+    "Range": "0.7"
+  },
+  {
+    "ID": "Slime_Normal",
+    "MoveSpeed": "0.8",
+    "MaxHealth": "20.0",
+    "AttackPower": "3.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "1.0",
+    "RecognitionArea": "Room",
+    "Range": "2.0"
+  },
+  {
+    "ID": "Totem_Bomb",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "10.0",
+    "Begin_AttackDelay": "2.0",
+    "After_AttackDelay": "2.0",
+    "RecognitionArea": "Room",
+    "Range": "2.0"
+  },
+  {
+    "ID": "Totem_Buff",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "0.0",
+    "Begin_AttackDelay": "0.0",
+    "After_AttackDelay": "2.0",
+    "RecognitionArea": "Room",
+    "Range": "3.0"
+  },
+  {
+    "ID": "Totem_Cross",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "3.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "2.0",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
+  },
+  {
+    "ID": "Totem_Lighting",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "10.0",
+    "Begin_AttackDelay": "3.0",
+    "After_AttackDelay": "1.0",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
+  },
+  {
+    "ID": "Totme_XShape",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "3.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "2.0",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
+  },
+  {
+    "ID": "TrainingOnly",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "999.0",
+    "AttackPower": "0.0",
+    "Begin_AttackDelay": "999.0",
+    "After_AttackDelay": "999.0",
+    "RecognitionArea": "Floor",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Scarecrow",
+    "MoveSpeed": "1.0",
+    "MaxHealth": "1.0",
+    "AttackPower": "1.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "1.0",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Sea_SharkTheSpearman",
+    "MoveSpeed": "1.5",
+    "MaxHealth": "50.0",
+    "AttackPower": "10.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "1.5",
+    "RecognitionArea": "Room",
+    "Range": "4.0"
+  },
+  {
+    "ID": "Sea_PufferFish",
+    "MoveSpeed": "1.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "2.0",
+    "Begin_AttackDelay": "0.5",
+    "After_AttackDelay": "0.0",
+    "RecognitionArea": "Room",
+    "Range": "0.5"
+  },
+  {
+    "ID": "Sea_LatentMonkfish",
+    "MoveSpeed": "1.2",
+    "MaxHealth": "50.0",
+    "AttackPower": "5.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "1.0",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Sea_Kraken",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "450.0",
+    "AttackPower": "10.0",
+    "Begin_AttackDelay": "2.5",
+    "After_AttackDelay": "2.5",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
+  },
+  {
+    "ID": "Sea_Tentacle",
+    "MoveSpeed": "0.0",
+    "MaxHealth": "30.0",
+    "AttackPower": "5.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "0.5",
+    "RecognitionArea": "Room",
+    "Range": "2.2"
+  },
+  {
+    "ID": "Bot_RepairBot",
+    "MoveSpeed": "1.5",
+    "MaxHealth": "30.0",
+    "AttackPower": "15.0",
+    "Begin_AttackDelay": "0.0",
+    "After_AttackDelay": "0.5",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  },
+  {
+    "ID": "Bot_CannonBot",
+    "MoveSpeed": "0.8",
+    "MaxHealth": "60.0",
+    "AttackPower": "15.0",
+    "Begin_AttackDelay": "0.2",
+    "After_AttackDelay": "0.8",
+    "RecognitionArea": "Room",
+    "Range": "4.0"
+  },
+  {
+    "ID": "Bot_HammerBot",
+    "MoveSpeed": "1.2",
+    "MaxHealth": "60.0",
+    "AttackPower": "20.0",
+    "Begin_AttackDelay": "0.4",
+    "After_AttackDelay": "0.4",
+    "RecognitionArea": "Room",
+    "Range": "1.0"
+  }
+]

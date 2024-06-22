@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: DangerousBottle
+  m_EditorClassIdentifier: 
+  _ItemName: "\uC704\uD5D8\uD574 \uBCF4\uC774\uB294 \uBCD1"
+  _ItemRating: "\uC11C\uC0AC \uC544\uC774\uD15C"
+  _ATK: 1.0
+  _DPS: ???
+  _TextColor: {r: 0.497, g: 0.2, b: 0.65, a: 1}
+  _ItemSprite: {fileID: 21300000, guid: 8cf70aa79ea171e4fa4c101df1de2aba, type: 3}
+  _UsageKeywords: 00000000
+  _WeaponText: "\n<color=#9D9D9D>\uACF5\uACA9 \uC801\uC911 \uBC94\uC704\uAC00 \uD655\uC7A5\uB429\uB2C8\uB2E4.</color>\n<b>\uD0C0\uACA9</b>
+    : <color=#0DB24C>\uB3C5</color> \uB514\uBC84\uD504\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  _WeaponTextSize: 16
+  _WeaponAblity: ATK+5.0 SPEED+0.0
+  _AccessoryText: "<b>\uD0C0\uACA9</b> : \uC57D\uD55C <color=#0DB24C>\uB3C5</color>
+    \uB514\uBC84\uD504\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  _AccessoryTextSize: 14.5
+  _AccessoryAblity: ATK+5.0 SPEED+0.0

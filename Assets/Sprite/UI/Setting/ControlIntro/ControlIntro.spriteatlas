@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ControlIntro
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 189c21056785bee4386769a0c29681c9, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - fd2d1ae33f9ccd945aaa08469196e10c: 21300000
+    - 57ef96962af8425408a4544bc9ad8c85: 21300000
+    - 562ea308740e7c142af5306f1a8e1e93: 21300000
+    - c60b50e842e5b8c4390870fa0e987cf2: 21300000
+    - de979b49aa79a304d9f816904ebbdf19: 21300000
+    - 20d540bf2d1d48a42940866d355ce72d: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: fd2d1ae33f9ccd945aaa08469196e10c, type: 3}
+  - {fileID: 21300000, guid: 57ef96962af8425408a4544bc9ad8c85, type: 3}
+  - {fileID: 21300000, guid: 562ea308740e7c142af5306f1a8e1e93, type: 3}
+  - {fileID: 21300000, guid: c60b50e842e5b8c4390870fa0e987cf2, type: 3}
+  - {fileID: 21300000, guid: de979b49aa79a304d9f816904ebbdf19, type: 3}
+  - {fileID: 21300000, guid: 20d540bf2d1d48a42940866d355ce72d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Move_Side
+  - Move_UpDown
+  - Touch
+  - Description-button
+  - Charge
+  - Avoiding
+  m_RenderDataMap: {}
+  m_Tag: ControlIntro
+  m_IsVariant: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: FightersGlove
+  m_EditorClassIdentifier: 
+  _ItemName: "\uD30C\uC774\uD130\uC758 \uAE00\uB7EC\uBE0C"
+  _ItemRating: "\uD76C\uADC0 \uC544\uC774\uD15C"
+  _ATK: 4.0
+  _DPS: 8
+  _TextColor: {r: 0.18, g: 0.84, b: 0.22, a: 1}
+  _ItemSprite: {fileID: 21300000, guid: cf1d27960d1286345a966a286d0d3eab, type: 3}
+  _UsageKeywords: 00000000
+  _WeaponText: "\n\uACF5\uACA9\uC744 \uC5F0\uC18D\uC73C\uB85C \uB450 \uBC88 \uD569\uB2C8\uB2E4.\n<color=#9D9D9D><b>\uD0C0\uACA9</b>\uB2A5\uB825\uC774
+    \uB450 \uBC88 \uBC1C\uB3D9\uB429\uB2C8\uB2E4.</color>"
+  _WeaponTextSize: 17
+  _WeaponAblity: ATK+5.0 SPEED+0.0
+  _AccessoryText: "<b>\uD0C0\uACA9</b> : \uD53C\uD574\uB97C 5 \uC90D\uB2C8\uB2E4."
+  _AccessoryTextSize: 17
+  _AccessoryAblity: ATK+5.0 SPEED+0.0

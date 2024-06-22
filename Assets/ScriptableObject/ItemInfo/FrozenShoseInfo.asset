@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: FrozenShoseInfo
+  m_EditorClassIdentifier: 
+  _ItemName: "\uC5BC\uC74C \uAD6C\uB450"
+  _ItemRating: "\uC804\uC124 \uC544\uC774\uD15C"
+  _ATK: 30.0
+  _DPS: 17.4
+  _TextColor: {r: 1, g: 0, b: 0.401, a: 1}
+  _ItemSprite: {fileID: 21300000, guid: 7ae666bdc61c1cd44843f774b170e393, type: 3}
+  _UsageKeywords: 
+  _WeaponText: "\n\uC5BC\uC74C \uAE30\uB465\uC744 \n4\uAC1C \uC18C\uD658\uD569\uB2C8\uB2E4."
+  _WeaponTextSize: 18
+  _WeaponAblity: ATK+5.0 SPEED+0.0
+  _AccessoryText: "\uC704/\uC544\uB798\uB85C \uC774\uB3D9\uD560 \uB54C\uB9C8\uB2E4\n\uC5BC\uC74C
+    \uAE30\uB465\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4."
+  _AccessoryTextSize: 18
+  _AccessoryAblity: ATK+5.0 SPEED+0.0

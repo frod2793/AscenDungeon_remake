@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: OrdinaryBowInfo
+  m_EditorClassIdentifier: 
+  _ItemName: "\uD3C9\uBC94\uD55C \uD65C"
+  _ItemRating: "\uD76C\uADC0 \uC544\uC774\uD15C"
+  _ATK: 16.0
+  _DPS: 12.3
+  _TextColor: {r: 0.18, g: 0.84, b: 0.22, a: 1}
+  _ItemSprite: {fileID: -5722735768399984094, guid: dd54d29f612e4ed4ea9f5b818779fe24,
+    type: 3}
+  _UsageKeywords: 
+  _WeaponText: "\n\uD55C \uBC88 \uAD00\uD1B5\uD560 \uC218 \uC788\uB294 \n\uD654\uC0B4\uC744
+    \uBC1C\uC0AC\uD569\uB2C8\uB2E4."
+  _WeaponTextSize: 18
+  _WeaponAblity: ATK+5.0 SPEED+0.0
+  _AccessoryText: "\uC0AC\uC6A9\uD558\uB294 \uBAA8\uB4E0 \uD22C\uC0AC\uCCB4\uC758
+    \n\uD53C\uD574\uB7C9\uC774 5\uB9CC\uD07C \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  _AccessoryTextSize: 18
+  _AccessoryAblity: ATK+5.0 SPEED+0.0

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: GreatSwordInfo
+  m_EditorClassIdentifier: 
+  _ItemName: "\uC9F1\uC388 \uB300\uAC80"
+  _ItemRating: "\uC11C\uC0AC \uC544\uC774\uD15C"
+  _ATK: 18.0
+  _DPS: ???
+  _TextColor: {r: 0.497, g: 0.2, b: 0.65, a: 1}
+  _ItemSprite: {fileID: -3091812230915493593, guid: e1549c34ce093be469d9c328cbffc51c,
+    type: 3}
+  _UsageKeywords: 01000000
+  _WeaponText: "\n<b>\uCDA9\uC804</b>: \uACF5\uACA9\uB825\uC758 300%\uC758 \n\uB370\uBBF8\uC9C0\uB85C
+    \uACF5\uACA9\uC744 \uD569\uB2C8\uB2E4.\n<color=#9D9D9D>\uC77C\uBC18 \uACF5\uACA9\uC744
+    \uD558\uC9C0 \uBABB\uD569\uB2C8\uB2E4.</color>\r"
+  _WeaponTextSize: 18.5
+  _WeaponAblity: ATK+5.0 SPEED+0.0
+  _AccessoryText: '-'
+  _AccessoryTextSize: 18
+  _AccessoryAblity: ATK+5.0 SPEED+0.0

@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NPC
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 3de42b8d26ab6a04b8e0953fed32ac14, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 0bf326d03bf0aab4392e5ab948e22662: 21300000
+    - b5e66601e73760f468bba24efec064fb: 21300000
+    - d6309351e4d477e44a412c266ac56fc7: 21300000
+    - 9963cfb3734acf148afd677b5f45bb89: 21300000
+    - 8865332400ac4664389ad973207a57b5: 21300000
+    - 8655e0059e1feb147810e18702eefbe0: 21300000
+    - 566da197192bd574eb2fbf97f1714489: 21300000
+    - f66f13f7df8f40742b83414ca757e008: 21300000
+    - c3029718faf84c447b8335436b3af5eb: 21300000
+    - a3024eb8beaa56f45b4ed3af33d87fe6: 21300000
+    - 549ad2e83e023e641a1f63ccb9a1da01: 21300000
+    - e8045699adfc0e84db5210167e988248: 21300000
+    - 5911fbb9ec37d9e4884627326384119a: 21300000
+    - c61b5cba26d6ca843ae82986331dc361: 21300000
+    - 93d2fcaba941bc84596b0dd222c504e5: 21300000
+    - 3f5b56fb0817ab641ae92d75953a7eff: 21300000
+    - 080867cc7bdd1984688b5fa559bddd5f: 21300000
+    - cf5d140d1ec6b8040bade4d3128bbdc4: 21300000
+    - f8c74f0d8b09bc3418a85053df9050a1: 21300000
+    - 2d02d74e0b5fc594594e2e81f253e27e: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0bf326d03bf0aab4392e5ab948e22662, type: 3}
+  - {fileID: 21300000, guid: b5e66601e73760f468bba24efec064fb, type: 3}
+  - {fileID: 21300000, guid: d6309351e4d477e44a412c266ac56fc7, type: 3}
+  - {fileID: 21300000, guid: 9963cfb3734acf148afd677b5f45bb89, type: 3}
+  - {fileID: 21300000, guid: 8865332400ac4664389ad973207a57b5, type: 3}
+  - {fileID: 21300000, guid: 8655e0059e1feb147810e18702eefbe0, type: 3}
+  - {fileID: 21300000, guid: 566da197192bd574eb2fbf97f1714489, type: 3}
+  - {fileID: 21300000, guid: f66f13f7df8f40742b83414ca757e008, type: 3}
+  - {fileID: 21300000, guid: c3029718faf84c447b8335436b3af5eb, type: 3}
+  - {fileID: 21300000, guid: a3024eb8beaa56f45b4ed3af33d87fe6, type: 3}
+  - {fileID: 21300000, guid: 549ad2e83e023e641a1f63ccb9a1da01, type: 3}
+  - {fileID: 21300000, guid: e8045699adfc0e84db5210167e988248, type: 3}
+  - {fileID: 21300000, guid: 5911fbb9ec37d9e4884627326384119a, type: 3}
+  - {fileID: 21300000, guid: c61b5cba26d6ca843ae82986331dc361, type: 3}
+  - {fileID: 21300000, guid: 93d2fcaba941bc84596b0dd222c504e5, type: 3}
+  - {fileID: 21300000, guid: 3f5b56fb0817ab641ae92d75953a7eff, type: 3}
+  - {fileID: 21300000, guid: 080867cc7bdd1984688b5fa559bddd5f, type: 3}
+  - {fileID: 21300000, guid: cf5d140d1ec6b8040bade4d3128bbdc4, type: 3}
+  - {fileID: 21300000, guid: f8c74f0d8b09bc3418a85053df9050a1, type: 3}
+  - {fileID: 21300000, guid: 2d02d74e0b5fc594594e2e81f253e27e, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Receptionist-6
+  - Collector-1
+  - Merchant-6
+  - Merchant-1
+  - Receptionist-2
+  - Receptionist-1
+  - Merchant-4
+  - Receptionist-3
+  - Merchant-7
+  - Merchant-2
+  - Collector-6
+  - Collector-5
+  - Receptionist-4
+  - Collector-3
+  - Collector-4
+  - Merchant-8
+  - Collector-2
+  - Merchant-3
+  - Merchant-5
+  - Receptionist-5
+  m_RenderDataMap: {}
+  m_Tag: NPC
+  m_IsVariant: 0

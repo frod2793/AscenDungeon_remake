@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d39a051539f6d43802d795d2fb03ee, type: 3}
+  m_Name: DeepSea_SelectionInfo
+  m_EditorClassIdentifier: 
+  _AttachedSceneName: DeepSea
+  _LockedTitle: "\uC54C\uC218\uC5C6\uC5B4\uC6A9"
+  _LockedComment: "\uC774\uC804 \uB358\uC804\uC744 \uBA3C\uC800 \n\uD074\uB9AC\uC5B4\uD574\uC57C
+    \uD569\uB2C8\uB2E4!"
+  _LockedSprite: {fileID: 5327139027057955629, guid: b6e444820f2f08d4987528b020b3d070,
+    type: 3}
+  _UnLockedTitle: "\uAE4A\uC740 \uC2EC\uD574"
+  _UnLockedComment: "2\uC871\uBCF4\uD589 \uC5B4\uB958\uB97C\n\uBCFC \uC218 \uC788\uB294
+    \uBA85\uC18C\uC785\uB2C8\uB2E4."
+  _UnLockedSprite: {fileID: 511733201378069097, guid: b6e444820f2f08d4987528b020b3d070,
+    type: 3}
