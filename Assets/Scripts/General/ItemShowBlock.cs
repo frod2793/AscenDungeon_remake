@@ -51,7 +51,7 @@ public class ItemShowBlock : MonoBehaviour
         ItemNameText.text = blockItem.NameKR;
         ItemCostText.text = ItemCost.ToString();
 
-        ItemImage.sprite = blockItem.Sprite;
+        ItemImage.sprite = blockItem.GetItemInfo.ItemSprite;
         ItemShower.OnPopupEvent = () =>
         {
             ItemInfoPopup.Instance.SetPopup(blockItem.GetItemInfo);

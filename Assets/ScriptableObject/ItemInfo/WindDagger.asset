@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: WindDagger
+  m_EditorClassIdentifier: 
+  _ItemName: "\uBC14\uB78C\uC758 \uB2E8\uAC80"
+  _ItemRating: "\uD76C\uADC0 \uC544\uC774\uD15C"
+  _ATK: 5.0
+  _DPS: "\uBE60\uB984!"
+  _TextColor: {r: 0.18, g: 0.84, b: 0.22, a: 1}
+  _ItemSprite: {fileID: 21300000, guid: 400c014c2c7adfc44a86d23f2b2f41f1, type: 3}
+  _UsageKeywords: 
+  _WeaponText: "\n<color=#9D9D9D>\uACF5\uACA9 \uC18D\uB3C4\uAC00 \uB9E4\uC6B0 \uBE60\uB985\uB2C8\uB2E4.</color>\r"
+  _WeaponTextSize: 18
+  _WeaponAblity: 
+  _AccessoryText: "\n\uACF5\uACA9 \uC18D\uB3C4\uAC00 25\uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+  _AccessoryTextSize: 18
+  _AccessoryAblity: 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: Bot_RepairBot
   _MoveSpeed: 1.5
-  _MaxHealth: 30
+  _MaxHealth: 50
   _AttackPower: 15
   _BeginAttackDelay: 0
   _AfterAttackDelay: 0.5

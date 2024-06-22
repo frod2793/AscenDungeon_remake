@@ -2,6 +2,7 @@
 
 public class LongSword : Item
 {
+    [Header("Item Action Property")]
     [SerializeField] private Animator Animator;
     [SerializeField] private Area CollisionArea;
 
@@ -34,6 +35,13 @@ public class LongSword : Item
     protected override void AttackAnimationPlayOver()
     {
         base.AttackAnimationPlayOver();
+
+        MainCamera.Instance.Shake(0.3f, 0.3f);
+
+        Effect effect = EffectLibrary.Instance.UsingEffect(EffectKind.Swing, _EffectSummonPoint.position);
+
+        effect.transform.localRotation = transform.rotation;
+        effect.transform.localScale = Vector3.one * 1.3f;
 
         _IsAttackOver = true;
     }
@@ -93,10 +101,6 @@ public class LongSword : Item
         Animator.SetBool(_AnimControlKey, !Animator.GetBool(_AnimControlKey));
 
         _IsAttackOver = false;
-    }
-    protected override void CameraShake()
-    {
-        MainCamera.Instance.Shake(0.3f, 0.3f);
     }
     private void HitAction(GameObject hitObject)
     {

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Goblin_Normal
   m_EditorClassIdentifier: 
   JsonLabelName: Goblin_Normal
-  _MoveSpeed: 1
+  _MoveSpeed: 0.8
   _MaxHealth: 30
   _AttackPower: 5
   _BeginAttackDelay: 0.7
   _AfterAttackDelay: 0.7
-  _Range: 0.6
+  _Range: 1
   _Area: 1

@@ -38,16 +38,16 @@ public class SummonModule : AttackModule
     }
     public void SummonTargetedObject(Vector2 summonPosition)
     {
-        SummonObject(_SummonTarget, summonPosition, _BelongRoom);
+        Summon(_SummonTarget, summonPosition, _BelongRoom);
     }
     public void SummonAdditionObject(Vector2 summonPosition)
     {
         int index = Random.Range(0, _AdditionalSummonTarget.Length);
 
-        SummonObject(_AdditionalSummonTarget[index], summonPosition, _BelongRoom);
+        Summon(_AdditionalSummonTarget[index], summonPosition, _BelongRoom);
     }
 
-    private void SummonObject(GameObject summonTarget, Vector2 summonPosition, Room room)
+    private void Summon(GameObject summonTarget, Vector2 summonPosition, Room room)
     {
         summonPosition += _SummonOffset;
 

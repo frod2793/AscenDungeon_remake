@@ -28,78 +28,175 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
-      enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 3de42b8d26ab6a04b8e0953fed32ac14, type: 3}
+    totalSpriteSurfaceArea: 2212926
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys:
-    - 0bf326d03bf0aab4392e5ab948e22662: 21300000
-    - b5e66601e73760f468bba24efec064fb: 21300000
-    - d6309351e4d477e44a412c266ac56fc7: 21300000
-    - 9963cfb3734acf148afd677b5f45bb89: 21300000
-    - 8865332400ac4664389ad973207a57b5: 21300000
-    - 8655e0059e1feb147810e18702eefbe0: 21300000
-    - 566da197192bd574eb2fbf97f1714489: 21300000
-    - f66f13f7df8f40742b83414ca757e008: 21300000
-    - c3029718faf84c447b8335436b3af5eb: 21300000
-    - a3024eb8beaa56f45b4ed3af33d87fe6: 21300000
-    - 549ad2e83e023e641a1f63ccb9a1da01: 21300000
-    - e8045699adfc0e84db5210167e988248: 21300000
-    - 5911fbb9ec37d9e4884627326384119a: 21300000
-    - c61b5cba26d6ca843ae82986331dc361: 21300000
-    - 93d2fcaba941bc84596b0dd222c504e5: 21300000
-    - 3f5b56fb0817ab641ae92d75953a7eff: 21300000
-    - 080867cc7bdd1984688b5fa559bddd5f: 21300000
-    - cf5d140d1ec6b8040bade4d3128bbdc4: 21300000
-    - f8c74f0d8b09bc3418a85053df9050a1: 21300000
-    - 2d02d74e0b5fc594594e2e81f253e27e: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 16119200fe014344eb74cffabca70efb, type: 3}
   - {fileID: 21300000, guid: 0bf326d03bf0aab4392e5ab948e22662, type: 3}
+  - {fileID: 21300000, guid: 431b09e0914e3c84da0531bb9b67d6bc, type: 3}
+  - {fileID: 21300000, guid: 6a78c9f0d40504e44bc80e2a82418c95, type: 3}
   - {fileID: 21300000, guid: b5e66601e73760f468bba24efec064fb, type: 3}
+  - {fileID: 21300000, guid: b5987701bf2451b47938c344243a1095, type: 3}
+  - {fileID: 21300000, guid: 3bc490116c5cde84996feb44054de741, type: 3}
   - {fileID: 21300000, guid: d6309351e4d477e44a412c266ac56fc7, type: 3}
+  - {fileID: 21300000, guid: 5e4d319174c529d4189b042369d71e2e, type: 3}
+  - {fileID: 21300000, guid: fe7157d1d8a7a094b90e2ed5f3f207b1, type: 3}
+  - {fileID: 21300000, guid: bdfa2c02128d57540aaeb7beef8f937f, type: 3}
+  - {fileID: 21300000, guid: 37f984229ca628c499484bef8240b63c, type: 3}
+  - {fileID: 21300000, guid: 40c93032e1a520942acd9253bbf0879d, type: 3}
+  - {fileID: 21300000, guid: 3399c862a2e8cf240a1091a6b6ac2ae4, type: 3}
   - {fileID: 21300000, guid: 9963cfb3734acf148afd677b5f45bb89, type: 3}
   - {fileID: 21300000, guid: 8865332400ac4664389ad973207a57b5, type: 3}
+  - {fileID: 21300000, guid: 2699fb6445d5da54fb4dcbc1424fad3e, type: 3}
+  - {fileID: 21300000, guid: fc2158b42b5cbfb47a98001e467eb013, type: 3}
   - {fileID: 21300000, guid: 8655e0059e1feb147810e18702eefbe0, type: 3}
+  - {fileID: 21300000, guid: e3b7c91599bf8da4ead7cf014996134a, type: 3}
+  - {fileID: 21300000, guid: d65203c5305c68e43b860f0ae5e693c1, type: 3}
+  - {fileID: 21300000, guid: 6bf674f5d066ad345878bd2991894d69, type: 3}
+  - {fileID: 21300000, guid: 5a2c1d56f2552a84aba0f2fd1f7919f4, type: 3}
+  - {fileID: 21300000, guid: a285726691cd68843af1ec9bae8d35a4, type: 3}
+  - {fileID: 21300000, guid: 13f262078b09f6642a01286a96c68669, type: 3}
+  - {fileID: 21300000, guid: b126f737179ce4944b7c4351b4f4bcd8, type: 3}
+  - {fileID: 21300000, guid: afa1a257ce29bf640848e1c20335415d, type: 3}
+  - {fileID: 21300000, guid: 54b4627711d9cd74e885980d3d7e90ca, type: 3}
   - {fileID: 21300000, guid: 566da197192bd574eb2fbf97f1714489, type: 3}
+  - {fileID: 21300000, guid: 0684fca791b7b6c4f80d84a0dc08e46a, type: 3}
+  - {fileID: 21300000, guid: 5228dcb7fde5b704e983af2f60c04198, type: 3}
+  - {fileID: 21300000, guid: 34f83fb74d140c442b64a8538745cfb0, type: 3}
   - {fileID: 21300000, guid: f66f13f7df8f40742b83414ca757e008, type: 3}
+  - {fileID: 21300000, guid: 2fc84108b5882ab499cb039c053361ab, type: 3}
+  - {fileID: 21300000, guid: 3d000c08f6e8c994d9f3ce26b3878ffa, type: 3}
   - {fileID: 21300000, guid: c3029718faf84c447b8335436b3af5eb, type: 3}
+  - {fileID: 21300000, guid: 78952d282a73bf94da053bc66a80f247, type: 3}
+  - {fileID: 21300000, guid: dc0e9f28d031f4d4184825209a858535, type: 3}
+  - {fileID: 21300000, guid: 2ed17638c9a11374dbceedf9512a6688, type: 3}
+  - {fileID: 21300000, guid: 5599614891cc77f45be406905733eaeb, type: 3}
+  - {fileID: 21300000, guid: 042c6958efa16e441b69a980fa35f308, type: 3}
+  - {fileID: 21300000, guid: 8183db586dbb97d46b88aa4f111fa3d7, type: 3}
+  - {fileID: 21300000, guid: d60ea498bd2750b4fb81722864c31bb6, type: 3}
+  - {fileID: 21300000, guid: f4c95ea8c8a142142bacbb77815e775e, type: 3}
   - {fileID: 21300000, guid: a3024eb8beaa56f45b4ed3af33d87fe6, type: 3}
   - {fileID: 21300000, guid: 549ad2e83e023e641a1f63ccb9a1da01, type: 3}
+  - {fileID: 21300000, guid: 92babbe867a397249b98c993b6eb17cc, type: 3}
+  - {fileID: 21300000, guid: f989f3294b9f1534483d97c47a2d60fa, type: 3}
+  - {fileID: 21300000, guid: 4c903b29ad752b84a8cc098c15b79554, type: 3}
+  - {fileID: 21300000, guid: d5495c89b241c6b4ab81fff471b3cac2, type: 3}
   - {fileID: 21300000, guid: e8045699adfc0e84db5210167e988248, type: 3}
   - {fileID: 21300000, guid: 5911fbb9ec37d9e4884627326384119a, type: 3}
+  - {fileID: 21300000, guid: 87d071d9f88196247b960d0cc3a1be39, type: 3}
+  - {fileID: 21300000, guid: 7810f3d936a03cc4eb84d2ee203ebbf2, type: 3}
+  - {fileID: 21300000, guid: e1fa590af68da7b41a0c054588889580, type: 3}
+  - {fileID: 21300000, guid: 5cb9a31ae77fbf6408471ef7c142d641, type: 3}
+  - {fileID: 21300000, guid: 72574e8ae0a6cd647948f56c44c50506, type: 3}
+  - {fileID: 21300000, guid: 538f3daa5a4539740970a9c41730a228, type: 3}
   - {fileID: 21300000, guid: c61b5cba26d6ca843ae82986331dc361, type: 3}
+  - {fileID: 21300000, guid: ac3b6a7b94db18f4184adebcb139930e, type: 3}
+  - {fileID: 21300000, guid: b5b23c8b24d030049af3b8bfa1a09f78, type: 3}
   - {fileID: 21300000, guid: 93d2fcaba941bc84596b0dd222c504e5, type: 3}
   - {fileID: 21300000, guid: 3f5b56fb0817ab641ae92d75953a7eff, type: 3}
+  - {fileID: 21300000, guid: 91c5433c479527546bf8f13a2c94d4e7, type: 3}
+  - {fileID: 21300000, guid: 2505619c4a62f074d9f7afdf9584deab, type: 3}
   - {fileID: 21300000, guid: 080867cc7bdd1984688b5fa559bddd5f, type: 3}
   - {fileID: 21300000, guid: cf5d140d1ec6b8040bade4d3128bbdc4, type: 3}
   - {fileID: 21300000, guid: f8c74f0d8b09bc3418a85053df9050a1, type: 3}
+  - {fileID: 21300000, guid: 3c72c55d75190be44ba978f5c1213440, type: 3}
+  - {fileID: 21300000, guid: 0612dcadd78df38458197aac019bb342, type: 3}
+  - {fileID: 21300000, guid: c9fee5dd61cc65c438fa7249a7247c21, type: 3}
+  - {fileID: 21300000, guid: 26c4663e2a3d8f64e9ad2700152ff34c, type: 3}
   - {fileID: 21300000, guid: 2d02d74e0b5fc594594e2e81f253e27e, type: 3}
+  - {fileID: 21300000, guid: 0d0d325e745115245ac6af65affdfae4, type: 3}
+  - {fileID: 21300000, guid: 0ed56fee71527b8429e8f38e3ab2624e, type: 3}
+  - {fileID: 21300000, guid: ebe7c4fec2c8c4340a5926cbede29137, type: 3}
+  - {fileID: 21300000, guid: 1ef35bfe96f3d4a4d92d580d37f0958e, type: 3}
+  - {fileID: 21300000, guid: 8ba6831f7c0f7244a9c0dc8805aa545a, type: 3}
+  - {fileID: 21300000, guid: eb06cc1f1edb5c94daed8613c4934cb4, type: 3}
   m_PackedSpriteNamesToIndex:
+  - NPC-2-Move-6
   - Receptionist-6
+  - NPC-1-Move-3
+  - NPC-2-Idle-3
   - Collector-1
+  - NPC-2-Move-4
+  - NPC-1-Idle-6
   - Merchant-6
+  - NPC-2-Move-5
+  - teacher-Idle-5
+  - NPC-3-Move-1
+  - NPC-1-Move-1
+  - NPC-1-Idle-3
+  - teacher-Idle-10
   - Merchant-1
   - Receptionist-2
+  - Notify
+  - NPC-2-Move-2
   - Receptionist-1
+  - NPC-4-Move-4
+  - NPC-4-Idle-2
+  - teacher-Idle-9
+  - NPC-4-Move-6
+  - NPC-1-Idle-4
+  - NPC-4-Move-1
+  - teacher-Idle-6
+  - NPC-4-Idle-4
+  - NPC-4-Move-2
   - Merchant-4
+  - NPC-1-Move-5
+  - NPC-3-Move-4
+  - NPC-4-Idle-3
   - Receptionist-3
+  - NPC-4-Move-3
+  - NPC-3-Move-5
   - Merchant-7
+  - NPC-3-Idle-4
+  - NPC-3-Idle-6
+  - NPC-3-Move-6
+  - NPC-4-Move-5
+  - NPC-2-Move-1
+  - NPC-3-Idle-1
+  - NPC-2-Idle-2
+  - NPC-1-Idle-5
   - Merchant-2
   - Collector-6
+  - NPC-1-Move-4
+  - NPC-3-Move-3
+  - NPC-2-Idle-6
+  - teacher-Idle-8
   - Collector-5
   - Receptionist-4
+  - NPC-3-Idle-3
+  - NPC-3-Idle-2
+  - NPC-1-Move-2
+  - teacher-Idle-2
+  - teacher-Idle-4
+  - NPC-1-Move-6
   - Collector-3
+  - NPC-1-Idle-1
+  - NPC-2-Idle-5
   - Collector-4
   - Merchant-8
+  - NPC-4-Idle-1
+  - teacher-Idle-3
   - Collector-2
   - Merchant-3
   - Merchant-5
+  - NPC-2-Move-3
+  - teacher-Idle-1
+  - NPC-2-Idle-1
+  - NPC-2-Idle-4
   - Receptionist-5
+  - NPC-3-Move-2
+  - teacher-Idle-7
+  - NPC-3-Idle-5
+  - NPC-4-Idle-6
+  - NPC-1-Idle-2
+  - NPC-4-Idle-5
   m_RenderDataMap: {}
   m_Tag: NPC
   m_IsVariant: 0

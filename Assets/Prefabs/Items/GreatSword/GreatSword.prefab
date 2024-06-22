@@ -80,6 +80,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -246,6 +247,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -270,8 +272,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3091812230915493593, guid: e1549c34ce093be469d9c328cbffc51c,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4fdc699bcff219b499ac2237ca772353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -296,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ItemInfoTable: {fileID: 11400000, guid: b0942e55510c4684e97891d02d378dd7, type: 2}
   StatTable: {fileID: 7820123583157055775}
+  _EffectSummonPoint: {fileID: 0}
   Animator: {fileID: 7820123583157055773}
   AttackArea: {fileID: 7820123582670454288}
   SwordDance: {fileID: 8797531632521363491, guid: 0c04070f64d3e864ba4d6450389c6abf,

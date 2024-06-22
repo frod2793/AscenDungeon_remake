@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum FadeType { In, Out }
@@ -31,6 +32,9 @@ public class MainCamera : Singleton<MainCamera>
     [SerializeField] private Camera ThisCamera;
     [SerializeField] private float OriginCameraScale;
 
+    [Header("____Move Props____")]
+    [SerializeField] private AnimationCurve _CameraMoveCurve;
+
     private Action mFadeOverAction;
     private Player _Player;
 
@@ -58,7 +62,30 @@ public class MainCamera : Singleton<MainCamera>
         // -- 화면이 서서히 밝아지게 --
         FadeFilter.color = Color.black;
 
-        Fade(1f, FadeType.Out);
+        Fade(1f, FadeType.Out, () => 
+        {
+            if (SceneManager.GetActiveScene().buildIndex == (int)SceneIndex.Town)
+                return;
+
+            switch (SceneManager.GetActiveScene().buildIndex)
+            {
+                case (int)SceneIndex.Forest:
+                    SystemMessage.Instance.ShowToastMessage("STAGE 1 - 고블린의 숲");
+                    break;
+                case (int)SceneIndex.DeepSea:
+                    SystemMessage.Instance.ShowToastMessage("STAGE 2 - 깊은 심해");
+                    break;
+                case (int)SceneIndex.SteamPunk:
+                    SystemMessage.Instance.ShowToastMessage("STAGE 3 - 고철 공장");
+                    break;
+                case (int)SceneIndex.Tutorial:
+                    SystemMessage.Instance.ShowToastMessage("STAGE 0 - 튜토리얼");
+                    break;
+                default:
+                    SystemMessage.Instance.ShowToastMessage("선수 입장~");
+                    break;
+            }
+        });
         // -- 화면이 서서히 밝아지게 --
 
         _Player = FindObjectOfType<Player>();
@@ -83,7 +110,7 @@ public class MainCamera : Singleton<MainCamera>
         StartCoroutine(mCameraShake = CameraShake(time, power));
     }
 
-    public void Move(Vector2 point, float speed = 1f)
+    public void Move(Vector2 point, float speed = 6f)
     {
         if (mCameraMove != null)
         {
@@ -199,15 +226,13 @@ public class MainCamera : Singleton<MainCamera>
 
     private IEnumerator CameraMove(Vector2 point, float speed)
     {
-        float lerpAmount = 0f;
-
         mOriginPosition = (Vector3)point + Vector3.back * 10f;
 
-        while (lerpAmount < 1f)
+        for (float i = 0f; i < 1f; i += Time.deltaTime * Time.timeScale * speed)
         {
-            lerpAmount = Mathf.Min(1f, lerpAmount + Time.deltaTime * Time.timeScale * speed);
+            float rate = _CameraMoveCurve.Evaluate(Mathf.Min(1f, i));
 
-            transform.position = Vector2.Lerp(transform.position, point, lerpAmount);
+            transform.position = Vector2.Lerp(transform.position, point, rate);
             transform.SetZ(-10f);
 
             yield return null;
@@ -216,6 +241,10 @@ public class MainCamera : Singleton<MainCamera>
     private IEnumerator CameraZoomIn(Vector2 point, float time, float targetScale, bool usingTimeScale)
     {
         float deltaTime = 0f;
+        
+        if (mCameraMove != null)
+            StopCoroutine(mCameraMove);
+        mCameraMove = null;
 
         for (float i = 0; i < time; i += deltaTime)
         {

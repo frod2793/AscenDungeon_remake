@@ -5,19 +5,18 @@ using UnityEngine.UI;
 
 public class DungeonSelectUI : MonoBehaviour
 {
+    [SerializeField] private Scrollbar _Scrollbar;
+
     [SerializeField] private GameObject _SelectedStamp;
     [SerializeField] private DungeonSelection[] _Selections;
 
     private DungeonSelection _SelectedDungeon;
     private bool _IsAlreadyInit = false;
 
-    private void OnDisable()
-    {
-        transform.localScale = Vector2.zero;
-    }
-
     private void Start()
     {
+        _Scrollbar.value = 0f;
+
         if (!_IsAlreadyInit)
         {
             _SelectedStamp.SetActive(false);

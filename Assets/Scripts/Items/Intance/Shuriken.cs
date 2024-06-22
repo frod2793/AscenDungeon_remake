@@ -9,6 +9,9 @@ public enum AttackType
 
 public class Shuriken : Item
 {
+    private const string ThreeDirection = "Shuriken_attack_2";
+    private const string Continuous = "Shuriken_attack_1";
+
     [SerializeField] private Animator Animator;
     [SerializeField] private Projection Projection;
 
@@ -20,13 +23,25 @@ public class Shuriken : Item
 
     private Pool<Projection> _ShurikenPool;
     private bool _IsAlreadyInit = false;
+    private bool _CanAttack = true;
 
     private GameObject _Player;
 
     public override void AttackAction(GameObject attacker, ICombatable combatable)
     {
-        Animator.SetBool   (Animator.GetParameter(0).nameHash, true);
-        Animator.SetInteger(Animator.GetParameter(1).nameHash, (int)AttackType);
+        if (!_CanAttack) 
+            return;
+
+        switch (AttackType)
+        {
+            case AttackType.Continuous:
+                    Animator.Play(Continuous);
+                break;
+            case AttackType.ThreeDirection:
+                    Animator.Play(ThreeDirection);
+                break;
+        }
+        _CanAttack = false;
     }
 
     public override void OffEquipThis(SlotType offSlot)
@@ -127,11 +142,6 @@ public class Shuriken : Item
         }
     }
 
-    private IEnumerator EAccessory_MoveBeginAction(Vector2 dir)
-    {
-        yield return null;
-    }
-
     private void Init()
     {
         if (!_IsAlreadyInit)
@@ -165,15 +175,16 @@ public class Shuriken : Item
         }
     }
 
+    private void AE_CanAttack()
+    {
+        _CanAttack = true;
+    }
     protected override void AttackAnimationPlayOver()
     {
         base.AttackAnimationPlayOver();
-
-        Animator.SetBool(Animator.GetParameter(0).nameHash, false);
     }
-
     public override void AttackCancel()
     {
-        Animator.SetBool(Animator.GetParameter(0).nameHash, false);
+        Animator.Play("Default");
     }
 }

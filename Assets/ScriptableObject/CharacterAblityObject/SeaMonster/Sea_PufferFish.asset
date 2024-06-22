@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sea_PufferFish
   m_EditorClassIdentifier: 
   JsonLabelName: Sea_PufferFish
-  _MoveSpeed: 1
-  _MaxHealth: 30
+  _MoveSpeed: 0.7
+  _MaxHealth: 25
   _AttackPower: 2
   _BeginAttackDelay: 0.5
   _AfterAttackDelay: 0

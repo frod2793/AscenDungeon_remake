@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: Player
   _MoveSpeed: 3.5
-  _MaxHealth: 30
+  _MaxHealth: 500
   _AttackPower: 1
-  _BeginAttackDelay: 0
-  _AfterAttackDelay: 0
-  _Range: 0
-  _Area: 0
+  _BeginAttackDelay: 1.2
+  _AfterAttackDelay: 1
+  _Range: 1
+  _Area: 1

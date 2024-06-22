@@ -167,6 +167,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LPosition3: 0
-  _ItemDropper: {fileID: 0}
+  _ItemDropper: {fileID: 1409681766848391517}
   AbilityTable: {fileID: 6103993616405179631}
   Animator: {fileID: 3348873940667493074}
   HealthBar: {fileID: 0}
@@ -246,7 +247,7 @@ MonoBehaviour:
   SwingArea: {fileID: 4257588120642184678}
   Goblins:
   - {fileID: 4034151817204670685, guid: 71a25ae794219df45874437a106674f8, type: 3}
-  - {fileID: 7556299908380827411, guid: b8ad36e6c99751e4ebda217d07ef7af3, type: 3}
+  - {fileID: 7991214903336431719, guid: 6f7670bf838e5fe4baefe533c8d4080b, type: 3}
   - {fileID: 7274113786047085156, guid: 6461d15439da6de40909f1dbcfdfd8f9, type: 3}
   - {fileID: 7939119612046069814, guid: 89b1a750ff069e1498b4ff1315efc0bf, type: 3}
   FadeTime: 1.75

@@ -32,7 +32,7 @@ public class ItemCollection : MonoBehaviour
             if (collectionBox.TryGetComponent(out Image image))
             {
 
-                image.sprite = lockedList[i].Sprite;
+                image.sprite = lockedList[i].GetItemInfo.ItemSprite;
             }
             UnitizedPos pivot = UnitizedPos.BOT_LEFT;
             ShowerSetting(collectionBox, lockedList[i], pivot + i%3);
@@ -51,7 +51,7 @@ public class ItemCollection : MonoBehaviour
             if (collectionBox.TryGetComponent(out Image image))
             {
 
-                image.sprite = unlockedList[i].Sprite;
+                image.sprite = unlockedList[i].GetItemInfo.ItemSprite;
             }
             UnitizedPos pivot = UnitizedPos.BOT_LEFT;
             ShowerSetting(collectionBox, unlockedList[i], pivot + (i % 3));

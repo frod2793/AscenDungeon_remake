@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DangerousBottle : Item
+public partial class DangerousBottle : Item
 {
     [SerializeField] private Animator _Animator;
     [SerializeField] private BoxCollider2D _Collider;
@@ -32,9 +32,6 @@ public class DangerousBottle : Item
             _AnimatorHash = _Animator.GetParameter(0).nameHash;
 
             _Collider.enabled = false;
-
-            _ParticleObject = Instantiate(_ParticleObject);
-            _ParticleObject.SetActive(false);
         }
     }
     public override void AttackAction(GameObject attacker, ICombatable combatable)
@@ -48,12 +45,12 @@ public class DangerousBottle : Item
     }
     private void UsingParticle()
     {
-        _ParticleObject.SetActive(true);
+        var particle = ParticlePool_Get();
 
         Vector3 particleOffset = _ParticleOffsetX * (_Player.transform.rotation.eulerAngles.y > 0 ? Vector3.left : Vector3.right);
-        _ParticleObject.transform.position = transform.position + particleOffset;
+        particle.transform.position = transform.position + particleOffset;
 
-        StartCoroutine(ParticleLife());
+        StartCoroutine(ParticleLife(particle));
     }
     protected override void AttackAnimationPlayOver()
     {
@@ -103,12 +100,35 @@ public class DangerousBottle : Item
     {
         return BuffLibrary.Instance.GetBuff(Buff.Poision, level, durate, combatable.GetAbility);
     }
-    private IEnumerator ParticleLife()
+    private IEnumerator ParticleLife(GameObject particle)
     {
         for (float i = 0f; i < _ParticleDurate; i += Time.deltaTime * Time.timeScale)
         {
             yield return null;
         }
-        _ParticleObject.SetActive(false);
+        ParticlePool_Add(particle);
+    }
+}
+
+public partial class DangerousBottle
+{
+    private Queue<GameObject> _ParticlePool = new Queue<GameObject>();
+
+    private void ParticlePool_Add(GameObject particle)
+    {
+        particle.SetActive(false);
+        _ParticlePool.Enqueue(particle);
+    }
+    private GameObject ParticlePool_Get()
+    {
+        if (_ParticlePool.Count == 0) {
+            _ParticlePool.Enqueue(Instantiate(_ParticleObject));
+        }
+        GameObject particle;
+
+        particle = _ParticlePool.Dequeue();
+        particle.SetActive(true);
+
+        return particle;
     }
 }

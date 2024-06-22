@@ -82,6 +82,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &21118637645087382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableStageEvent: 0
+  CanPlayerFloorInit: 1
+  CanPlayerFloorNotify: 1
   CameraMoveAccel: 0.6
   mFloors:
   - {fileID: 5768596560899073513}
@@ -2027,6 +2030,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5768596561127341982}
     m_Modifications:
+    - target: {fileID: 18790641628415622, guid: 71d69893e95277a4ca16d739be9ed6d5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6052324559539607231, guid: 71d69893e95277a4ca16d739be9ed6d5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 8680912197157835161, guid: 71d69893e95277a4ca16d739be9ed6d5,
         type: 3}
       propertyPath: m_Name
@@ -2117,12 +2130,12 @@ PrefabInstance:
     - target: {fileID: 556795169429118776, guid: b338fd190ba165c40ae67b45a7e34d76,
         type: 3}
       propertyPath: m_Size
-      value: 0.978261
+      value: 0.97826064
       objectReference: {fileID: 0}
     - target: {fileID: 556795169429118776, guid: b338fd190ba165c40ae67b45a7e34d76,
         type: 3}
       propertyPath: m_Value
-      value: -45.00023
+      value: -44.999523
       objectReference: {fileID: 0}
     - target: {fileID: 605729824495155751, guid: b338fd190ba165c40ae67b45a7e34d76,
         type: 3}
@@ -2149,6 +2162,12 @@ PrefabInstance:
       propertyPath: m_textInfo.characterCount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 775559493169150056, guid: b338fd190ba165c40ae67b45a7e34d76,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 511733201378069097, guid: b6e444820f2f08d4987528b020b3d070,
+        type: 3}
     - target: {fileID: 1004223647072048471, guid: b338fd190ba165c40ae67b45a7e34d76,
         type: 3}
       propertyPath: _UnlockDungeonInfo
@@ -2382,16 +2401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7833136633231753138, guid: b338fd190ba165c40ae67b45a7e34d76,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833136633231753138, guid: b338fd190ba165c40ae67b45a7e34d76,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833136633231753138, guid: b338fd190ba165c40ae67b45a7e34d76,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2470,6 +2479,11 @@ PrefabInstance:
       propertyPath: _ResultWindow
       value: 
       objectReference: {fileID: 5244353198040070346}
+    - target: {fileID: 7293269735684394646, guid: 1a47817b04330964183977f8df563060,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9163073859753952848, guid: 1a47817b04330964183977f8df563060,
         type: 3}
       propertyPath: m_Name
@@ -2868,16 +2882,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833136633231753138, guid: ff36889fdb8c89d4d9ceb60fa9b10e5a,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7833136633231753138, guid: ff36889fdb8c89d4d9ceb60fa9b10e5a,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7833136633231753138, guid: ff36889fdb8c89d4d9ceb60fa9b10e5a,
         type: 3}

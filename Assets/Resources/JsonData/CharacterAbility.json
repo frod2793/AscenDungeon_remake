@@ -2,7 +2,7 @@
   {
     "ID": "Player",
     "MoveSpeed": "3.5",
-    "MaxHealth": "30.0",
+    "MaxHealth": "50.0",
     "AttackPower": "1.0",
     "Begin_AttackDelay": "1.2",
     "After_AttackDelay": "1.0",
@@ -31,8 +31,8 @@
   },
   {
     "ID": "Goblin_Dart",
-    "MoveSpeed": "1.0",
-    "MaxHealth": "30.0",
+    "MoveSpeed": "1.2",
+    "MaxHealth": "25.0",
     "AttackPower": "4.0",
     "Begin_AttackDelay": "1.0",
     "After_AttackDelay": "0.5",
@@ -41,7 +41,7 @@
   },
   {
     "ID": "Goblin_Normal",
-    "MoveSpeed": "0.6",
+    "MoveSpeed": "0.8",
     "MaxHealth": "30.0",
     "AttackPower": "5.0",
     "Begin_AttackDelay": "0.7",
@@ -51,9 +51,9 @@
   },
   {
     "ID": "Goblin_Shaman",
-    "MoveSpeed": "1.0",
+    "MoveSpeed": "0.7",
     "MaxHealth": "50.0",
-    "AttackPower": "4.0",
+    "AttackPower": "0.0",
     "Begin_AttackDelay": "1.0",
     "After_AttackDelay": "2.0",
     "RecognitionArea": "Room",
@@ -63,8 +63,8 @@
     "ID": "Golem_StoneMini",
     "MoveSpeed": "0.5",
     "MaxHealth": "60.0",
-    "AttackPower": "10.0",
-    "Begin_AttackDelay": "1.0",
+    "AttackPower": "15.0",
+    "Begin_AttackDelay": "1.5",
     "After_AttackDelay": "1.5",
     "RecognitionArea": "Room",
     "Range": "0.7"
@@ -83,7 +83,7 @@
     "ID": "Totem_Bomb",
     "MoveSpeed": "0.0",
     "MaxHealth": "30.0",
-    "AttackPower": "10.0",
+    "AttackPower": "15.0",
     "Begin_AttackDelay": "2.0",
     "After_AttackDelay": "2.0",
     "RecognitionArea": "Room",
@@ -114,8 +114,8 @@
     "MoveSpeed": "0.0",
     "MaxHealth": "30.0",
     "AttackPower": "10.0",
-    "Begin_AttackDelay": "3.0",
-    "After_AttackDelay": "1.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "5.0",
     "RecognitionArea": "Floor",
     "Range": "10.0"
   },
@@ -153,7 +153,7 @@
     "ID": "Sea_SharkTheSpearman",
     "MoveSpeed": "1.5",
     "MaxHealth": "50.0",
-    "AttackPower": "10.0",
+    "AttackPower": "15.0",
     "Begin_AttackDelay": "1.0",
     "After_AttackDelay": "1.5",
     "RecognitionArea": "Room",
@@ -161,8 +161,8 @@
   },
   {
     "ID": "Sea_PufferFish",
-    "MoveSpeed": "1.0",
-    "MaxHealth": "30.0",
+    "MoveSpeed": "0.7",
+    "MaxHealth": "25.0",
     "AttackPower": "2.0",
     "Begin_AttackDelay": "0.5",
     "After_AttackDelay": "0.0",
@@ -172,8 +172,8 @@
   {
     "ID": "Sea_LatentMonkfish",
     "MoveSpeed": "1.2",
-    "MaxHealth": "50.0",
-    "AttackPower": "5.0",
+    "MaxHealth": "40.0",
+    "AttackPower": "8.0",
     "Begin_AttackDelay": "1.0",
     "After_AttackDelay": "1.0",
     "RecognitionArea": "Room",
@@ -202,7 +202,7 @@
   {
     "ID": "Bot_RepairBot",
     "MoveSpeed": "1.5",
-    "MaxHealth": "30.0",
+    "MaxHealth": "50.0",
     "AttackPower": "15.0",
     "Begin_AttackDelay": "0.0",
     "After_AttackDelay": "0.5",
@@ -212,8 +212,8 @@
   {
     "ID": "Bot_CannonBot",
     "MoveSpeed": "0.8",
-    "MaxHealth": "60.0",
-    "AttackPower": "15.0",
+    "MaxHealth": "75.0",
+    "AttackPower": "20.0",
     "Begin_AttackDelay": "0.2",
     "After_AttackDelay": "0.8",
     "RecognitionArea": "Room",
@@ -222,11 +222,41 @@
   {
     "ID": "Bot_HammerBot",
     "MoveSpeed": "1.2",
-    "MaxHealth": "60.0",
+    "MaxHealth": "75.0",
     "AttackPower": "20.0",
     "Begin_AttackDelay": "0.4",
     "After_AttackDelay": "0.4",
     "RecognitionArea": "Room",
     "Range": "1.0"
+  },
+  {
+    "ID": "Bot_Boss_Sword",
+    "MoveSpeed": "3.0",
+    "MaxHealth": "120.0",
+    "AttackPower": "20.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "3.0",
+    "RecognitionArea": "Floor",
+    "Range": "3.0"
+  },
+  {
+    "ID": "Bot_Boss_Shield",
+    "MoveSpeed": "3.0",
+    "MaxHealth": "160.0",
+    "AttackPower": "15.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "0.0",
+    "RecognitionArea": "Floor",
+    "Range": "3.0"
+  },
+  {
+    "ID": "Bot_Boss_Gunner",
+    "MoveSpeed": "3.0",
+    "MaxHealth": "100.0",
+    "AttackPower": "20.0",
+    "Begin_AttackDelay": "1.0",
+    "After_AttackDelay": "0.0",
+    "RecognitionArea": "Floor",
+    "Range": "10.0"
   }
 ]

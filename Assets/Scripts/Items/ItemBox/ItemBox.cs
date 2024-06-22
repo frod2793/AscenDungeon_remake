@@ -11,12 +11,13 @@ public class ItemBox : MonoBehaviour
     [SerializeField] private Animator Animator;
     [SerializeField] private SpriteRenderer Renderer;
 
-    public void Init(Item containItem, ItemBoxSprite boxSprite)
+    public void Init(Item containItem, ItemBoxSprite boxSprite, SubscribableButton interactionBtn)
     {
         ItemBoxSprite = boxSprite;
         Renderer.sprite = boxSprite.ClosedSprite;
 
         DropItem.Init(containItem);
+        DropItem.InteractBtn = interactionBtn;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Goblin_Dart
   m_EditorClassIdentifier: 
   JsonLabelName: Goblin_Dart
-  _MoveSpeed: 1
-  _MaxHealth: 30
+  _MoveSpeed: 1.2
+  _MaxHealth: 25
   _AttackPower: 4
   _BeginAttackDelay: 1
   _AfterAttackDelay: 0.5

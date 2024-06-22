@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyAnimator : MonoBehaviour
 {
+    public const string DeathAnimation = "Death";
+
     [SerializeField]
     private Animator Animator;
 
@@ -22,6 +24,9 @@ public class EnemyAnimator : MonoBehaviour
     public void ChangeState(AnimState anim)
     {
         Animator.SetInteger(mControlKey, (int)anim);
+
+        if (anim == AnimState.Death)
+            Animator.Play(DeathAnimation);
     }
 
     public AnimState CurrentState()

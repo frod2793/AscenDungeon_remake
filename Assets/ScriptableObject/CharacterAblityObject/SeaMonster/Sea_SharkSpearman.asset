@@ -15,7 +15,7 @@ MonoBehaviour:
   JsonLabelName: Sea_SharkTheSpearman
   _MoveSpeed: 1.5
   _MaxHealth: 50
-  _AttackPower: 10
+  _AttackPower: 15
   _BeginAttackDelay: 1
   _AfterAttackDelay: 1.5
   _Range: 4

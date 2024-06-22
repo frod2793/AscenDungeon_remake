@@ -1,7 +1,7 @@
 [
   {
     "ID": "IronSword",
-    "AttackPower": "20.00",
+    "AttackPower": "15.00",
     "Range": "1.50",
     "Begin_AttackDelay": "0.00",
     "After_AttackDelay": "0.00",
@@ -11,7 +11,7 @@
   },
   {
     "ID": "LongSword",
-    "AttackPower": "16.00",
+    "AttackPower": "15.00",
     "Range": "1.25",
     "Begin_AttackDelay": "0.00",
     "After_AttackDelay": "0.00",
@@ -41,7 +41,7 @@
   },
   {
     "ID": "OrdinaryBow",
-    "AttackPower": "16.00",
+    "AttackPower": "20.00",
     "Range": "2.50",
     "Begin_AttackDelay": "0.00",
     "After_AttackDelay": "0.00",
@@ -71,12 +71,122 @@
   },
   {
     "ID": "Shuriken",
-    "AttackPower": "7.00",
+    "AttackPower": "8.00",
     "Range": "2.00",
     "Begin_AttackDelay": "0.00",
     "After_AttackDelay": "0.00",
     "Rating": "Rare",
     "NameKR": "수리검",
+    "Cost": "15"
+  },
+  {
+    "ID": "RuneFragment",
+    "AttackPower": "8.00",
+    "Range": "10.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Epic",
+    "NameKR": "룬의 파편",
+    "Cost": "0"
+  },
+  {
+    "ID": "ThronArmor",
+    "AttackPower": "5.00",
+    "Range": "0.50",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Epic",
+    "NameKR": "가시갑옷",
+    "Cost": "0"
+  },
+  {
+    "ID": "DangerousBottle",
+    "AttackPower": "1.00",
+    "Range": "1.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Epic",
+    "NameKR": "위험해 보이는 병",
+    "Cost": "0"
+  },
+  {
+    "ID": "MoonFragment",
+    "AttackPower": "6.00",
+    "Range": "-",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Common",
+    "NameKR": "달의 파편",
+    "Cost": "0"
+  },
+  {
+    "ID": "DragonsDance",
+    "AttackPower": "-",
+    "Range": "1.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Legendary",
+    "NameKR": "용의 춤",
+    "Cost": "0"
+  },
+  {
+    "ID": "FightersGlove",
+    "AttackPower": "7.00",
+    "Range": "0.60",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Rare",
+    "NameKR": "파이터의 글러브",
+    "Cost": "20"
+  },
+  {
+    "ID": "StScissors",
+    "AttackPower": "10.00",
+    "Range": "1.25",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Epic",
+    "NameKR": "재봉사의 가위",
+    "Cost": "0"
+  },
+  {
+    "ID": "NamelessSpear",
+    "AttackPower": "25.00",
+    "Range": "2.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Legendary",
+    "NameKR": "이름없는 창",
+    "Cost": "0"
+  },
+  {
+    "ID": "Meteorite",
+    "AttackPower": "7.00",
+    "Range": "0.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Epic",
+    "NameKR": "운석",
+    "Cost": "0"
+  },
+  {
+    "ID": "DuelBowGun",
+    "AttackPower": "10.00",
+    "Range": "15.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Rare",
+    "NameKR": "듀얼보우건",
+    "Cost": "25"
+  },
+  {
+    "ID": "WindDagger",
+    "AttackPower": "5.00",
+    "Range": "1.00",
+    "Begin_AttackDelay": "0.00",
+    "After_AttackDelay": "0.00",
+    "Rating": "Rare",
+    "NameKR": "바람의 단검",
     "Cost": "15"
   }
 ]

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: Bot_CannonBot
   _MoveSpeed: 0.8
-  _MaxHealth: 60
-  _AttackPower: 15
+  _MaxHealth: 75
+  _AttackPower: 20
   _BeginAttackDelay: 0.2
   _AfterAttackDelay: 0.8
   _Range: 4

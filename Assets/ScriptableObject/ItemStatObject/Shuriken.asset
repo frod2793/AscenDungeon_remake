@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: Shuriken
   _Range: 2
-  _AttackPower: 7
+  _AttackPower: 8
   _BeginAttackDelay: 0
   _AfterAttackDelay: 0
   _ID: 6

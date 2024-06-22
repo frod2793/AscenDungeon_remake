@@ -31,14 +31,14 @@ public class ItemStateSaver : Singleton<ItemStateSaver>
             ItemSlotArrayInit();
 
             // ====== ====== Test ====== ====== //
-            // List<int> list = new List<int>();
-            // for (int i = 0; i < RegisteredItem.GetAllID().Count; i++)
-            //  {
-            //    list.Add((int)RegisteredItem.GetAllID()[i]);
-            // }
-            //SetUnlockedItem(list);
+            List<int> list = new List<int>();
+            for (int i = 0; i < RegisteredItem.GetAllID().Count; i++)
+             {
+               list.Add((int)RegisteredItem.GetAllID()[i]);
+            }
+            SetUnlockedItem(list);
             // ====== ====== Test ====== ====== //
-            SetUnlockedItem(new List<int>());
+            // SetUnlockedItem(new List<int>());
 
             // ====== ====== 기본아이템 지급 ====== ====== //
             EquipWeaponItem();

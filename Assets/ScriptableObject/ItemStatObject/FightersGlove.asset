@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: FightersGlove
   _Range: 0.6
-  _AttackPower: 4
+  _AttackPower: 7
   _BeginAttackDelay: 0
   _AfterAttackDelay: 0
   _ID: 11
   _Rating: 1
   _NameKR: "\uD30C\uC774\uD130\uC758 \uAE00\uB7EC\uBE0C"
-  _Cost: 17
+  _Cost: 20

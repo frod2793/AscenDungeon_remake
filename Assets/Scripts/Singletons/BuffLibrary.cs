@@ -8,6 +8,13 @@ public enum Buff
 }
 public class BuffLibrary : Singleton<BuffLibrary>
 {
+    public class StunBuffInfo
+    {
+        public IEnumerator StunRoutine;
+
+        public float AnimationSpeed;
+        public float Duration;
+    };
     public const float HEAL = 15f;
     public const float SPEEDUP = 0.2f;
     public const float POWER_BOOST = 0.3f;
@@ -16,6 +23,9 @@ public class BuffLibrary : Singleton<BuffLibrary>
     public const float PoisionDelay = 0.3f;
 
     public float DeltaTime => Time.deltaTime * Time.timeScale;
+
+    private Dictionary<int, StunBuffInfo> _StunedDic 
+        = new Dictionary<int, StunBuffInfo>();
 
     private IEnumerable HealBuff(uint level, AbilityTable ability)
     {
@@ -66,24 +76,69 @@ public class BuffLibrary : Singleton<BuffLibrary>
     }
     public IEnumerator Stun(float duration, AbilityTable ability)
     {
-        return StunBuff(duration, ability).GetEnumerator();
+        if (!ability.TryGetComponent(out Animator animator))
+            return null;
+
+        int hash = ability.GetHashCode();
+        StunBuffInfo info;
+
+        if (_StunedDic.TryGetValue(hash, out info))
+        {
+            if (info.Duration > duration) 
+                return null;
+
+            StopCoroutine(info.StunRoutine);
+            info.StunRoutine = null;
+
+            info.Duration = duration;
+            info.StunRoutine = StunBuff(duration, animator, ability).GetEnumerator();
+        }
+        else
+        {
+            info = new StunBuffInfo()
+            {
+                StunRoutine = StunBuff(duration, animator, ability).GetEnumerator(),
+                Duration = duration,
+                AnimationSpeed = animator.speed,
+            };
+            _StunedDic.Add(hash, info);
+        }
+        return info.StunRoutine;
     }
-    private IEnumerable StunBuff(float duration, AbilityTable ability)
+    private IEnumerable StunBuff(float duration, Animator animator, AbilityTable ability)
     {
+        animator.speed = 0f;
+
+        ability.Table[Ability.IBegin_AttackDelay] += duration;
+        ability.Table[Ability.IAfter_AttackDelay] += duration;
+
+        int hash = ability.GetHashCode();
+        _StunedDic.TryGetValue(hash, out StunBuffInfo stunInfo);
+
+        IEnumerator thisRoutine = stunInfo.StunRoutine;
+
         for (float i = 0; i < duration; i += DeltaTime) 
         {
-            ability.Table[Ability.IMoveSpeed] = -ability.Table[Ability.MoveSpeed];
-            ability.Table[Ability.IBegin_AttackDelay] = 99999f;
-            ability.Table[Ability.IAfter_AttackDelay] = 99999f;
-            yield return null;
+            if (ability[Ability.CurHealth] <= 0f) break;
 
+            if (thisRoutine != stunInfo.StunRoutine)
+            {
+                ability.Table[Ability.IBegin_AttackDelay] -= duration;
+                ability.Table[Ability.IAfter_AttackDelay] -= duration;
+                yield break;
+            }
+            stunInfo.Duration = duration - i;
             ability.Table[Ability.IMoveSpeed] = -ability.Table[Ability.MoveSpeed];
-            ability.Table[Ability.IBegin_AttackDelay] = 99999f;
-            ability.Table[Ability.IAfter_AttackDelay] = 99999f;
+            yield return null;
         }
         ability.Table[Ability.IMoveSpeed] = 0f;
-        ability.Table[Ability.IBegin_AttackDelay] = 0f;
-        ability.Table[Ability.IAfter_AttackDelay] = 0f;
+        ability.Table[Ability.IBegin_AttackDelay] -= duration;
+        ability.Table[Ability.IAfter_AttackDelay] -= duration;
+
+        if (stunInfo != null) {
+            animator.speed = stunInfo.AnimationSpeed;
+        }
+        _StunedDic.Remove(ability.GetHashCode());
     }
 
     public IEnumerator GetBuff(Buff buff, uint level, float duration, AbilityTable ability)

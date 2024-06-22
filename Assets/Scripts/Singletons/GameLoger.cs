@@ -112,7 +112,7 @@ public class GameLoger : Singleton<GameLoger>
         }
         else
         {
-            UnlockDungeonIndex = 0;
+            UnlockDungeonIndex = 2;
 
             DontDestroyOnLoad(gameObject);
 

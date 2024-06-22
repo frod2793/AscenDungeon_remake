@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: NamelessSpear
+  m_EditorClassIdentifier: 
+  _ItemName: "\uC774\uB984\uC5C6\uB294 \uCC3D"
+  _ItemRating: "\uC804\uC124 \uC544\uC774\uD15C"
+  _ATK: 25.0
+  _DPS: "\uBAB0\uB77C!"
+  _TextColor: {r: 1, g: 0, b: 0.401, a: 1}
+  _ItemSprite: {fileID: 1839794068342316736, guid: 7ef8076574912dd47bfa3839df6b2223,
+    type: 3}
+  _UsageKeywords: 
+  _WeaponText: "\n\uB9E4 3\uBC88\uC9F8 \uACF5\uACA9\uB9C8\uB2E4 <color=#4F90CC>\uBC88\uAC1C</color>\uB97C
+    \uB5A8\uAD7D\uB2C8\uB2E4.\r\n\n<color=#4F90CC>\uBC88\uAC1C</color>\uB294 \uC801\uC744
+    1\uCD08\uAC04 <b>\uAE30\uC808</b>\uC2DC\uD0A4\uACE0, \n5\uC758 \uD53C\uD574\uB97C
+    \uC785\uD799\uB2C8\uB2E4."
+  _WeaponTextSize: 14
+  _WeaponAblity: 
+  _AccessoryText: "\n\uB9E4 5\uBC88\uC9F8 \uACF5\uACA9\uB9C8\uB2E4 <color=#4F90CC>\uBC88\uAC1C</color>\uB97C
+    \uB5A8\uAD7D\uB2C8\uB2E4.\r\n\n<color=#4F90CC>\uBC88\uAC1C</color>\uB294 \uC801\uC744
+    1\uCD08\uAC04 <b>\uAE30\uC808</b>\uC2DC\uD0A4\uACE0, \n5\uC758 \uD53C\uD574\uB97C
+    \uC785\uD799\uB2C8\uB2E4."
+  _AccessoryTextSize: 14
+  _AccessoryAblity: 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BlockingLayer : MonoBehaviour, IPointerDownHandler
+public class BlockingLayer : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private RectTransform _RectTransform;
 
@@ -29,6 +29,16 @@ public class BlockingLayer : MonoBehaviour, IPointerDownHandler
         gameObject.SetActive(isActive);
     }
     public void OnPointerDown(PointerEventData eventData)
+    {
+        if (_User)
+        {
+            _User.SetActive(false);
+            _User = null;
+
+            gameObject.SetActive(false);
+        }
+    }
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (_User)
         {

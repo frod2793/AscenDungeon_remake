@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: ThronArmor
   _Range: 0.5
-  _AttackPower: 3
+  _AttackPower: 5
   _BeginAttackDelay: 0
   _AfterAttackDelay: 0
   _ID: 8
   _Rating: 2
   _NameKR: "\uAC00\uC2DC\uAC11\uC637"
-  _Cost: 33
+  _Cost: 0

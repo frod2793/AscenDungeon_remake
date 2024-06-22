@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NamelessSpear
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: a2d880db412869245b44b1603ddadba7, type: 3}
+    totalSpriteSurfaceArea: 3823045
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a6b91002077920a468996499a5f6b3ad, type: 3}
+  - {fileID: 21300000, guid: ef5263d22233ad240acd52119d9444c0, type: 3}
+  - {fileID: 21300000, guid: 62aec733a151291468fd94f9dff5c74e, type: 3}
+  - {fileID: 21300000, guid: 98207814d9e3db14ab8dc0243734b195, type: 3}
+  - {fileID: 1839794068342316736, guid: 7ef8076574912dd47bfa3839df6b2223, type: 3}
+  - {fileID: 21300000, guid: ccfd5f268bf93974bb9e120ac6e5aa3c, type: 3}
+  - {fileID: 21300000, guid: 464c5556b7d604441a0ee9183dc82967, type: 3}
+  - {fileID: 21300000, guid: 5d95cf66e71de4246887557d49f31bae, type: 3}
+  - {fileID: 21300000, guid: 45f1f0e831445e7428d8a6d4c01e22dc, type: 3}
+  - {fileID: 21300000, guid: 2440d2a94b4baf74b8259048f7641670, type: 3}
+  - {fileID: 21300000, guid: 50cef96b41f09534887113059f2a20fd, type: 3}
+  - {fileID: 21300000, guid: 2f8c212caf21a9242bd4125019ce3c47, type: 3}
+  - {fileID: 21300000, guid: dcc4684dfe9694947b57f6300bb7fc56, type: 3}
+  - {fileID: 21300000, guid: 48b5405d7aa99a240b5056c2ea0b6ab2, type: 3}
+  - {fileID: 21300000, guid: c15883adcaec8c54cb8185ab89dac039, type: 3}
+  - {fileID: 21300000, guid: cf2234be5a98c0847935cc1f0b0b0e33, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Storm-Spear-9
+  - Storm-Spear-7
+  - Storm-Spear-5
+  - Storm-Spear-4
+  - NamelessSpear_Sprite
+  - Storm-Spear-3
+  - NamelessSpear
+  - Storm-Spear-8
+  - Storm-Spear-6
+  - Storm-Spear-11
+  - Storm-Spear-12
+  - Storm-Spear-1
+  - Storm-Spear-13
+  - Storm-Spear-10
+  - Storm-Spear-2
+  - Storm-Spear-14
+  m_RenderDataMap: {}
+  m_Tag: NamelessSpear
+  m_IsVariant: 0

@@ -94,6 +94,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -160,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2238a4bb6ecc65d46ac687b5a67cbfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Key: DropItem
   Animator: {fileID: 208112647978358893}
   Renderer: {fileID: 208112647978358894}
 --- !u!61 &309408070731324573
@@ -238,6 +240,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

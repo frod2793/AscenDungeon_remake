@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SteamPunk.unity
     guid: edd0e5ebb60dfbc418cfe936bbfda9f0
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 350bdff24f4acb14b920ce31ea525d0a
+  - enabled: 1
     path: Assets/Scenes/INAPPSTORE.unity
     guid: a3b1dac42053f794f8e55060156ff9cf
   m_configObjects:

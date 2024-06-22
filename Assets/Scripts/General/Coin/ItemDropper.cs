@@ -23,6 +23,7 @@ public class ItemDropper : MonoBehaviour
         if (!IsAlreadyCoinDrop)
         {
             Vector3 offset = Vector3.up * _GroundOffsetY;
+            Vector3 position = transform.position + offset;
 
             for (int i = 0; i < count; i++)
             {
@@ -30,7 +31,7 @@ public class ItemDropper : MonoBehaviour
 
                 coin.Value = 1;
 
-                coin.transform.position = transform.position + offset;
+                coin.transform.position = position;
                 coin.Enable();
             }
             IsAlreadyCoinDrop = true;
@@ -41,16 +42,17 @@ public class ItemDropper : MonoBehaviour
         if (!IsAlreadyPotionDrop)
         {
             Vector3 offset = new Vector3(0, _GroundOffsetY + 0.4f, 0);
+            Vector3 position = transform.position + offset;
 
             float random = Random.value;
 
             if (random <= _RarePotion)
             {
-                PotionPool.Instance.Get(rare).transform.position = transform.position + offset;
+                PotionPool.Instance.Get(rare).transform.position = position;
             }
             else if (random <= _CommonPotion)
             {
-                PotionPool.Instance.Get(common).transform.position = transform.position + offset;
+                PotionPool.Instance.Get(common).transform.position = position;
             }
             IsAlreadyPotionDrop = true;
         }

@@ -15,8 +15,8 @@ MonoBehaviour:
   JsonLabelName: Golem_StoneMini
   _MoveSpeed: 0.5
   _MaxHealth: 60
-  _AttackPower: 10
-  _BeginAttackDelay: 1
+  _AttackPower: 15
+  _BeginAttackDelay: 1.5
   _AfterAttackDelay: 1.5
   _Range: 0.7
   _Area: 1

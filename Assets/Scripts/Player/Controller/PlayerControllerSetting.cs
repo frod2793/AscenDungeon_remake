@@ -11,6 +11,10 @@ public class PlayerControllerSetting : MonoBehaviour
         public TMPro.TextMeshProUGUI TextUI;
         public SubscribableButton Button;
     }
+    public enum Controller 
+    {
+        Joystick, Touch 
+    }
 
     [Header("____Controller Props_____")]
     [SerializeField] private VirtualJoystick _Controller;
@@ -42,6 +46,8 @@ public class PlayerControllerSetting : MonoBehaviour
     [SerializeField] private Selection _TouchConSelection;
 
     private bool _IsAlreadyInit = false;
+
+    public event System.Action<Controller> ControllerSwapEvnt;
 
     private void Start()
     {
@@ -85,7 +91,9 @@ public class PlayerControllerSetting : MonoBehaviour
         _TouchConSelection.Image.sprite = _DefaultImage;
 
         _VirtualJoystick.gameObject.SetActive(true);
-        _TouchController.enabled = false;
+        _TouchController.gameObject.SetActive(false);
+
+        ControllerSwapEvnt?.Invoke(Controller.Joystick);
     }
     public void TouchEnable()
     {
@@ -95,7 +103,9 @@ public class PlayerControllerSetting : MonoBehaviour
         _TouchConSelection.Image.sprite = _SelectedImage;
 
         _VirtualJoystick.gameObject.SetActive(false);
-        _TouchController.enabled = true;
+        _TouchController.gameObject.SetActive(true);
+
+        ControllerSwapEvnt?.Invoke(Controller.Touch);
     }
     private void ScaleValueChanged(float value)
     {

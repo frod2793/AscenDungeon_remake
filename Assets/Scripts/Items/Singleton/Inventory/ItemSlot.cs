@@ -74,7 +74,7 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
             Shower.IsEnable = true;
             item.OnEquipThis(mSlotType);
 
-            mImage.sprite = item.Sprite;
+            mImage.sprite = item.GetItemInfo.ItemSprite;
         }
         if (mSlotType == SlotType.Weapon)
         {

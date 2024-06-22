@@ -11,8 +11,16 @@ public class Room : MonoBehaviour
 
     private Floor mBelongFloor;
 
-    public  bool  IsClear
-    { get => mObjects.Count == 0; }
+    public bool IsClear
+    { 
+        get
+        {
+            try
+            { return mObjects.Count == 0; }
+            catch
+            { return false; }
+        }
+    }
 
     private Player  mPlayer;
     private MESSAGE mLastMessage;

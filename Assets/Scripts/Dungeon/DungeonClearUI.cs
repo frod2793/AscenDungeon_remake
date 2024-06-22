@@ -30,7 +30,7 @@ public class DungeonClearUI : MonoBehaviour
         for (int i = 0; i < UnlockItems.Length; ++i)
         {
             
-            ItemBoxes[i].sprite = UnlockItems[i].Sprite;
+            ItemBoxes[i].sprite = UnlockItems[i].GetItemInfo.ItemSprite;
             ItemStateSaver.Instance.ItemUnlock(UnlockItems[i].ID);
          
 
@@ -38,7 +38,7 @@ public class DungeonClearUI : MonoBehaviour
 
         
 
-
+#if !UNITY_EDITOR
         Where where = new Where();
         Debug.Log("인벤");
 
@@ -125,7 +125,7 @@ public class DungeonClearUI : MonoBehaviour
             });
         }
     });
-
+#endif
 
 
             int clearSec = Mathf.FloorToInt(GameLoger.Instance.ElapsedTime % 60f);

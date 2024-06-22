@@ -20,6 +20,10 @@ public class Inventory : Singleton<Inventory>
     public event Action<Direction> DashEndEvent;
 
     public event Action PlayerEnterFloorEvent;
+    public event Action OrderAttackActionEvent;
+
+    public event Action<Item, SlotType> EnterItemSlotEvent;
+    public event Action<Item, SlotType>  ExitItemSlotEvent;
 
     #region COMMENT
     /// <summary>
@@ -61,6 +65,22 @@ public class Inventory : Singleton<Inventory>
     {
         get => mWeaponSlot.ContainItem;
     }
+    public float AttackSpeed
+    {
+        get => _AttackSpeed;
+        set 
+        {
+            _AttackSpeed = value;
+            if (mWeaponSlot.ContainItem == null) return;
+
+            if (_CrntWeaponAnimator)
+            {
+                _CrntWeaponAnimator.SetFloat("AttackSpeed", _AttackSpeed);
+            }
+        }
+    }
+    private float _AttackSpeed = 1f;
+    private Animator _CrntWeaponAnimator;
 
                      public  GameObject  InventoryWindow => _InventoryWindow;
     [SerializeField] private GameObject _InventoryWindow;
@@ -82,6 +102,19 @@ public class Inventory : Singleton<Inventory>
         }
 
         mWeaponSlot.Init(SlotType.Weapon);
+        mWeaponSlot.ItemEquipEvent += item => {
+
+            if (item == null) return;
+            if (item.TryGetComponent(out _CrntWeaponAnimator)) 
+            {
+                _CrntWeaponAnimator.SetFloat("AttackSpeed", AttackSpeed);
+            }
+            EnterItemSlotEvent?.Invoke(item, SlotType.Weapon);
+        };
+        mWeaponSlot.ItemChangeEvent += item =>
+        {
+            ExitItemSlotEvent?.Invoke(item, SlotType.Weapon);
+        };
 
         for (int i = 0; i < ContainerSlotCount; ++i)
         {   
@@ -93,6 +126,13 @@ public class Inventory : Singleton<Inventory>
                 }
                 mAccessorySlot[i].Init(SlotType.Accessory);
                 mAccessorySlot[i].SetItem(instance);
+
+                mAccessorySlot[i].ItemEquipEvent += item => {
+                    EnterItemSlotEvent?.Invoke(item, SlotType.Accessory);
+                };
+                mAccessorySlot[i].ItemChangeEvent += item => {
+                    ExitItemSlotEvent?.Invoke(item, SlotType.Accessory);
+                };
             }
             {
                 var instance = ItemStateSaver.Instance.LoadSlotItem(SlotType.Container, i);
@@ -101,6 +141,13 @@ public class Inventory : Singleton<Inventory>
                 }
                 mContainer[i].Init(SlotType.Container);
                 mContainer[i].SetItem(instance);
+
+                mContainer[i].ItemEquipEvent += item => {
+                    EnterItemSlotEvent?.Invoke(item, SlotType.Container);
+                };
+                mContainer[i].ItemChangeEvent += item => {
+                    ExitItemSlotEvent?.Invoke(item, SlotType.Container);
+                };
             }
         }
     }
@@ -160,6 +207,7 @@ public class Inventory : Singleton<Inventory>
     }
     public void AttackAction(GameObject attacker, ICombatable targetCombat)
     {
+        OrderAttackActionEvent?.Invoke();
         mWeaponSlot.ContainItem?.AttackAction(attacker, targetCombat);
     }
     public void AttackCancel()

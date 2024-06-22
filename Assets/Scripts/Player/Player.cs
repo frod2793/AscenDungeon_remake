@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using BackEnd;
+using PAM = PlayerActionManager;
+
 public static class InputExtension
 {
     // 현재 입력이 'UI를 대상으로한 입력인가'의 여부를 반환
@@ -84,8 +86,6 @@ public class Player : MonoBehaviour, ICombatable
 
     private List<Collider2D> mCollidersOnMove;
 
-    private AttackPeriod mAttackPeriod;
-
     private bool mCanElevation;
 
     private bool mIsMovingElevation;
@@ -139,9 +139,6 @@ public class Player : MonoBehaviour, ICombatable
 
         mIsMovingElevation = false;
 
-        mAttackPeriod = new AttackPeriod(AbilityTable);
-        mAttackPeriod.SetAction(Period.Attack, AttackAction);
-
         mCollidersOnMove = new List<Collider2D>();
         Debug.Assert(gameObject.TryGetComponent(out mRenderer));
 
@@ -161,8 +158,6 @@ public class Player : MonoBehaviour, ICombatable
 
                     AbilityTable.Table[Ability.After_AttackDelay] = AbilityTable.GetAblity[Ability.After_AttackDelay];
                     AbilityTable.Table[Ability.Begin_AttackDelay] = AbilityTable.GetAblity[Ability.Begin_AttackDelay];
-
-                    mAttackPeriod.StopPeriod();
                 }
                 else
                 {
@@ -176,18 +171,12 @@ public class Player : MonoBehaviour, ICombatable
 
                     AbilityTable.Table[Ability.After_AttackDelay] = o.After_AttackDelay;
                     AbilityTable.Table[Ability.Begin_AttackDelay] = o.Begin_AttackDelay;
-
-                    o.AttackOverAction = () => mAttackPeriod.AttackActionOver();
-
-                    mAttackPeriod.StopPeriod();
                 }
             };
             mInventory.WeaponChangeEvent += o =>
             {
                 o.transform.parent   = ItemStateSaver.Instance.transform;
                 o.transform.position = new Vector3(-10, 0, 0);
-
-                mAttackPeriod.StopPeriod();
             };
         }
         var instance = ItemStateSaver.Instance.LoadSlotItem(SlotType.Weapon, 0);
@@ -285,6 +274,9 @@ public class Player : MonoBehaviour, ICombatable
     // ========== Dash Order ========== //
     public void DashOrder(UnitizedPosH direction)
     {
+        if (PAM.Instance[PlayerAction.Dash])
+            return;
+        
         if (_DashRoutine.IsFinished() && _DashCoolRoutine.IsFinished())
         {
             Direction dir = Direction.None;
@@ -375,25 +367,14 @@ public class Player : MonoBehaviour, ICombatable
     public void AttackCancel()
     {
         Inventory.Instance.AttackCancel();
-
-        mAttackPeriod.StopPeriod();
     }
 
     public void AttackOrder()
     {
         if (mInventory.IsEquipWeapon() && AbilityTable[Ability.CurHealth] > 0f)
         {
-            if (!mAttackPeriod.IsProgressing())
-            {
-
-                mAttackPeriod.StartPeriod();
-            }
+            mInventory.AttackAction(gameObject, null);
         }
-    }
-
-    private void AttackAction()
-    {
-        mInventory.AttackAction(gameObject, null);
     }
     private void ResurrectAction()
     {
@@ -440,6 +421,12 @@ public class Player : MonoBehaviour, ICombatable
 
     public void MoveOrder(Direction direction)
     {
+        if (PAM.Instance.IsLockedAction(direction))
+        {
+            Debug.Log("Locked");
+            return;
+        }
+        
         if (!mIsInputLock && AbilityTable[Ability.CurHealth] > 0f && _MoveRoutine.IsFinished() && _DashRoutine.IsFinished())
         {
             Vector2 movePoint = Vector2.zero;
@@ -716,7 +703,6 @@ public class Player : MonoBehaviour, ICombatable
     {
         if (mEMove == null)
         {
-            mAttackPeriod.StopPeriod();
             AttackCancel();
 
             if (mCanElevation)

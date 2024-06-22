@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18524139476e7f144af6d8708b0deb2a, type: 3}
+  m_Name: Meteorite
+  m_EditorClassIdentifier: 
+  _ItemName: "\uC6B4\uC11D"
+  _ItemRating: "\uC11C\uC0AC \uC544\uC774\uD15C"
+  _ATK: 7.0
+  _DPS: "\uBCC4\uC758\uD798"
+  _TextColor: {r: 0.497, g: 0.2, b: 0.65, a: 1}
+  _ItemSprite: {fileID: 21300000, guid: 8565643fe3335ea4da8deb1bda4d9ca9, type: 3}
+  _UsageKeywords: 
+  _WeaponText: "3\uAC1C\uC758 \uC720\uC131\uC774 \uC2DC\uACC4\uBC29\uD5A5\uC73C\uB85C
+    \n\uD68C\uC804\uD558\uBA70 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4.\n<color=#9D9D9D>\uC77C\uBC18
+    \uACF5\uACA9\uC744 \uD558\uC9C0 \uBABB\uD569\uB2C8\uB2E4.</color>\r"
+  _WeaponTextSize: 16
+  _WeaponAblity: 
+  _AccessoryText: "\n1\uAC1C\uC758 \uC720\uC131\uC774 \uC2DC\uACC4\uBC29\uD5A5\uC73C\uB85C
+    \n\uD68C\uC804\uD558\uBA70 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
+  _AccessoryTextSize: 16
+  _AccessoryAblity: 

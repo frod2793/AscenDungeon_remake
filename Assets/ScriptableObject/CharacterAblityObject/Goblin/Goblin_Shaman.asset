@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Goblin_Shaman
   m_EditorClassIdentifier: 
   JsonLabelName: Goblin_Shaman
-  _MoveSpeed: 1
+  _MoveSpeed: 0.7
   _MaxHealth: 50
-  _AttackPower: 4
+  _AttackPower: 0
   _BeginAttackDelay: 1
   _AfterAttackDelay: 2
   _Range: 1

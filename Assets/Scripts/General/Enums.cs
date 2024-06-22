@@ -28,5 +28,5 @@ public enum RecognitionArea
 }
 public enum SceneIndex
 {
-    Title, Login, Town, Forest, DeepSea, SteamPunk
+    Title, Login, Town, Forest, DeepSea, SteamPunk, Tutorial
 }

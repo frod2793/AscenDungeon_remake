@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JsonLabelName: Bot_HammerBot
   _MoveSpeed: 1.2
-  _MaxHealth: 60
+  _MaxHealth: 75
   _AttackPower: 20
   _BeginAttackDelay: 0.4
   _AfterAttackDelay: 0.4
