@@ -33,10 +33,10 @@ public class Rank : MonoBehaviour
         param.Add("TopDamage", damage);
         param.Add("TopSpeedrun", speedrun);
 
-        // Use Backend.GameSchemaInfo instead of Backend.GameInfo
-        Backend.GameSchemaInfo.Insert("Rank", param, callback =>
+        // Use correct Backend API methods
+        Backend.GameInfo.Insert("Rank", param, callback =>
         {
-            Debug.Log($"Backend.GameSchemaInfo.Insert : {callback.GetMessage()}");
+            Debug.Log($"Backend.GameInfo.Insert : {callback.GetMessage()}");
         });
     }
 
@@ -60,10 +60,10 @@ public class Rank : MonoBehaviour
                 break;
         }
 
-        // Use Backend.GameSchemaInfo instead of Backend.GameInfo
-        Backend.GameSchemaInfo.Read("Rank", callback =>
+        // Use correct Backend API methods
+        Backend.GameInfo.Read("Rank", callback =>
         {
-            Debug.Log($"Backend.GameSchemaInfo.Read : {callback.GetMessage()}");
+            Debug.Log($"Backend.GameInfo.Read : {callback.GetMessage()}");
         });
     }
 }

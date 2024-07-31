@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Battlehub.Dispatcher;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.ViewModel;
 using Assets.Scripts.BackEnd;
 
-public class LoginUI : MonoBehaviour
+public class LoginView : MonoBehaviour
 {
     // 로그인 관련 오브젝트들
     public GameObject loginObject;
@@ -26,6 +25,7 @@ public class LoginUI : MonoBehaviour
     void Start()
     {
         // ViewModel 초기화
+        // Note: In a real DI system, this would be injected
         m_viewModel = new LoginViewModel(new BackEndService());
         m_viewModel.OnErrorMessage = ShowErrorMessage;
         m_viewModel.OnLoginSuccess = OnLoginSuccess;
