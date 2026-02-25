@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Kimbokchi;
+using Assets.Scripts.Ad;
 
 public class ItemPackmanNPC : NPC
 {
@@ -18,20 +19,27 @@ public class ItemPackmanNPC : NPC
         {
             if (result)
             {
-                Ads.Instance.ShowRewardAd();
-                Ads.Instance.UserEarnedRewardEvent(() =>
+                // [안전 장치]: 광고 서비스 미초기화 시 광고 생략
+                if (AdsManager.Service != null)
                 {
-                    var drop = Instantiate(DropItemHolder.gameObject, transform);
-
-                    if (drop.transform.GetChild(0).TryGetComponent(out DropItem dropItem))
+                    AdsManager.Service.ShowRewardedAd(() =>
                     {
-                        dropItem.Init(ItemLibrary.Instance.GetRandomItem());
-                        dropItem.gameObject.SetActive(true);
+                        var drop = Instantiate(DropItemHolder.gameObject, transform);
 
-                        StartCoroutine(ItemDropRoutine(drop.transform));
-                    }
-                    EffectLibrary.Instance.UsingEffect(EffectKind.Twinkle, transform.position);
-                });
+                        if (drop.transform.GetChild(0).TryGetComponent(out DropItem dropItem))
+                        {
+                            dropItem.Init(ItemLibrary.Instance.GetRandomItem());
+                            dropItem.gameObject.SetActive(true);
+
+                            StartCoroutine(ItemDropRoutine(drop.transform));
+                        }
+                        EffectLibrary.Instance.UsingEffect(EffectKind.Twinkle, transform.position);
+                    });
+                }
+                else
+                {
+                    Debug.LogWarning("[ItemPackmanNPC] 광고 서비스가 준비되지 않았습니다.");
+                }
             }
             SystemMessage.Instance.CloseMessage();
         });

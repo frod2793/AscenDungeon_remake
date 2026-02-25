@@ -4,26 +4,46 @@ using UnityEngine;
 using BackEnd;
 using LitJson;
 
+/// <summary>
+/// [설명]: 게임의 랭킹 시스템을 관리하고 서버와 연동하는 클래스입니다.
+/// </summary>
 public enum RankEnum
 {
     Floor, Kill, Damage, Speedrun
 }
 
+/// <summary>
+/// [설명]: 랭킹 데이터를 처리하고 차트에 삽입하는 기능을 제공합니다.
+/// </summary>
 public class Rank : MonoBehaviour
 {
-    [SerializeField] Transform RankChart;
+    #region 에디터 설정
+    [SerializeField, Tooltip("랭킹 차트가 표시될 트랜스폼")]
+    private Transform m_rankChart;
+    #endregion
 
-    private RankEnum mRankType;
+    #region 내부 필드
+    private RankEnum m_rankType;
+    #endregion
 
+    #region 유니티 생명주기
     private void Start()
     {
-        mRankType = RankEnum.Floor;
+        m_rankType = RankEnum.Floor;
 
         InsertChart(10, 10, 10, 10.5f);
-
         RankUpdate();
     }
+    #endregion
 
+    #region 내부 로직
+    /// <summary>
+    /// [설명]: 랭킹 차트에 새로운 데이터를 삽입합니다.
+    /// </summary>
+    /// <param name="floor">도달 층수</param>
+    /// <param name="kill">처치 수</param>
+    /// <param name="damage">누적 데미지</param>
+    /// <param name="speedrun">스피드런 기록</param>
     private void InsertChart(int floor, int kill, int damage, float speedrun)
     {
         Param param = new Param();
@@ -33,21 +53,31 @@ public class Rank : MonoBehaviour
         param.Add("TopDamage", damage);
         param.Add("TopSpeedrun", speedrun);
 
-        // Use Backend.GameSchemaInfo instead of Backend.GameInfo
-        Backend.GameSchemaInfo.Insert("Rank", param, callback =>
+        // GameSchemaInfo 대신 GameData 사용
+        Backend.GameData.Insert("Rank", param, callback =>
         {
-            Debug.Log($"Backend.GameSchemaInfo.Insert : {callback.GetMessage()}");
+            if (callback.IsSuccess())
+            {
+                Debug.Log($"[Rank] 데이터 삽입 성공: {callback.GetMessage()}");
+            }
+            else
+            {
+                Debug.LogError($"[Rank] 데이터 삽입 실패: {callback}");
+            }
         });
     }
 
+    /// <summary>
+    /// [설명]: 현재 설정된 랭킹 타입에 따라 랭킹 정보를 갱신합니다.
+    /// </summary>
     private void RankUpdate()
     {
-        string column = "";
+        string column = string.Empty;
 
-        switch (mRankType)
+        switch (m_rankType)
         {
             case RankEnum.Floor:
-                column = "TopDamage";
+                column = "TopDamage"; // 기존 로직 유지 (Floor인데 Damage인 점 주의)
                 break;
             case RankEnum.Kill:
                 column = "TopKill";
@@ -60,10 +90,18 @@ public class Rank : MonoBehaviour
                 break;
         }
 
-        // Use Backend.GameSchemaInfo instead of Backend.GameInfo
-        Backend.GameSchemaInfo.Read("Rank", callback =>
+        // GameSchemaInfo 대신 GameData 사용
+        Backend.GameData.GetMyData("Rank", new Where(), callback =>
         {
-            Debug.Log($"Backend.GameSchemaInfo.Read : {callback.GetMessage()}");
+            if (callback.IsSuccess())
+            {
+                Debug.Log($"[Rank] 데이터 로드 성공: {callback.GetMessage()}");
+            }
+            else
+            {
+                Debug.LogError($"[Rank] 데이터 로드 실패: {callback}");
+            }
         });
     }
+    #endregion
 }

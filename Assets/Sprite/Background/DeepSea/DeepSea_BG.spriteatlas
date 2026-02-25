@@ -21,7 +21,7 @@ SpriteAtlas:
       crunchedCompression: 0
       sRGB: 1
     platformSettings:
-    - serializedVersion: 3
+    - serializedVersion: 4
       m_BuildTarget: DefaultTexturePlatform
       m_MaxTextureSize: 4096
       m_ResizeAlgorithm: 0
@@ -31,6 +31,7 @@ SpriteAtlas:
       m_CrunchedCompression: 0
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
+      m_IgnorePlatformSupport: 0
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
@@ -40,14 +41,31 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 6a3512bd14fdd3c4fa4c12bd0cfe93aa, type: 3}
-    totalSpriteSurfaceArea: 1804059
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - d399694298824e045a7fd52090999e24: 7760295261869778992
+    - d399694298824e045a7fd52090999e24: -5436802619434398293
+    - d399694298824e045a7fd52090999e24: -8654290394840056157
+    - d399694298824e045a7fd52090999e24: -398976733762393548
+    - d399694298824e045a7fd52090999e24: 8455658351031947288
+    - d399694298824e045a7fd52090999e24: 4910504079231180571
+    - d399694298824e045a7fd52090999e24: -5083986668672301617
+    - d399694298824e045a7fd52090999e24: 4871596408121196270
+    - 2a9e19824a96a5f4d9e3cd0866418a29: 21300000
+    - a5498b3505c699a45a58791c1534c506: 8556319996051563299
+    - a5498b3505c699a45a58791c1534c506: 6722886776455125311
+    - a5498b3505c699a45a58791c1534c506: -3614582503460171793
+    - acfcf9d51df3655468e329542f119ee5: 21300000
+    - ac9506be55ec09942aeb69a07cac13a4: -3271108594756287175
+    - ac9506be55ec09942aeb69a07cac13a4: 8480034582714276303
+    - ac9506be55ec09942aeb69a07cac13a4: -2265980911195668551
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 7760295261869778992, guid: d399694298824e045a7fd52090999e24, type: 3}

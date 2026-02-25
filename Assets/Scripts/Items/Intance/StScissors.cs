@@ -147,7 +147,7 @@ public class StScissors : Item
         Collider2D[] result = new Collider2D[12];
 
         ContactFilter2D contact = new ContactFilter2D() { useTriggers = true };
-        int count = _BoxCollider.OverlapCollider(contact, result);
+        int count = _BoxCollider.Overlap(contact, result);
 
         for (int i = 0; i < count; i++)
         {

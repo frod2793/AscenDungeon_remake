@@ -10,9 +10,12 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         SceneManager.LoadScene(LoadSceneIndex);
 
-        if (LoadSceneIndex == 1)
+        if (LoadSceneIndex == (int)SceneIndex.Town)
         {
-            Inventory.Instance.Clear();
+            if (Inventory.Instance != null)
+            {
+                Inventory.Instance.Clear();
+            }
         }
     }
 
@@ -20,5 +23,18 @@ public class SceneLoader : Singleton<SceneLoader>
     {
         SceneManager.LoadScene(index);
 
+        // Town 씬(3) 진입 시 인벤토리 초기화
+        if (index == (int)SceneIndex.Town)
+        {
+            if (Inventory.Instance != null)
+            {
+                Inventory.Instance.Clear();
+            }
+        }
+    }
+
+    public void SceneLoad(SceneIndex sceneIndex)
+    {
+        SceneLoad((int)sceneIndex);
     }
 }

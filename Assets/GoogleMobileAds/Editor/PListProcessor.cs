@@ -1,3 +1,17 @@
+// Copyright (C) 2020 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 #if UNITY_IPHONE || UNITY_IOS
 using System;
 using System.Collections.Generic;
@@ -17,6 +31,10 @@ public static class PListProcessor
 
     private const string KEY_SK_ADNETWORK_ID = "SKAdNetworkIdentifier";
 
+    private const string SKADNETWORKS_RELATIVE_PATH = "GoogleMobileAds/Editor/GoogleMobileAdsSKAdNetworkItems.xml";
+
+    private const string SKADNETWORKS_FILE_NAME = "GoogleMobileAdsSKAdNetworkItems.xml";
+
     [PostProcessBuild]
     public static void OnPostProcessBuild(BuildTarget buildTarget, string path)
     {
@@ -24,39 +42,34 @@ public static class PListProcessor
         PlistDocument plist = new PlistDocument();
         plist.ReadFromFile(plistPath);
 
-        if (!GoogleMobileAdsSettings.Instance.IsAdManagerEnabled && !GoogleMobileAdsSettings.Instance.IsAdMobEnabled)
+        GoogleMobileAdsSettings instance = GoogleMobileAdsSettings.LoadInstance();
+        string appId = instance.GoogleMobileAdsIOSAppId.Trim();
+        if (appId.Length == 0)
         {
-            NotifyBuildFailure("Neither Ad Manager nor AdMob is enabled yet.");
+            NotifyBuildFailure(
+                "iOS Google Mobile Ads app ID is empty. Please enter a valid app ID to run ads properly.");
+        }
+        else
+        {
+            plist.root.SetString("GADApplicationIdentifier", appId);
         }
 
-        if (GoogleMobileAdsSettings.Instance.IsAdManagerEnabled)
+        string userTrackingDescription = instance.UserTrackingUsageDescription;
+        if (!string.IsNullOrEmpty(userTrackingDescription))
         {
-            plist.root.SetBoolean("GADIsAdManagerApp", true);
-        }
-
-        if (GoogleMobileAdsSettings.Instance.IsAdMobEnabled)
-        {
-            string appId = GoogleMobileAdsSettings.Instance.AdMobIOSAppId;
-            if (appId.Length == 0)
-            {
-                NotifyBuildFailure(
-                    "iOS AdMob app ID is empty. Please enter a valid app ID to run ads properly.");
-            }
-            else
-            {
-                plist.root.SetString("GADApplicationIdentifier", appId);
-            }
-        }
-
-        if (GoogleMobileAdsSettings.Instance.DelayAppMeasurementInit)
-        {
-            plist.root.SetBoolean("GADDelayAppMeasurementInit", true);
+            plist.root.SetString("NSUserTrackingUsageDescription", userTrackingDescription);
         }
 
         List<string> skNetworkIds = ReadSKAdNetworkIdentifiersFromXML();
         if (skNetworkIds.Count > 0)
         {
             AddSKAdNetworkIdentifier(plist, skNetworkIds);
+        }
+
+        string unityVersion = Application.unityVersion;
+        if (!string.IsNullOrEmpty(unityVersion))
+        {
+            plist.root.SetString("GADUUnityVersion", unityVersion);
         }
 
         File.WriteAllText(plistPath, plist.WriteToString());
@@ -92,14 +105,23 @@ public static class PListProcessor
     {
         List<string> skAdNetworkItems = new List<string>();
 
-        string path = Path.Combine(Application.dataPath,
-            "GoogleMobileAds/Editor/GoogleMobileAdsSKAdNetworkItems.xml");
+        string path = Path.Combine(Application.dataPath, SKADNETWORKS_RELATIVE_PATH);
+
+        /*
+         * Handle importing GMA via Unity Package Manager.
+         */
+        EditorPathUtils pathUtils = ScriptableObject.CreateInstance<EditorPathUtils>();
+        if (pathUtils.IsPackageRootPath())
+        {
+            string parentDirectoryPath = pathUtils.GetDirectoryAssetPath();
+            path = Path.Combine(parentDirectoryPath, SKADNETWORKS_FILE_NAME);
+        }
 
         try
         {
             if (!File.Exists(path))
             {
-                throw new IOException();
+                throw new FileNotFoundException();
             }
             using (FileStream fs = File.OpenRead(path))
             {
@@ -114,6 +136,12 @@ public static class PListProcessor
                     skAdNetworkItems.Add(node.InnerText);
                 }
             }
+        }
+        #pragma warning disable 0168
+        catch (FileNotFoundException e)
+        #pragma warning restore 0168
+        {
+            NotifyBuildFailure("GoogleMobileAdsSKAdNetworkItems.xml not found", false);
         }
         catch (IOException e)
         {

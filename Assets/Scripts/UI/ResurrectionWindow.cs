@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Assets.Scripts.Ad;
 
 public class ResurrectionWindow : MonoBehaviour
 {
@@ -48,14 +49,21 @@ public class ResurrectionWindow : MonoBehaviour
     {
         if (!_IsAlreadyEarn)
         {
-            Ads.Instance.ShowRewardAd();
-            Ads.Instance.UserEarnedRewardEvent(() =>
+            // [안전 장치]: 광고 서비스 미초기화 시 광고 생략
+            if (AdsManager.Service != null)
             {
-                _IsAlreadyEarn = true;
-                SetActiveResurrectionWindow(false);
+                AdsManager.Service.ShowRewardedAd(() =>
+                {
+                    _IsAlreadyEarn = true;
+                    SetActiveResurrectionWindow(false);
 
-                _Resurrectable.Resurrect();
-            });
+                    _Resurrectable.Resurrect();
+                });
+            }
+            else
+            {
+                Debug.LogWarning("[ResurrectionWindow] 광고 서비스가 준비되지 않았습니다.");
+            }
         }
     }
     public void Close()

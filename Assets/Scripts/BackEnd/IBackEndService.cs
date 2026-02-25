@@ -26,7 +26,7 @@ namespace Assets.Scripts.BackEnd
         /// <summary>
         /// [설명]: 특정 테이블의 데이터를 가져옵니다.
         /// </summary>
-        UniTask<BackEndResult<T>> GetGameDataAsync<T>(string tableName) where T : class;
+        UniTask<BackEndResult<T>> GetGameDataAsync<T>(string tableName) where T : class, new();
         
         /// <summary>
         /// [설명]: 데이터를 서버에 저장합니다.
@@ -34,30 +34,29 @@ namespace Assets.Scripts.BackEnd
         UniTask<BackEndResult> SaveGameDataAsync(string tableName, object data);
     }
 
-    /// <summary>
-    /// [설명]: 뒤끝 서버 결과를 나타내는 클래스입니다.
-    /// </summary>
     public class BackEndResult
     {
         public bool IsSuccess { get; set; }
         public string ErrorMessage { get; set; }
+        public int StatusCode { get; set; }
         
-        public BackEndResult(bool isSuccess, string errorMessage = null)
+        public BackEndResult(bool isSuccess, string errorMessage = null, int statusCode = 0)
         {
             IsSuccess = isSuccess;
             ErrorMessage = errorMessage;
+            StatusCode = statusCode;
         }
     }
 
     /// <summary>
     /// [설명]: 뒤끝 서버 결과를 나타내는 클래스 (제네릭).
     /// </summary>
-    public class BackEndResult<T> : BackEndResult
+    public class BackEndResult<T> : BackEndResult where T : class
     {
         public T Data { get; set; }
         
-        public BackEndResult(bool isSuccess, T data = null, string errorMessage = null) 
-            : base(isSuccess, errorMessage)
+        public BackEndResult(bool isSuccess, T data = null, string errorMessage = null, int statusCode = 0) 
+            : base(isSuccess, errorMessage, statusCode)
         {
             Data = data;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.Ad;
 
 public class DungeonFaildUI : MonoBehaviour
 {
@@ -31,12 +32,20 @@ public class DungeonFaildUI : MonoBehaviour
         MainCamera.Instance.Fade(2.25f, FadeType.In, () =>
         {
             Inventory.Instance.Clear();
-
-            Ads.Instance.ShowFrontAd();
-            Ads.Instance.ClosedADEvent(() =>
+            
+            // [안전 장치]: 광고 서비스 미초기화 시 광고 생략 후 바로 씬 전환
+            if (AdsManager.Service != null)
             {
+                AdsManager.Service.ShowInterstitialAd(() =>
+                {
+                    SceneManager.LoadScene((int)SceneIndex.Town);
+                });
+            }
+            else
+            {
+                Debug.LogWarning("[DungeonFaildUI] 광고 서비스가 준비되지 않아 광고 없이 진행합니다.");
                 SceneManager.LoadScene((int)SceneIndex.Town);
-            });
+            }
         });
     }
 }

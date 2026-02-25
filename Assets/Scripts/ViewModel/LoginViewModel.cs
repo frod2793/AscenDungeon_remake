@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Assets.Scripts.BackEnd;
+using Assets.Scripts.Modules;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.ViewModel
@@ -11,7 +12,9 @@ namespace Assets.Scripts.ViewModel
     /// </summary>
     public class LoginViewModel
     {
-        private readonly IBackEndService m_backEndService;
+    private readonly IBackEndService m_backEndService;
+    private readonly UserDataService m_userDataService;
+    private readonly ISceneNavigationService m_navigationService;
         
         /// <summary>
         /// [설명]: 로딩 상태를 나타냅니다.
@@ -29,12 +32,19 @@ namespace Assets.Scripts.ViewModel
         public Action OnLoginSuccess { get; set; }
 
         /// <summary>
+        /// [설명]: 토큰 로그인 실패 시 호출되는 액션입니다(토큰 로그인 실패 시 다른 로그인 경로를 활성화하기 위함).
+        /// </summary>
+        public Action OnTokenLoginFailed { get; set; }
+
+        /// <summary>
         /// [설명]: 생성자입니다.
         /// </summary>
-        public LoginViewModel(IBackEndService backEndService)
-        {
-            m_backEndService = backEndService;
-        }
+    public LoginViewModel(IBackEndService backEndService, UserDataService userDataService, ISceneNavigationService navigationService)
+    {
+        m_backEndService = backEndService;
+        m_userDataService = userDataService;
+        m_navigationService = navigationService;
+    }
 
         /// <summary>
         /// [설명]: 게스트 로그인을 시도합니다.
@@ -47,8 +57,18 @@ namespace Assets.Scripts.ViewModel
             {
                 var result = await m_backEndService.LoginGuestAsync();
                 
-                if (result.IsSuccess)
+                if ( result.IsSuccess )
                 {
+                    await m_userDataService.LoadAllUserDataAsync();
+                    try
+                    {
+                        await m_navigationService.LoadSceneAsync(2);
+                    }
+                    catch
+                    {
+                        // Fallback: 강제 씬 전환
+                        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2);
+                    }
                     OnLoginSuccess?.Invoke();
                 }
                 else
@@ -77,18 +97,29 @@ namespace Assets.Scripts.ViewModel
             {
                 var result = await m_backEndService.LoginTokenAsync();
                 
-                if (result.IsSuccess)
+                if ( result.IsSuccess )
                 {
+                    await m_userDataService.LoadAllUserDataAsync();
+                    try
+                    {
+                        await m_navigationService.LoadSceneAsync(2);
+                    }
+                    catch
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2);
+                    }
                     OnLoginSuccess?.Invoke();
                 }
                 else
                 {
                     OnErrorMessage?.Invoke("토큰 로그인 실패: " + result.ErrorMessage);
+                    OnTokenLoginFailed?.Invoke();
                 }
             }
             catch (Exception e)
             {
                 OnErrorMessage?.Invoke("토큰 로그인 중 오류 발생: " + e.Message);
+                OnTokenLoginFailed?.Invoke();
             }
             finally
             {
@@ -107,8 +138,17 @@ namespace Assets.Scripts.ViewModel
             {
                 var result = await m_backEndService.LoginGoogleAsync();
                 
-                if (result.IsSuccess)
+                if ( result.IsSuccess )
                 {
+                    await m_userDataService.LoadAllUserDataAsync();
+                    try
+                    {
+                        await m_navigationService.LoadSceneAsync(2);
+                    }
+                    catch
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2);
+                    }
                     OnLoginSuccess?.Invoke();
                 }
                 else

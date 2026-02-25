@@ -235,6 +235,9 @@ public class VirtualJoystick : MonoBehaviour
 
     public void SetCoreBtnMode(CoreBtnMode btnMode)
     {
+        // [안전 장치]: 씬 전환 시 파괴된 UI 오브젝트 접근 방지
+        if (_CoreBtnImage == null) return;
+
         switch (CrntCoreBtnMode = btnMode)
         {
             case CoreBtnMode.AttackOrder:

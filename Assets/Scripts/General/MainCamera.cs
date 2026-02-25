@@ -69,7 +69,7 @@ public class MainCamera : Singleton<MainCamera>
 
             switch (SceneManager.GetActiveScene().buildIndex)
             {
-                case (int)SceneIndex.Forest:
+                case (int)SceneIndex.BetaGame:
                     SystemMessage.Instance.ShowToastMessage("STAGE 1 - 고블린의 숲");
                     break;
                 case (int)SceneIndex.DeepSea:

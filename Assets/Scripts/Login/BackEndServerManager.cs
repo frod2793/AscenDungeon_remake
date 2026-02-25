@@ -16,6 +16,8 @@ using System.Threading;
 /// </summary>
 public class BackEndServerManager : MonoBehaviour
 {
+    public event System.Action OnAutoLoginFailed;
+    public bool IsAutoLoginFailed { get; private set; } = false;
     #region 에디터 설정
     [SerializeField, Tooltip("로그인 후 활성화할 씬 오브젝트")]
     private GameObject m_sceneObject;
@@ -162,7 +164,13 @@ public class BackEndServerManager : MonoBehaviour
                 else
                 {
                     Debug.Log("[Backend] 자동 토큰 로그인 실패, 로그인 UI 활성화");
-                    if (m_loginObject != null) m_loginObject.SetActive(true);
+                    IsAutoLoginFailed = true;
+                    OnAutoLoginFailed?.Invoke();
+                    if (m_loginObject != null)
+                    {
+                        m_loginObject.SetActive(true);
+                        
+                    }
                 }
             });
         }
@@ -298,28 +306,35 @@ public class BackEndServerManager : MonoBehaviour
     /// </summary>
     public void SendDataToServerSchema()
     {
-        Param param = new Param();
-        param.Add("IAP", IAP.Instance.APP);
-        param.Add("Gold", MoneyManager.Instance.Money);
-        param.Add("Kill", GameLoger.Instance.KillCount);
-        param.Add("Time", GameLoger.Instance.ElapsedTime.ToString());
-
-        Backend.GameData.GetMyData("Player", new Where(), 1, callback =>
+        try
         {
-            if (callback.IsSuccess() && callback.Rows().Count > 0)
+            Param param = new Param();
+            param.Add("IAP", (IAP.Instance != null) ? IAP.Instance.APP : false);
+            param.Add("Gold", (MoneyManager.Instance != null) ? MoneyManager.Instance.Money : 0);
+            param.Add("Kill", (GameLoger.Instance != null) ? GameLoger.Instance.KillCount : 0);
+            param.Add("Time", (GameLoger.Instance != null) ? GameLoger.Instance.ElapsedTime.ToString() : "0");
+
+            Backend.GameData.GetMyData("Player", new Where(), 1, callback =>
             {
-                string rowIndate = callback.Rows()[0]["inDate"]["S"].ToString();
-                m_myIndate = rowIndate;
-                Backend.GameData.UpdateV2("Player", rowIndate, Backend.UserInDate, param);
-            }
-            else
-            {
-                Backend.GameData.Insert("Player", param, insertCallback =>
+                if (callback.IsSuccess() && callback.Rows().Count > 0)
                 {
-                    if (insertCallback.IsSuccess()) m_myIndate = insertCallback.GetInDate();
-                });
-            }
-        });
+                    string rowIndate = callback.Rows()[0]["inDate"]["S"].ToString();
+                    m_myIndate = rowIndate;
+                    Backend.GameData.UpdateV2("Player", rowIndate, Backend.UserInDate, param);
+                }
+                else
+                {
+                    Backend.GameData.Insert("Player", param, insertCallback =>
+                    {
+                        if (insertCallback.IsSuccess()) m_myIndate = insertCallback.GetInDate();
+                    });
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[Backend] SendDataToServerSchema 예외 발생: {e.Message}\n{e.StackTrace}");
+        }
     }
 
     /// <summary>
@@ -327,6 +342,8 @@ public class BackEndServerManager : MonoBehaviour
     /// </summary>
     public void IAPSAVE()
     {
+        if (IAP.Instance == null) return;
+
         Param param = new Param();
         param.Add("IAP", IAP.Instance.APP);
 
@@ -340,6 +357,35 @@ public class BackEndServerManager : MonoBehaviour
             else
             {
                 Backend.GameData.Insert("IAP", param);
+            }
+        });
+    }
+
+    /// <summary>
+    /// [설명]: 옵션 데이터를 서버에 저장합니다. (기존 PlayerControllerSetting.cs 호환)
+    /// </summary>
+    public void Optionsaver()
+    {
+        if (GameLoger.Instance == null) return;
+
+        Param param = new Param();
+        param.Add("ControllerOffset", GameLoger.Instance.ControllerOffset);
+        param.Add("ControllerDefScale", GameLoger.Instance.ControllerDefScale);
+        param.Add("ControllerMaxScale", GameLoger.Instance.ControllerMaxScale);
+        param.Add("ControllerAlpha", GameLoger.Instance.ControllerAlpha);
+        param.Add("ControllerPosX", GameLoger.Instance.ControllerPos.x);
+        param.Add("ControllerPosY", GameLoger.Instance.ControllerPos.y);
+
+        Backend.GameData.GetMyData("Option", new Where(), 1, callback =>
+        {
+            if (callback.IsSuccess() && callback.Rows().Count > 0)
+            {
+                string rowIndate = callback.Rows()[0]["inDate"]["S"].ToString();
+                Backend.GameData.UpdateV2("Option", rowIndate, Backend.UserInDate, param);
+            }
+            else
+            {
+                Backend.GameData.Insert("Option", param);
             }
         });
     }
@@ -368,8 +414,8 @@ public class BackEndServerManager : MonoBehaviour
     private void InitializeTables()
     {
         CheckAndInsert("Player");
-        CheckAndInsert("ITem");
-        CheckAndInsert("STAGE");
+        CheckAndInsert("Item");
+        CheckAndInsert("Stage");
         CheckAndInsert("Option");
         CheckAndInsert("IAP");
     }
@@ -391,80 +437,12 @@ public class BackEndServerManager : MonoBehaviour
             }
         });
     }
+    #endregion
 
-    // Note: These methods are now removed as they're handled by UserDataService
-    // public void OnStage()
-    // {
-    //     Backend.GameData.GetMyData("STAGE", new Where(), callback =>
-    //     {
-    //         if (callback.IsSuccess() && callback.Rows().Count > 0)
-    //         {
-    //             var row = callback.Rows()[0];
-    //             if (row.ContainsKey("stagedata"))
-    //             {
-    //                 GameLoger.Instance.SetStageUnlock(Convert.ToInt32(row["stagedata"]["N"].ToString()));
-    //             }
-    //             m_isLoadFinished = true;
-    //         }
-    //     });
-    // }
-    //
-    // public void OnItem()
-    // {
-    //     Backend.GameData.GetMyData("ITem", new Where(), callback =>
-    //     {
-    //         if (callback.IsSuccess() && callback.Rows().Count > 0)
-    //         {
-    //             List<int> nowlist = new List<int>();
-    //             var row = callback.Rows()[0];
-    //             if (row.ContainsKey("ItemList") && row["ItemList"].ContainsKey("L"))
-    //             {
-    //                 var list = row["ItemList"]["L"];
-    //                 for (int i = 0; i < list.Count; i++)
-    //                 {
-    //                     nowlist.Add(Convert.ToInt32(list[i]["N"].ToString()));
-    //                 }
-    //             }
-    //             ItemStateSaver.Instance.SetUnlockedItem(nowlist);
-    //         }
-    //     });
-    // }
-    //
-    // public void OnOption()
-    // {
-    //     Backend.GameData.GetMyData("Option", new Where(), 1, callback =>
-    //     {
-    //         if (callback.IsSuccess() && callback.Rows().Count > 0)
-    //         {
-    //             var row = callback.Rows()[0];
-    //             if (row.ContainsKey("ControllerOffset")) GameLoger.Instance.ConOffset(float.Parse(row["ControllerOffset"]["N"].ToString()));
-    //             if (row.ContainsKey("ControllerDefScale")) GameLoger.Instance.ConDefScale(float.Parse(row["ControllerDefScale"]["N"].ToString()));
-    //             if (row.ContainsKey("ControllerMaxScale")) GameLoger.Instance.ConMaxScale(float.Parse(row["ControllerMaxScale"]["N"].ToString()));
-    //             if (row.ContainsKey("ControllerAlpha")) GameLoger.Instance.ConAlpha(float.Parse(row["ControllerAlpha"]["N"].ToString()));
-    //             if (row.ContainsKey("ControllerPosX")) GameLoger.Instance.ConPosX(float.Parse(row["ControllerPosX"]["N"].ToString()));
-    //             if (row.ContainsKey("ControllerPosY")) GameLoger.Instance.ConPosY(float.Parse(row["ControllerPosY"]["N"].ToString()));
-    //         }
-    //     });
-    // }
-    //
-    // public void IAPCOME()
-    // {
-    //     Backend.GameData.GetMyData("IAP", new Where(), 1, callback =>
-    //     {
-    //         if (callback.IsSuccess() && callback.Rows().Count > 0)
-    //         {
-    //             var row = callback.Rows()[0];
-    //             if (row.ContainsKey("IAP"))
-    //             {
-    //                 IAP.Instance.AiP(bool.Parse(row["IAP"]["BOOL"].ToString()));
-    //             }
-    //         }
-    //     });
-    // }
-
+    #region 데이터 저장 커맨드
     public void Tplay() => CheckAndInsert("Player");
-    public void Titem() => CheckAndInsert("ITem");
-    public void Tstage() => CheckAndInsert("STAGE");
+    public void Titem() => CheckAndInsert("Item");
+    public void Tstage() => CheckAndInsert("Stage");
     public void Toption() => CheckAndInsert("Option");
     public void Tiap() => CheckAndInsert("IAP");
     #endregion
@@ -484,7 +462,7 @@ public class BackEndServerManager : MonoBehaviour
                     if (callback.IsSuccess() && callback.Rows().Count > 0)
                     {
                         var row = callback.Rows()[0];
-                        if (row.ContainsKey("Gold"))
+                        if (row.ContainsKey("Gold") && GameLoger.Instance != null)
                         {
                             GameLoger.Instance.RecordMoney(int.Parse(row["Gold"]["N"].ToString()));
                         }

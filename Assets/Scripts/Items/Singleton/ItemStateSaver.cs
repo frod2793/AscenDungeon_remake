@@ -22,21 +22,55 @@ public class ItemStateSaver : Singleton<ItemStateSaver>
     {
         Init();
     }
-    private void Init()
-    {
-        if (!_IsAlreadyInit)
+        private void Init()
         {
-            _IsAlreadyInit = true;
-            ItemListInit();
-            ItemSlotArrayInit();
+            if (!_IsAlreadyInit)
+            {
+                _IsAlreadyInit = true;
+                ItemListInit();
+                ItemSlotArrayInit();
 
-            // ====== ====== Test ====== ====== //
-            List<int> list = new List<int>();
-            for (int i = 0; i < RegisteredItem.GetAllID().Count; i++)
-             {
-               list.Add((int)RegisteredItem.GetAllID()[i]);
-            }
-            SetUnlockedItem(list);
+                // [개선]: Inspector 설정에 의존하지 않고 Resources 폴더에서 자동으로 로드 시도
+                if (RegisteredItem == null)
+                {
+                    RegisteredItem = Resources.Load<RegisteredItem>("RegisteredItem");
+                    
+                    if (RegisteredItem != null)
+                    {
+                        Debug.Log("[ItemStateSaver] RegisteredItem를 Resources에서 로드했습니다.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[ItemStateSaver] Resources에서 RegisteredItem를 찾을 수 없습니다. 씬 검색을 시도합니다.");
+                        var found = FindObjectOfType<RegisteredItem>();
+                        if (found != null)
+                        {
+                            RegisteredItem = found;
+                            Debug.Log("[ItemStateSaver] RegisteredItem를 씬에서 찾아 연결했습니다.");
+                        }
+                    }
+                }
+
+                // [안전 장치]: RegisteredItem이 최종적으로 null인 경우에도 시스템이 정지하지 않도록 처리
+                if (RegisteredItem != null)
+                {
+                    List<int> list = new List<int>();
+                    var allIDs = RegisteredItem.GetAllID();
+                    if (allIDs != null)
+                    {
+                        for (int i = 0; i < allIDs.Count; i++)
+                        {
+                            list.Add((int)allIDs[i]);
+                        }
+                    }
+                    SetUnlockedItem(list);
+                }
+                else
+                {
+                    Debug.LogError("[ItemStateSaver] RegisteredItem 로드 실패! 아이템 목록이 비어있는 상태로 초기화됩니다.");
+                    // 빈 리스트로 초기화하여 최소한의 NullReferenceException 방지
+                    SetUnlockedItem(new List<int>());
+                }
             // ====== ====== Test ====== ====== //
             // SetUnlockedItem(new List<int>());
 
@@ -62,6 +96,12 @@ public class ItemStateSaver : Singleton<ItemStateSaver>
 
     public void SetUnlockedItem(List<int> idList)
     {
+        if (RegisteredItem == null)
+        {
+            Debug.LogError("[ItemStateSaver] SetUnlockedItem failed: RegisteredItem is null!");
+            return;
+        }
+
         ItemListInit();
 
         _UnlockedItemList.Clear();
@@ -72,7 +112,7 @@ public class ItemStateSaver : Singleton<ItemStateSaver>
         {
             Item instance = RegisteredItem.GetItemInstance((ItemID)i);
 
-            if (IsDefaultUnlockItemCheck(i) || idList.Contains(i))
+            if (IsDefaultUnlockItemCheck(i) || (idList != null && idList.Contains(i)))
             {
                 _UnlockedItemList.Add(instance);
             }
