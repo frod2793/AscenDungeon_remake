@@ -42,7 +42,8 @@ public class ItemStateSaver : Singleton<ItemStateSaver>
                     else
                     {
                         Debug.LogWarning("[ItemStateSaver] Resources에서 RegisteredItem를 찾을 수 없습니다. 씬 검색을 시도합니다.");
-                        var found = FindObjectOfType<RegisteredItem>();
+                        // Use the non-deprecated API to find the RegisteredItem in the scene
+                        var found = UnityEngine.Object.FindFirstObjectByType<RegisteredItem>();
                         if (found != null)
                         {
                             RegisteredItem = found;

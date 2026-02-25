@@ -13,10 +13,21 @@ namespace Assets.Scripts.BackEnd
     /// </summary>
     public class BackEndService : IBackEndService
     {
-        public BackEndService()
+        #region 내부 변수
+        private readonly IGPGSAuthProvider m_gpgsProvider;
+        #endregion
+
+        #region 초기화
+        /// <summary>
+        /// [설명]: 생성자입니다. GPGS 인증 프로바이더를 주입받습니다.
+        /// </summary>
+        /// <param name="gpgsProvider">주입할 GPGS 프로바이더 (null일 경우 기본값 생성)</param>
+        public BackEndService(IGPGSAuthProvider gpgsProvider = null)
         {
             // [해결]: 중복 초기화 제거. BackEndServerManager에서 초기화를 담당합니다.
+            m_gpgsProvider = gpgsProvider ?? new GPGSAuthProvider();
         }
+        #endregion
 
         /// <summary>
         /// [설명]: 뒤끝 SDK를 초기화합니다.
@@ -105,9 +116,11 @@ namespace Assets.Scripts.BackEnd
 
             try
             {
-                if (UnityEngine.Social.localUser.authenticated)
+                // [개선]: 주입된 GPGS 프로바이더를 사용해 토큰을 안전하게 가져옵니다.
+                string token = await m_gpgsProvider.AuthenticateAndGetTokenAsync();
+
+                if (!string.IsNullOrEmpty(token))
                 {
-                    string token = GetTokens();
                     // SDK 5.11.1 및 기존 성공 사례에 맞춰 4개 인자 오버로드 사용
                     var callback = await ExecuteAsync(cb => Backend.BMember.AuthorizeFederation(token, global::BackEnd.FederationType.Google, "gpgs", cb));
                     
@@ -124,8 +137,8 @@ namespace Assets.Scripts.BackEnd
                 }
                 else
                 {
-                    // 구글 인증이 필요할 경우
-                    return new BackEndResult(false, "Google authentication required");
+                    // 구글 인증 실패 또는 토큰 획득 실패
+                    return new BackEndResult(false, "GPGS authentication failed or token is missing");
                 }
             }
             catch (Exception e)
@@ -243,11 +256,6 @@ namespace Assets.Scripts.BackEnd
             return 0;
         }
 
-        private string GetTokens()
-        {
-            // GPGS 토큰 획득 로직 (기존 코드 참고)
-            return null; 
-        }
 
 
 

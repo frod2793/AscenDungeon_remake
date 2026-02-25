@@ -6,8 +6,7 @@ using UnityEngine.Events;
 
 public class VirtualJoystickReposer : MonoBehaviour
 {
-    private readonly Vector3 HalfScreen 
-        = new Vector3(Screen.width / 2f, Screen.height / 2f);
+    // HalfScreen removed; using RectTransform-based coordinates for UI
 
     [SerializeField] private GameObject _SettingWindow;
     [SerializeField] private VirtualJoystick _Controller;
@@ -85,9 +84,17 @@ public class VirtualJoystickReposer : MonoBehaviour
         while (_IsButtonStateDown)
         {
             yield return null;
-            Vector2 position = Input.mousePosition - HalfScreen;
-
-            _Controller.SetPositionWithScreenRange(position);
+            // Convert screen point to local point in the joystick's parent canvas rect
+            RectTransform parentRect = _Controller.GetComponent<RectTransform>().parent as RectTransform;
+            if (parentRect != null)
+            {
+                Vector2 localPoint;
+                bool ok = RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, Input.mousePosition, null, out localPoint);
+                if (ok)
+                {
+                    _Controller.SetPositionWithLocalPoint(localPoint);
+                }
+            }
         }
     }
 }

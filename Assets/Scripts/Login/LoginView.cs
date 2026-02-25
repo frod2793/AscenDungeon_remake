@@ -101,8 +101,12 @@ public class LoginView : MonoBehaviour
 
     private void InitializeViewModel()
     {
-        // 의존성 주입 (현재는 직접 생성)
-        var backEndService = new BackEndService();
+        // 의존성 주입
+        var gpgsProvider = new GPGSAuthProvider();
+#if UNITY_ANDROID
+        gpgsProvider.Initialize(); // GPGS SDK 활성화
+#endif
+        var backEndService = new BackEndService(gpgsProvider);
         var navigationService = new SceneNavigationService();
         m_viewModel = new LoginViewModel(backEndService, new UserDataService(backEndService), navigationService);
 

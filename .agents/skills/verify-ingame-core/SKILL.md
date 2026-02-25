@@ -23,6 +23,8 @@ description: 인게임 핵심 시스템, 초기화 순서 및 씬 내비게이�
 |----------|------|
 | `Assets/Scripts/Modules/SceneNavigationService.cs` | 실시간 씬 전환 서비스 |
 | `Assets/Scripts/Modules/ISceneNavigationService.cs` | 씬 전환 인터페이스 |
+| `Assets/Scripts/Player/Controller/VirtualJoystick/VirtualJoystick.cs` | 조이스틱 핵심 컨트롤러 |
+| `Assets/Scripts/Player/Controller/VirtualJoystick/VirtualJoystickReposer.cs` | 조이스틱 드래그 재배치 옵션 |
 
 ## Workflow
 
@@ -43,6 +45,16 @@ grep -n "System.Progress.Create" Assets/Scripts/Modules/SceneNavigationService.c
 ```bash
 # Town 씬 진입 시 전처리 확인
 grep -A 5 "SceneIndex.Town" Assets/Scripts/Modules/SceneNavigationService.cs
+```
+
+### Step 3: 조이스틱 UI 좌표 변환 검증
+조이스틱 등의 UI를 스크린에서 이동할 때, 하드코딩된 `Screen` 픽셀 기반 제한이 아니라 UI 로컬 좌표 변환이 올바르게 적용되어 해상도에 영향받지 않는지 검증합니다.
+
+```bash
+# UI 로컬 좌표계 변환 처리 검사
+grep -n "ScreenPointToLocalPointInRectangle" Assets/Scripts/Player/Controller/VirtualJoystick/*.cs
+# 하드코딩 스크린 제약 제거 여부 검사
+grep -n "Screen.height" Assets/Scripts/Player/Controller/VirtualJoystick/*.cs
 ```
 
 ## Output Format

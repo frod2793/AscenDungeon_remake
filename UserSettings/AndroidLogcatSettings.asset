@@ -3,17 +3,11 @@
     "m_SelectedProcess": {
         "deviceId": "R5CW51K43MJ",
         "name": "com.WoodenShield.AscenDDungeon",
-        "processId": 21245,
+        "processId": 24073,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
-        {
-            "deviceId": "R5CW51K43MJ",
-            "name": "com.AdverGameKorea.AscenDDungeon",
-            "processId": 14732,
-            "exited": true
-        },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.AdverGameKorea.AscenDDungeon",
@@ -24,6 +18,24 @@
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
             "processId": 21245,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CW51K43MJ",
+            "name": "com.WoodenShield.AscenDDungeon",
+            "processId": 21259,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CW51K43MJ",
+            "name": "com.WoodenShield.AscenDDungeon",
+            "processId": 21726,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CW51K43MJ",
+            "name": "com.WoodenShield.AscenDDungeon",
+            "processId": 24073,
             "exited": false
         }
     ],

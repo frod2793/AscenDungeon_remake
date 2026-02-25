@@ -68,9 +68,12 @@ grep -n "SafeCount" Assets/Scripts/BackEnd/BackEndService.cs
 ```
 
 ### Step 7: 싱글톤 Null 가드 검증 (NRE 방지)
-비동기 로드나 앱 종료(`OnApplicationQuit`) 시 싱글톤 인스턴스 파괴로 인한 NRE를 방지하기 위한 null 체크가 포함되어 있는지 확인합니다.
+비동기 로드나 앱 종료(`OnApplicationQuit`) 시 싱글톤 인스턴스 파괴로 인한 NRE를 방지하기 위해 `Instance != null` 체크를 하거나, 안전하게 씬에서 객체를 직적 찾는 방법(`FindFirstObjectByType`)이 적용되었는지 확인합니다.
 
 ```bash
+# UserDataService 내 ItemStateSaver 등 씬 인스턴스의 안전한 획득 여부
+grep -n "FindFirstObjectByType" Assets/Scripts/BackEnd/UserDataService.cs
+
 # UserDataService 내 싱글톤 null 체크 확인
 grep -nE "GameLoger.Instance != null|IAP.Instance != null" Assets/Scripts/BackEnd/UserDataService.cs
 

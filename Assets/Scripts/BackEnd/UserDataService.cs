@@ -68,14 +68,17 @@ namespace Assets.Scripts.BackEnd
                 if (result.IsSuccess && result.Data != null)
                 {
                     // [안전 장치]: ItemStateSaver.Instance 접근 전 가드 로직
-                    if (ItemStateSaver.Instance != null)
-                    {
-                        ItemStateSaver.Instance.SetUnlockedItem(result.Data.ItemList);
-                    }
-                    else
-                    {
-                        Debug.LogError("[UserDataService] LoadItemData 실패: ItemStateSaver 인스턴스를 찾을 수 없습니다.");
-                    }
+                // Use explicit UnityEngine.Object.FindObjectOfType to avoid ambiguity with System.Object
+                // Use the non-deprecated API to find the first object of type ItemStateSaver
+                var saver = UnityEngine.Object.FindFirstObjectByType<ItemStateSaver>();
+                if (saver != null)
+                {
+                    saver.SetUnlockedItem(result.Data.ItemList);
+                }
+                else
+                {
+                    Debug.LogWarning("[UserDataService] LoadItemData: ItemStateSaver 인스턴스가 씬에 존재하지 않아 아이템 목록 적용을 건너뜁니다.");
+                }
                     return true;
                 }
                 

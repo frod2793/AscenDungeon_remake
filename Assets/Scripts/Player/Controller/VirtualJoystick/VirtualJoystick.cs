@@ -17,8 +17,7 @@ public enum CoreBtnMode
 
 public class VirtualJoystick : MonoBehaviour
 {
-    private readonly Vector3 HalfScreen
-        = new Vector3(Screen.width / 2f, Screen.height / 2f);
+    // Removed hard dependency on screen-half; coordinates are derived from parent RectTransform when needed
 
     [SerializeField] private RectTransform _RectTransform;
     [SerializeField, FormerlySerializedAs("_AttackButton")] 
@@ -77,10 +76,21 @@ public class VirtualJoystick : MonoBehaviour
         }
     }
     public SubscribableButton AttackButton => _CoreButton;
+    // 런타임에서 외부에서 플레이어를 주입받아 연결할 수 있는 API 제공
+    public void ConnectPlayer(Player player)
+    {
+        if (player == null) return;
+        _Player = player;
+        if (!_IsEventBound)
+        {
+            BindEvents();
+        }
+    }
 
     private Player _Player;
 
     private bool _IsAlreadyInit = false;
+    private bool _IsEventBound = false;
     private Coroutine _WaitCharge;
     private Coroutine _WaitScaling;
 
@@ -93,135 +103,158 @@ public class VirtualJoystick : MonoBehaviour
             _WaitCharge  = new Coroutine(this);
             _WaitScaling = new Coroutine(this);
 
-            var find = GameObject.FindGameObjectWithTag("Player");
-            if (find != null)
-            {
-                if (find.TryGetComponent(out _Player))
-                {
-                    _CoreButton.ButtonAction += state =>
-                    {
-                        // 컨트롤러가 비활성화 되어있다면 중단.
-                        if (!PlayerActionManager.Instance.EnableController)
-                            return;
-                        
-                        switch (CrntCoreBtnMode)
-                        {
-                            case CoreBtnMode.AttackOrder:
-                                switch (state)
-                                {
-                                    case ButtonState.Down:
-
-                                        _WaitCharge.StartRoutine(WaitForStartCharging());
-                                        break;
-
-                                    case ButtonState.Up:
-
-                                        if (!_WaitCharge.IsFinished())
-                                        {
-                                            _Player.AttackOrder();
-                                        }
-                                        else
-                                        {
-                                            Finger.Instance.EndCharging();
-
-                                            _WaitScaling.StopRoutine();
-                                            _WaitScaling.StartRoutine(AttackBtnScaling(true));
-                                        }
-                                        _WaitCharge.StopRoutine();
-                                        break;
-                                }
-                                break;
-                            case CoreBtnMode.InteractionOrder:
-                                if (state == ButtonState.Down)
-                                {
-                                    var npc = NPCInteractionManager.Instance.LastEnableNPC;
-
-                                    if (npc != null)
-                                        npc.Interaction();
-                                }
-                                break;
-                        }
-                    };
-
-                    _UMoveButton.ButtonAction += state => MoveOrderToPlayer(_UMoveButton, state, Direction.Up);
-                    _DMoveButton.ButtonAction += state => MoveOrderToPlayer(_DMoveButton, state, Direction.Down);
-                    _LMoveButton.ButtonAction += state => MoveOrderToPlayer(_LMoveButton, state, Direction.Left);
-                    _RMoveButton.ButtonAction += state => MoveOrderToPlayer(_RMoveButton, state, Direction.Right);
-                }
-            }
+            BindEvents();
             _IsAlreadyInit = true;
-
-            SetButtonScale(GameLoger.Instance.ControllerDefScale, GameLoger.Instance.ControllerMaxScale);
-            SetButtonOffset(GameLoger.Instance.ControllerOffset);
-
-            // ====== _AllButtonImages Init ===== //
-            if (_AllButtonImages == null)
-            {
-                var buttons = GetAllButtons();
-                _AllButtonImages = new Image[buttons.Length];
-
-                for (int i = 0; i < _AllButtonImages.Length; i++)
-                {
-                    buttons[i].TryGetComponent(out _AllButtonImages[i]);
-                }
-            }
-            // ====== _AllButtonImages Init ===== //
-            SetButtonAlpha(GameLoger.Instance.ControllerAlpha);
-
-            transform.localPosition = GameLoger.Instance.ControllerPos;
         }
 
-        void MoveOrderToPlayer(SubscribableButton button, ButtonState state, Direction direction)
+        FindPlayer();
+
+        SetButtonScale(GameLoger.Instance.ControllerDefScale, GameLoger.Instance.ControllerMaxScale);
+        SetButtonOffset(GameLoger.Instance.ControllerOffset);
+
+        // ====== _AllButtonImages Init ===== //
+        if (_AllButtonImages == null)
         {
-            // 컨트롤러가 비활성화 되어있다면 중단
-            if (!PlayerActionManager.Instance.EnableController)
+            var buttons = GetAllButtons();
+            _AllButtonImages = new Image[buttons.Length];
+
+            for (int i = 0; i < _AllButtonImages.Length; i++)
+            {
+                buttons[i].TryGetComponent(out _AllButtonImages[i]);
+            }
+        }
+        // ====== _AllButtonImages Init ===== //
+        SetButtonAlpha(GameLoger.Instance.ControllerAlpha);
+
+        transform.localPosition = GameLoger.Instance.ControllerPos;
+    }
+
+    /// <summary>
+    /// [설명]: 씬 내에서 플레이어를 찾아 캐싱합니다.
+    /// </summary>
+    public void FindPlayer()
+    {
+        var find = GameObject.FindGameObjectWithTag("Player");
+        if (find != null)
+        {
+            find.TryGetComponent(out _Player);
+        }
+    }
+
+    /// <summary>
+    /// [설명]: 조이스틱 버튼의 이벤트를 바인딩합니다. 
+    /// 플레이어 존재 여부와 상관없이 바인딩을 수행하며, 입력 발생 시 실시간으로 플레이어를 체크합니다.
+    /// </summary>
+    private void BindEvents()
+    {
+        if (_IsEventBound) return;
+        _IsEventBound = true;
+
+        _CoreButton.ButtonAction += state =>
+        {
+            // 실시간으로 플레이어 참조 확인 및 갱신 시도
+            if (_Player == null) FindPlayer();
+            if (_Player == null) return;
+
+            // 컨트롤러가 비활성화 되어있다면 중단.
+            if (PlayerActionManager.Instance != null && !PlayerActionManager.Instance.EnableController)
                 return;
             
-            switch (state)
+            switch (CrntCoreBtnMode)
             {
-                case ButtonState.Down:
-                    if (direction == _PrevInputButton && Time.time - _LastClickTime < IntervalClickTime)
+                case CoreBtnMode.AttackOrder:
+                    switch (state)
                     {
-                        switch (direction)
-                        {
-                            case Direction.Right:
-                                _Player.DashOrder(UnitizedPosH.RIGHT);
-                                break;
-                            case Direction.Left:
-                                _Player.DashOrder(UnitizedPosH.LEFT);
-                                break;
-                        }
-                        _PrevInputButton = Direction.None;
+                        case ButtonState.Down:
+                            _WaitCharge.StartRoutine(WaitForStartCharging());
+                            break;
 
-                        _Player.OnceDashEndEvent += p =>
-                        {
-                            if (button.CurrentState == ButtonState.Down)
+                        case ButtonState.Up:
+                            if (!_WaitCharge.IsFinished())
                             {
-                                p.MoveOrder(direction);
+                                _Player.AttackOrder();
                             }
-                        };
-                    }
-                    else
-                    {
-                        _Player.MoveOrder(direction);
-
-                        _PrevInputButton = direction;
+                            else
+                            {
+                                Finger.Instance.EndCharging();
+                                _WaitScaling.StopRoutine();
+                                _WaitScaling.StartRoutine(AttackBtnScaling(true));
+                            }
+                            _WaitCharge.StopRoutine();
+                            break;
                     }
                     break;
-                case ButtonState.Up:
+                case CoreBtnMode.InteractionOrder:
+                    if (state == ButtonState.Down)
                     {
-                        switch (direction)
-                        {
-                            case Direction.Right:
-                            case Direction.Left:
-                                _Player.MoveStop();
-                                break;
-                        }
+                        var npc = NPCInteractionManager.Instance.LastEnableNPC;
+                        if (npc != null)
+                            npc.Interaction();
                     }
                     break;
             }
-            _LastClickTime = Time.time;
+        };
+
+        _UMoveButton.ButtonAction += state => MoveOrderToPlayer(_UMoveButton, state, Direction.Up);
+        _DMoveButton.ButtonAction += state => MoveOrderToPlayer(_DMoveButton, state, Direction.Down);
+        _LMoveButton.ButtonAction += state => MoveOrderToPlayer(_LMoveButton, state, Direction.Left);
+        _RMoveButton.ButtonAction += state => MoveOrderToPlayer(_RMoveButton, state, Direction.Right);
+    }
+
+    // Class-level: Movement logic for directional buttons
+    private void MoveOrderToPlayer(SubscribableButton button, ButtonState state, Direction direction)
+    {
+        // 실시간으로 플레이어 참조 확인
+        if (_Player == null) FindPlayer();
+        if (_Player == null) return;
+
+        // 컨트롤러가 비활성화 되어있다면 중단
+        if (PlayerActionManager.Instance != null && !PlayerActionManager.Instance.EnableController)
+            return;
+        
+        switch (state)
+        {
+            case ButtonState.Down:
+                if (direction == _PrevInputButton && Time.time - _LastClickTime < IntervalClickTime)
+                {
+                    switch (direction)
+                    {
+                        case Direction.Right:
+                            _Player.DashOrder(UnitizedPosH.RIGHT);
+                            break;
+                        case Direction.Left:
+                            _Player.DashOrder(UnitizedPosH.LEFT);
+                            break;
+                    }
+                    _PrevInputButton = Direction.None;
+
+                    _Player.OnceDashEndEvent += p =>
+                    {
+                        if (button.CurrentState == ButtonState.Down)
+                        {
+                            p.MoveOrder(direction);
+                        }
+                    };
+                }
+                else
+                {
+                    _Player.MoveOrder(direction);
+                    _PrevInputButton = direction;
+                }
+                break;
+            case ButtonState.Up:
+                {
+                    switch (direction)
+                    {
+                        case Direction.Right:
+                        case Direction.Left:
+                            _Player.MoveStop();
+                            break;
+                    }
+                }
+                break;
         }
+        _LastClickTime = Time.time;
     }
     
     public SubscribableButton[] GetAllButtons()
@@ -249,17 +282,21 @@ public class VirtualJoystick : MonoBehaviour
                 break;
         }
     }
-    public void SetPositionWithScreenRange(Vector2 position)
+    public void SetPositionWithLocalPoint(Vector2 localPoint)
     {
-        Rect rect = _RectTransform.rect;
-
-        rect.width  /= 2f;
-        rect.height /= 2f;
-
-        position.x = Mathf.Clamp(position.x, -HalfScreen.x + rect.width,  HalfScreen.x - rect.width);
-        position.y = Mathf.Clamp(position.y, -HalfScreen.y + rect.height, HalfScreen.y - rect.height - HalfScreen.y * 0.5f);
-
-        transform.localPosition = position;
+        RectTransform parentRect = _RectTransform.parent as RectTransform;
+        if (parentRect == null)
+        {
+            transform.localPosition = localPoint;
+            return;
+        }
+        Rect r = parentRect.rect;
+        float halfW = _RectTransform.rect.width * 0.5f;
+        float halfH = _RectTransform.rect.height * 0.5f;
+        Vector2 clamped = localPoint;
+        clamped.x = Mathf.Clamp(clamped.x, -r.width / 2f + halfW, r.width / 2f - halfW);
+        clamped.y = Mathf.Clamp(clamped.y, -r.height / 2f + halfH, r.height / 2f - halfH);
+        transform.localPosition = clamped;
     }
     public void SetActiveInteraction(bool enable)
     {

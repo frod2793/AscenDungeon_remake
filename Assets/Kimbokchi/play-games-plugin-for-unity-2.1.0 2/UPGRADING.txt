@@ -1,0 +1,15 @@
+NOTES ON UPGRADING
+
+Note for 2.1.0
+
+The new SDK contains three changes which you should be aware of:
+1. Added support for additional auth scopes using [requestServerSideAccess](https://developer.android.com/games/pgs/unity/unity-start#retrieve-auth-codes).
+2. Removed the deprecated [Google Sign-In](https://developer.android.com/identity/legacy/gsi) dependency.
+3. Removed the deprecated [Google Drive](https://developers.google.com/android/reference/com/google/android/gms/drive/Drive) dependency.
+
+There are no major changes related to sign-in flow.
+
+Before importing the unity package for v2.0.0, delete
+`Assets/Plugins/Android/com.google.android.gms.play-services-games-<version_number>.aar`
+and everything under `Assets/GooglePlayGames`. You can then follow the regular
+integration process.

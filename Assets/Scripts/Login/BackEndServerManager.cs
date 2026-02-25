@@ -241,8 +241,9 @@ public class BackEndServerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// [설명]: GPGS 로그인을 시도합니다. (Android 전용 호환 로직)
+    /// [설명]: GPGS 로그인을 시도합니다. (레거시 코드, LoginViewModel.TryGoogleLogin 권장)
     /// </summary>
+    [Obsolete("Use LoginViewModel.TryGoogleLogin instead.")]
     public void GPGSLogin(Action<bool, string> func)
     {
 #if UNITY_ANDROID
@@ -295,9 +296,10 @@ public class BackEndServerManager : MonoBehaviour
 #endif
     }
 
+    [Obsolete("Use IGPGSAuthProvider.AuthenticateAndGetTokenAsync instead.")]
     public string GetTokens()
     {
-        // GPGS 토큰 획득 로직 (기존 코드 참고)
+        // GPGS 토큰 획득 로직 (레거시)
         return null; 
     }
 

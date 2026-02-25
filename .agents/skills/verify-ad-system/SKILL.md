@@ -69,6 +69,14 @@ grep -n "m_config" Assets/Scripts/Ad/AdMobService.cs
 grep -n "GameObject.FindGameObjectWithTag(\"Loading\")" Assets/Scripts/Ad/AdsManager.cs
 ```
 
+### Step 5: 중복 로딩 가드 플래그 검증
+중복 로딩으로 인한 크래시나 에러 (`Prefab Ad is Null` 등) 방지를 위해 상태 플래그 검사를 하는지 확인합니다.
+
+```bash
+grep -n "m_isRewardedLoading" Assets/Scripts/Ad/AdMobService.cs
+grep -n "m_isInterstitialLoading" Assets/Scripts/Ad/AdMobService.cs
+```
+
 ## Output Format
 
 | 검사 항목 | 상태 | 상세 결과 |
