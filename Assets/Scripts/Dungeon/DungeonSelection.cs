@@ -39,19 +39,8 @@ public class DungeonSelection : MonoBehaviour, IPointerDownHandler
         {
             MainCamera.Instance.Fade(1.75f, FadeType.In, () =>
             {
-                // [안전 장치]: 광고 서비스 미초기화 시 광고 생략 후 바로 씬 전환
-                if (AdsManager.Service != null)
-                {
-                    AdsManager.Service.ShowInterstitialAd(() =>
-                    {
-                        SceneManager.LoadScene(_SelectionInfo.AttachedSceneName);
-                    });
-                }
-                else
-                {
-                    Debug.LogWarning("[DungeonSelection] 광고 서비스가 준비되지 않아 광고 없이 진행합니다.");
-                    SceneManager.LoadScene(_SelectionInfo.AttachedSceneName);
-                }
+                // [변경]: 던전 입장 시 광고를 제거하고 바로 씬을 전환합니다.
+                SceneManager.LoadScene(_SelectionInfo.AttachedSceneName);
             });
         }
         else

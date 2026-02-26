@@ -36,7 +36,8 @@ public class DungeonSelectUI : MonoBehaviour
                             _SelectedDungeon = selected;
 
                             _SelectedStamp.SetActive(true);
-                            _SelectedStamp.transform.parent = selected.transform;
+                            // [해결]: transform.parent 직접 할당 대신 SetParent를 사용하여 RectTransform 경고 및 UI 스케일링 이슈를 방지합니다.
+                            _SelectedStamp.transform.SetParent(selected.transform, false);
                             _SelectedStamp.transform.localPosition = new Vector3(0, 45, 0);
                         }
                         else if(_SelectedDungeon.Equals(selected))

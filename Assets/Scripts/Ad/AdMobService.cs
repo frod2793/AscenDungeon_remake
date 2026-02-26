@@ -19,6 +19,10 @@ namespace Assets.Scripts.Ad
         private bool m_isInterstitialLoading = false;
         private bool m_isRewardedLoading = false;
         private bool m_isInitialized = false;
+
+        // [추가]: 콜백 중복 실행 방지를 위한 캐싱 변수
+        private Action m_onInterstitialClosed;
+        private Action m_onRewardedClosed;
         #endregion
 
         #region 초기화
@@ -55,7 +59,7 @@ namespace Assets.Scripts.Ad
                 m_interstitialAd = null;
             }
 
-            Debug.Log("[AdMob] 전면 광고 로딩 시작...");
+            Debug.Log("[AdMob] 전면 광고 로딩 시작... (Loading Interstitial Ad)");
             m_isInterstitialLoading = true;
 
             // 광고 요청 생성 및 로드
@@ -66,37 +70,63 @@ namespace Assets.Scripts.Ad
 
                 if (error != null || ad == null)
                 {
-                    Debug.LogError($"[AdMob] 전면 광고 로드 실패: {error}");
+                    Debug.LogError($"[AdMob] 전면 광고 로드 실패 (Interstitial Ad Load Failed): {error.GetMessage()} [Code: {error.GetCode()}]");
+                    
+                    // [해결]: 로드 실패 시 일정 시간 후 재시도
+                    RetryLoadInterstitialAd().Forget();
                     return;
                 }
 
-                Debug.Log("[AdMob] 전면 광고 로드 완료.");
+                Debug.Log($"[AdMob] 전면 광고 로드 완료 (Interstitial Ad Loaded). Response: {ad.GetResponseInfo().GetResponseId()}");
+                
+                // [개선]: 이벤트는 로드 시점에 한 번만 등록하여 중복 구독 방지
+                ad.OnAdFullScreenContentClosed += HandleInterstitialClosed;
                 m_interstitialAd = ad;
             });
+        }
+
+        private void HandleInterstitialClosed()
+        {
+            UniTask.Post(() => 
+            {
+                var callback = m_onInterstitialClosed;
+                m_onInterstitialClosed = null; // 실행 전 초기화하여 중복 실행 방지
+                
+                callback?.Invoke();
+                LoadInterstitialAd(); // 다음 광고 미리 로드
+            });
+        }
+
+        private async UniTaskVoid RetryLoadInterstitialAd()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(10));
+            Debug.Log("[AdMob] 전면 광고 로드 재시도 중... (Retrying Interstitial Ad Load)");
+            LoadInterstitialAd();
         }
 
         public void ShowInterstitialAd(Action onClosed = null)
         {
             if (IsInterstitialAdLoaded())
             {
-                if (onClosed != null)
+                // [해결]: Time.timeScale이 0일 경우 AdMob UI(WebView)가 멈춰서 검은 화면만 뜨는 버그를 방지합니다.
+                float previousTimeScale = Time.timeScale;
+                if (previousTimeScale == 0f)
                 {
-                    m_interstitialAd.OnAdFullScreenContentClosed += () => 
-                    {
-                        onClosed.Invoke();
-                        LoadInterstitialAd(); // 다음 광고 미리 로드
-                    };
+                    Time.timeScale = 1f;
                 }
-                else
+
+                m_onInterstitialClosed = () => 
                 {
-                    m_interstitialAd.OnAdFullScreenContentClosed += () => LoadInterstitialAd();
-                }
+                    // [변경]: 이전에는 강제로 0으로 되돌렸으나, ResurrectionWindow 등에서 
+                    // 창을 닫으며 1로 이미 설정한 경우를 덮어씌워버리는(Freeze) 버그가 있어 제거합니다.
+                    onClosed?.Invoke();
+                };
 
                 m_interstitialAd.Show();
             }
             else
             {
-                Debug.LogWarning("[AdMob] 전면 광고가 준비되지 않았습니다.");
+                Debug.LogWarning("[AdMob] 전면 광고가 준비되지 않았습니다. (Interstitial Ad Not Ready)");
                 onClosed?.Invoke();
                 LoadInterstitialAd();
             }
@@ -116,11 +146,11 @@ namespace Assets.Scripts.Ad
 
             if (m_rewardedAd != null)
             {
-                m_rewardedAd.Destroy();
+                m_rewardedAd.Destroy(); 
                 m_rewardedAd = null;
             }
 
-            Debug.Log("[AdMob] 보상 광고 로딩 시작...");
+            Debug.Log("[AdMob] 보상 광고 로딩 시작... (Loading Rewarded Ad)");
             m_isRewardedLoading = true;
 
             AdRequest request = new AdRequest();
@@ -130,34 +160,70 @@ namespace Assets.Scripts.Ad
 
                 if (error != null || ad == null)
                 {
-                    // [상태 분석]: 'Prefab Ad is Null'은 보통 에디터 환경의 테스트용 프리팹 누락 시 발생함
-                    Debug.LogError($"[AdMob] 보상 광고 로드 실패: {error}\n(Tip: 에디터 환경이라면 GoogleMobileAds 설정을 확인하거나 실제 기기에서 테스트하세요)");
+                    Debug.LogError($"[AdMob] 보상 광고 로드 실패 (Rewarded Ad Load Failed): {error.GetMessage()} [Code: {error.GetCode()}]");
+                    
+                    // [해결]: 로드 실패 시 일정 시간 후 재시도
+                    RetryLoadRewardedAd().Forget();
                     return;
                 }
 
-                Debug.Log("[AdMob] 보상 광고 로드 완료.");
+                Debug.Log($"[AdMob] 보상 광고 로드 완료 (Rewarded Ad Loaded). Response: {ad.GetResponseInfo().GetResponseId()}");
+                
+                // [개선]: 이벤트는 로드 시점에 한 번만 등록
+                ad.OnAdFullScreenContentClosed += HandleRewardedClosed;
                 m_rewardedAd = ad;
             });
+        }
+
+        private void HandleRewardedClosed()
+        {
+            UniTask.Post(() => 
+            {
+                var callback = m_onRewardedClosed;
+                m_onRewardedClosed = null;
+                
+                callback?.Invoke();
+                LoadRewardedAd(); 
+            });
+        }
+
+        private async UniTaskVoid RetryLoadRewardedAd()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(10));
+            Debug.Log("[AdMob] 보상 광고 로드 재시도 중... (Retrying Rewarded Ad Load)");
+            LoadRewardedAd();
         }
 
         public void ShowRewardedAd(Action onRewarded, Action onClosed = null)
         {
             if (IsRewardedAdLoaded())
             {
-                m_rewardedAd.OnAdFullScreenContentClosed += () => 
+                // [해결]: Time.timeScale이 0일 경우 AdMob UI(WebView)가 멈춰서 검은 화면만 뜨는 버그를 방지합니다.
+                float previousTimeScale = Time.timeScale;
+                if (previousTimeScale == 0f)
                 {
+                    Time.timeScale = 1f;
+                }
+
+                m_onRewardedClosed = () => 
+                {
+                    // [변경]: 이전에는 강제로 0으로 되돌렸으나, ResurrectionWindow 등에서 
+                    // 창을 닫으며 1로 이미 설정한 경우를 덮어씌워버리는(Freeze) 버그가 있어 제거합니다.
                     onClosed?.Invoke();
-                    LoadRewardedAd(); // 다음 광고 미리 로드
                 };
 
                 m_rewardedAd.Show((Reward reward) => 
                 {
-                    onRewarded?.Invoke();
+                    // [해결]: 보상 획득 콜백은 메인 스레드에서 실행되도록 보장합니다.
+                    UniTask.Post(() => 
+                    {
+                        onRewarded?.Invoke();
+                    });
                 });
             }
             else
             {
-                Debug.LogWarning("[AdMob] 보상 광고이 준비되지 않았습니다.");
+                Debug.LogWarning("[AdMob] 보상 광고가 준비되지 않았습니다. (Rewarded Ad Not Ready)");
                 LoadRewardedAd();
             }
         }

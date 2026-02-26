@@ -3,39 +3,45 @@
     "m_SelectedProcess": {
         "deviceId": "R5CW51K43MJ",
         "name": "com.WoodenShield.AscenDDungeon",
-        "processId": 30629,
+        "processId": 20789,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
         {
             "deviceId": "R5CW51K43MJ",
+            "name": "com.sec.android.app.launcher",
+            "processId": 2328,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 21726,
+            "processId": 13619,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 24073,
+            "processId": 15515,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 23845,
+            "processId": 17739,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 26506,
+            "processId": 18876,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 30629,
+            "processId": 20789,
             "exited": false
         }
     ],

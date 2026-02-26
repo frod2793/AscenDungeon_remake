@@ -1,6 +1,7 @@
  using System;
  using System.Text;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using BackEnd;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
@@ -165,21 +166,87 @@ public class BackEndService : IBackEndService
 #endif
         }
 
-        // Nickname 관련 API 구현(현재 구현은 안전장치용 기본 구현입니다. 추후 BackEnd API에 맞춰 확장 필요)
+        /// <summary>
+        /// [설명]: GPGS 업적 해제 요청 래퍼
+        /// </summary>
+        public async UniTask<BackEndResult> UnlockAchievement(string achievementId)
+        {
+            // Ensure backend is initialized
+            await UniTask.WaitUntil(() => Backend.IsInitialized);
+
+            try
+            {
+                if (m_gpgsProvider != null && m_gpgsProvider.IsAuthenticated)
+                {
+                    var tcs = new UniTaskCompletionSource<BackEndResult>();
+                    Social.ReportProgress(achievementId, 100.0, (bool success) =>
+                    {
+                        if (success)
+                        {
+                            Debug.Log($"[GPGS] 업적 해제 성공: {achievementId}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"[GPGS] 업적 해제 실패: {achievementId}");
+                        }
+                        tcs.TrySetResult(new BackEndResult(success));
+                    });
+                    return await tcs.Task;
+                }
+                else
+                {
+                    Debug.LogWarning("[Backend] GPGS 인증되지 않음. 업적 해제 불가.");
+                    return new BackEndResult(false, "GPGS not authenticated");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("[Backend] 업적 해제 예외: " + e.Message);
+                return new BackEndResult(false, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// [설명]: 사용자 닉네임이 설정되어 있는지 확인합니다.
+        /// </summary>
         public async UniTask<bool> HasNicknameAsync()
         {
             await UniTask.WaitUntil(() => Backend.IsInitialized);
-            // 현재 플로우에서 닉네임 조회 API가 없을 수 있어, 안전하게 false를 반환합니다.
-            // TODO: Backend.BMember.GetUserInfo() 등 실제 API로 닉네임 존재 여부를 판별하도록 교체
+            
+            var callback = await ExecuteAsync(cb => Backend.BMember.GetUserInfo(cb));
+            
+            if (callback.IsSuccess())
+            {
+                var row = callback.GetReturnValuetoJSON()["row"];
+                if (row.ContainsKey("nickname") && row["nickname"] != null)
+                {
+                    string nickname = row["nickname"].ToString();
+                    return !string.IsNullOrEmpty(nickname);
+                }
+            }
+            
             return false;
         }
 
+        /// <summary>
+        /// [설명]: 새로운 닉네임을 생성합니다.
+        /// </summary>
         public async UniTask<bool> CreateNicknameAsync(string nickname)
         {
             await UniTask.WaitUntil(() => Backend.IsInitialized);
-            // 닉네임 생성 로직이 아직 구현되지 않았다면 실패로 간주
-            // TODO: 서버 호출을 통해 닉네임 생성 로직 구현
-            return false;
+            
+            var callback = await ExecuteAsync(cb => Backend.BMember.CreateNickname(nickname, cb));
+            
+            if (callback.IsSuccess())
+            {
+                Debug.Log($"[Backend] 닉네임 생성 성공: {nickname}");
+                return true;
+            }
+            else
+            {
+                Debug.LogError($"[Backend] 닉네임 생성 실패: {callback}");
+                return false;
+            }
         }
 
         /// <summary>

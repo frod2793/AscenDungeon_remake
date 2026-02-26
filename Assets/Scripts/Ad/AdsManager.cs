@@ -50,10 +50,12 @@ namespace Assets.Scripts.Ad
 
         #region 초기화 로직
         /// <summary>
-        /// [설명]: 광고 서비스를 초기화합니다.
+        /// [설명]: 광고 서비스를 초기화합니다. 외부(로그인 단계)에서 명시적으로 호출할 수 있습니다.
         /// </summary>
-        private async UniTaskVoid InitializeService()
+        public async UniTask InitializeService()
         {
+            if (m_adService != null) return; // 이미 초기화됨
+
             if (m_config == null)
             {
                 Debug.LogError("[AdsManager] AdMobConfig is not assigned!");

@@ -19,10 +19,20 @@ namespace Assets.Scripts.BackEnd
         UniTask<BackEndResult> LoginTokenAsync();
         
         /// <summary>
-        /// [설명]: 게스트 로그인을 시도합니다.
+        /// [설명]: 구글 연동 로그인을 시도합니다.
         /// </summary>
         UniTask<BackEndResult> LoginGoogleAsync();
         
+        /// <summary>
+        /// [설명]: 사용자 닉네임이 설정되어 있는지 확인합니다.
+        /// </summary>
+        UniTask<bool> HasNicknameAsync();
+
+        /// <summary>
+        /// [설명]: 새로운 닉네임을 생성합니다.
+        /// </summary>
+        UniTask<bool> CreateNicknameAsync(string nickname);
+
         /// <summary>
         /// [설명]: 특정 테이블의 데이터를 가져옵니다.
         /// </summary>
@@ -33,9 +43,11 @@ namespace Assets.Scripts.BackEnd
         /// </summary>
         UniTask<BackEndResult> SaveGameDataAsync(string tableName, object data);
 
-        // Nickname 관련 API (닉네임 설정 및 존재 여부 확인)
-        UniTask<bool> HasNicknameAsync();
-        UniTask<bool> CreateNicknameAsync(string nickname);
+        /// <summary>
+        /// [설명]: GPGS 업적 해제를 위한 API 래퍼
+        /// </summary>
+        UniTask<BackEndResult> UnlockAchievement(string achievementId);
+
     }
 
     public class BackEndResult

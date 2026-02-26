@@ -35,6 +35,8 @@ public class SoundManager : Singleton<SoundManager>
         }
         else
         {
+            // [해결]: 부모가 있는 상태에서 DontDestroyOnLoad를 호출하면 경고가 발생하므로, 부모를 해제하여 루트로 만듭니다.
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
 
             _SoundLib = new Dictionary<SoundName, SoundPack>();

@@ -13,6 +13,7 @@ using Cysharp.Threading.Tasks;
 public class LoginView : MonoBehaviour
 {
     #region 에디터 설정
+
     [SerializeField, Tooltip("에러 메시지 표시 오브젝트")]
     private GameObject m_errorObject;
 
@@ -22,40 +23,44 @@ public class LoginView : MonoBehaviour
     [SerializeField, Tooltip("로그인 후 활성화할 씬 루트 오브젝트")]
     private GameObject m_sceneObject;
 
-    [Header("로그인 버튼 설정")]
-    [SerializeField, Tooltip("GPGS 로그인 버튼")]
-    private Button m_gpgsLoginButton;//토큰로그인 실패시 활성화
+    [Header("로그인 버튼 설정")] [SerializeField, Tooltip("GPGS 로그인 버튼")]
+    private Button m_gpgsLoginButton; //토큰로그인 실패시 활성화
 
     [SerializeField, Tooltip("게스트 로그인 버튼")]
-    private Button m_guestLoginButton;//토큰로그인 실패시 활성화
+    private Button m_guestLoginButton; //토큰로그인 실패시 활성화
 
     [SerializeField, Tooltip("토큰(자동) 로그인 버튼")]
-    private Button m_tokenLoginButton;// 토큰로그인 실패시 비활성화 
+    private Button m_tokenLoginButton; // 토큰로그인 실패시 비활성화 
 
-    [Header("입력 및 텍스트")]
-    [SerializeField, Tooltip("닉네임 입력 필드")]
+    [Header("입력 및 텍스트")] [SerializeField, Tooltip("닉네임 입력 필드")]
     private TMPro.TMP_InputField m_nicknameField;
+
+    [SerializeField] private Button m_setnickname;
 
     [SerializeField, Tooltip("에러 메시지 출력 텍스트")]
     private Text m_errorText;
 
     [SerializeField, Tooltip("로딩 인디케이터 오브젝트")]
     private GameObject m_loadingObject;
+
     #endregion
 
     #region 내부 필드
+
     /// <summary>
     /// [설명]: 로그인 비즈니스 로직을 처리하는 뷰모델입니다.
     /// </summary>
     private LoginViewModel m_viewModel;
+
     #endregion
 
     #region 유니티 생명주기
+
     private void Start()
     {
         InitializeViewModel();
         BindButtonEvents();
-        
+
         // 초기 상태 설정
         if (m_guestLoginButton != null)
         {
@@ -84,9 +89,11 @@ public class LoginView : MonoBehaviour
             EnableGuestAndGpgsLogin();
         }
     }
+
     #endregion
 
     #region 초기화 및 바인딩 로직
+
     /// <summary>
     /// [설명]: 뷰모델을 생성하고 필요한 이벤트를 바인딩합니다.
     /// </summary>
@@ -140,10 +147,17 @@ public class LoginView : MonoBehaviour
         {
             m_tokenLoginButton.onClick.AddListener(OnTouchStartClicked);
         }
+
+        if (m_setnickname != null && m_setnickname.onClick.GetPersistentEventCount() == 0)
+        {
+            m_setnickname.onClick.AddListener(OnNicknameSubmit);
+        }
     }
+
     #endregion
 
     #region UI 이벤트 핸들러
+
     /// <summary>
     /// [설명]: 화면 터치 또는 자동 로그인 버튼 클릭 시 호출됩니다.
     /// </summary>
@@ -176,9 +190,11 @@ public class LoginView : MonoBehaviour
             m_viewModel.TryGoogleLogin().Forget();
         }
     }
+
     #endregion
 
     #region 내부 로직
+
     /// <summary>
     /// [설명]: 로그인 성공 시 수행할 동작입니다.
     /// </summary>
@@ -240,12 +256,22 @@ public class LoginView : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// [설명]: 닉네임 설정 UI를 표시하고 기존 로그인 버튼들을 숨깁니다.
+    /// </summary>
     private void ShowNicknameUI()
     {
+        // [수정]: 닉네임 설정 시 다른 로그인 로직이 간섭하지 못하도록 기존 버튼 오브젝트를 숨깁니다.
+        if (m_guestLoginButton != null) m_guestLoginButton.gameObject.SetActive(false);
+        if (m_gpgsLoginButton != null) m_gpgsLoginButton.gameObject.SetActive(false);
+        if (m_tokenLoginButton != null) m_tokenLoginButton.gameObject.SetActive(false);
+
         if (m_nicknameObject != null)
         {
             m_nicknameObject.SetActive(true);
         }
+
+        Debug.Log("[LoginView] Nickname Setup UI Activated. Other login buttons deactivated.");
     }
 
     // 닉네임 입력 시도 핸들러
@@ -278,5 +304,6 @@ public class LoginView : MonoBehaviour
             }
         }
     }
+
     #endregion
 }

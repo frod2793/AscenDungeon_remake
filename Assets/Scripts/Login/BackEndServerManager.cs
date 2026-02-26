@@ -9,6 +9,7 @@ using static BackEnd.SendQueue;
 using UnityEngine.SocialPlatforms;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Assets.Scripts.Ad;
 
 /// <summary>
 /// [설명]: 뒤끝 서버와의 통신 및 데이터 관리를 담당하는 매니저 클래스입니다.
@@ -82,6 +83,10 @@ public class BackEndServerManager : MonoBehaviour
 
         s_instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // [추가]: 화면 꺼짐 방지 설정
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Debug.Log("[System] Screen SleepTimeout set to NeverSleep.");
     }
 
     private void OnEnable()
@@ -135,6 +140,12 @@ public class BackEndServerManager : MonoBehaviour
             // 초기화 완료까지 대기
             await UniTask.WaitUntil(() => Backend.IsInitialized);
             
+            // [추가]: 로그인 단계에서 광고 서비스 조기 초기화 시작
+            if (AdsManager.Instance != null)
+            {
+                AdsManager.Instance.InitializeService().Forget();
+            }
+
             OnBackendInitialize();
         }
         catch (Exception e)

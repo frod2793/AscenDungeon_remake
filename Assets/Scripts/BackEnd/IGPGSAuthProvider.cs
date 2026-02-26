@@ -25,6 +25,16 @@ namespace Assets.Scripts.BackEnd
         /// </summary>
         /// <returns>성공 시 인증 토큰(AuthCode/IdToken), 실패 시 null</returns>
         UniTask<string> AuthenticateAndGetTokenAsync();
+
+        /// <summary>
+        /// 업적 진행 보고 및 UI 노출 API 확장
+        /// </summary>
+        void ReportProgress(string achievementId, double progress);
+
+        /// <summary>
+        /// 업적 UI 표시
+        /// </summary>
+        void ShowAchievementsUI();
         #endregion
     }
 }

@@ -4,6 +4,6 @@ proj.AppId=487552913741
 and.BundleId=com.WoodenShield.AscenDDungeon
 proj.classDir=Assets
 proj.ConstantsClassName=GPGSIds
-and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0a%3cresources%3e%0a++%3c%21--app_id--%3e%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e487552913741%3c%2fstring%3e%0a++%3c%21--package_name--%3e%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.WoodenShield.AscenDDungeon%3c%2fstring%3e%0a%3c%2fresources%3e
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0a%3cresources%3e%0a++%3c%21--app_id--%3e%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e487552913741%3c%2fstring%3e%0a++%3c%21--package_name--%3e%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.WoodenShield.AscenDDungeon%3c%2fstring%3e%0a++%3c%21--achievement+%ec%96%b4%ec%8e%88%ed%83%80%ec%9a%b4%ec%97%90+%ec%98%a4%ec%8b%a0%ea%b2%83%ec%9d%84+%ed%99%98%ec%98%81%ed%95%a9%eb%8b%88%eb%8b%a4--%3e%0a++%3cstring+name%3d%22achievement%22+translatable%3d%22false%22%3eCgkIzaKso5gOEAIQAg%3c%2fstring%3e%0a%3c%2fresources%3e
 and.ClientId=487552913741-ff3m2ia4vaicihha07srj41lth3h9481.apps.googleusercontent.com
 android.SetupDone=true

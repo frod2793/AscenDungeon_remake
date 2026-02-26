@@ -1,8 +1,10 @@
 using UnityEngine;
+using System;
 using Cysharp.Threading.Tasks;
 #if UNITY_ANDROID
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 #endif
 
 namespace Assets.Scripts.BackEnd
@@ -100,6 +102,40 @@ namespace Assets.Scripts.BackEnd
 #else
             Debug.LogWarning("[GPGS] AuthenticateAndGetTokenAsync is only supported on Android");
             return await UniTask.FromResult<string>(null);
+#endif
+        }
+
+        /// <summary>
+        /// [설명]: 업적 진행 보고를 처리합니다.
+        /// </summary>
+        public void ReportProgress(string achievementId, double progress)
+        {
+#if UNITY_ANDROID
+            try
+            {
+                Social.ReportProgress(achievementId, progress, (bool success) =>
+                {
+                    Debug.Log($"[GPGS] ReportProgress {achievementId} progress={progress} success={success}");
+                });
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError($"[GPGS] ReportProgress 예외: {ex.Message}");
+            }
+#else
+            Debug.Log("[GPGS] ReportProgress는 Android에서만 동작합니다.");
+#endif
+        }
+
+        /// <summary>
+        /// [설명]: 업적 UI 표시
+        /// </summary>
+        public void ShowAchievementsUI()
+        {
+#if UNITY_ANDROID
+            Social.ShowAchievementsUI();
+#else
+            Debug.Log("[GPGS] ShowAchievementsUI는 Android에서만 동작합니다.");
 #endif
         }
         #endregion
