@@ -15,6 +15,8 @@ namespace Assets.Scripts.ViewModel
     private readonly IBackEndService m_backEndService;
     private readonly UserDataService m_userDataService;
     private readonly ISceneNavigationService m_navigationService;
+    // 닉네임 설정 필요 시 UI를 표시하도록 하는 콜백
+    public Action OnNicknameSetupRequired { get; set; }
         
         /// <summary>
         /// [설명]: 로딩 상태를 나타냅니다.
@@ -45,6 +47,48 @@ namespace Assets.Scripts.ViewModel
         m_userDataService = userDataService;
         m_navigationService = navigationService;
     }
+    
+    public async UniTask TryCreateNickname(string nickname)
+    {
+        IsLoading = true;
+        try
+        {
+            var createRes = await m_backEndService.CreateNicknameAsync(nickname);
+            if (createRes)
+            {
+                bool hasNick = await m_backEndService.HasNicknameAsync();
+                if (hasNick)
+                {
+                    // 닉네임 생성 성공, 게임 진입 흐름 재개
+                    try
+                    {
+                        await m_navigationService.LoadSceneAsync(2);
+                    }
+                    catch
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(2);
+                    }
+                    OnLoginSuccess?.Invoke();
+                }
+                else
+                {
+                    OnErrorMessage?.Invoke("닉네임 설정이 반영되지 않았습니다.");
+                }
+            }
+            else
+            {
+                OnErrorMessage?.Invoke("닉네임 생성 실패");
+            }
+        }
+        catch (Exception e)
+        {
+            OnErrorMessage?.Invoke("닉네임 생성 중 오류 발생: " + e.Message);
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
 
         /// <summary>
         /// [설명]: 게스트 로그인을 시도합니다.
@@ -60,6 +104,14 @@ namespace Assets.Scripts.ViewModel
                 if ( result.IsSuccess )
                 {
                     await m_userDataService.LoadAllUserDataAsync();
+                    // 닉네임 여부 확인
+                    bool hasNick = await m_backEndService.HasNicknameAsync();
+                    if (!hasNick)
+                    {
+                        OnNicknameSetupRequired?.Invoke();
+                        IsLoading = false;
+                        return;
+                    }
                     try
                     {
                         await m_navigationService.LoadSceneAsync(2);
@@ -100,6 +152,13 @@ namespace Assets.Scripts.ViewModel
                 if ( result.IsSuccess )
                 {
                     await m_userDataService.LoadAllUserDataAsync();
+                    bool hasNick = await m_backEndService.HasNicknameAsync();
+                    if (!hasNick)
+                    {
+                        OnNicknameSetupRequired?.Invoke();
+                        IsLoading = false;
+                        return;
+                    }
                     try
                     {
                         await m_navigationService.LoadSceneAsync(2);
@@ -141,6 +200,13 @@ namespace Assets.Scripts.ViewModel
                 if ( result.IsSuccess )
                 {
                     await m_userDataService.LoadAllUserDataAsync();
+                    bool hasNick = await m_backEndService.HasNicknameAsync();
+                    if (!hasNick)
+                    {
+                        OnNicknameSetupRequired?.Invoke();
+                        IsLoading = false;
+                        return;
+                    }
                     try
                     {
                         await m_navigationService.LoadSceneAsync(2);

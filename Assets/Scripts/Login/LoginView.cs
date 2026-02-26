@@ -115,7 +115,8 @@ public class LoginView : MonoBehaviour
             m_viewModel.OnErrorMessage = ShowErrorMessage;
             m_viewModel.OnLoginSuccess = OnLoginSuccess;
             m_viewModel.OnTokenLoginFailed = EnableGuestAndGpgsLogin;
-            // Backend의 자동 로그인 실패 이벤트 구독 ( Awake에서 이미 구독하므로 중복 구독 방지)
+            // 닉네임 설정 필요 시 UI 노출 핸들러 연결
+            m_viewModel.OnNicknameSetupRequired = ShowNicknameUI;
         }
     }
 
@@ -236,6 +237,27 @@ public class LoginView : MonoBehaviour
         if (BackEndServerManager.Instance != null)
         {
             BackEndServerManager.Instance.OnAutoLoginFailed -= EnableGuestAndGpgsLogin;
+        }
+    }
+
+    private void ShowNicknameUI()
+    {
+        if (m_nicknameObject != null)
+        {
+            m_nicknameObject.SetActive(true);
+        }
+    }
+
+    // 닉네임 입력 시도 핸들러
+    public void OnNicknameSubmit()
+    {
+        if (m_viewModel != null && m_nicknameField != null)
+        {
+            string nick = m_nicknameField.text?.Trim();
+            if (!string.IsNullOrEmpty(nick))
+            {
+                m_viewModel.TryCreateNickname(nick).Forget();
+            }
         }
     }
 

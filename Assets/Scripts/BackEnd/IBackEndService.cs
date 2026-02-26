@@ -32,6 +32,10 @@ namespace Assets.Scripts.BackEnd
         /// [설명]: 데이터를 서버에 저장합니다.
         /// </summary>
         UniTask<BackEndResult> SaveGameDataAsync(string tableName, object data);
+
+        // Nickname 관련 API (닉네임 설정 및 존재 여부 확인)
+        UniTask<bool> HasNicknameAsync();
+        UniTask<bool> CreateNicknameAsync(string nickname);
     }
 
     public class BackEndResult

@@ -79,8 +79,8 @@ namespace Assets.Scripts.BackEnd
             // 2. 서버 인증 코드(AuthCode) 요청 (v2 비동기 방식)
             var tokenCompletionSource = new UniTaskCompletionSource<string>();
             
-            // forceRefreshToken을 false로 설정하여 기존 토큰 재사용 (뒤끝 연동 시 일반적)
-            PlayGamesPlatform.Instance.RequestServerSideAccess(false, (authCode) =>
+            // forceRefreshToken을 true로 설정하여 1회용인 AuthCode를 매번 새롭게 발급받도록 강제합니다. (뒤끝 연동 401 에러 방지)
+            PlayGamesPlatform.Instance.RequestServerSideAccess(true, (authCode) =>
             {
                 tokenCompletionSource.TrySetResult(authCode);
             });

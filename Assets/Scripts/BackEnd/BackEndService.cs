@@ -11,8 +11,8 @@ namespace Assets.Scripts.BackEnd
     /// <summary>
     /// [설명]: 뒤끝 서버와의 통신을 담당하는 서비스 클래스입니다.
     /// </summary>
-    public class BackEndService : IBackEndService
-    {
+public class BackEndService : IBackEndService
+{
         #region 내부 변수
         private readonly IGPGSAuthProvider m_gpgsProvider;
         #endregion
@@ -107,7 +107,7 @@ namespace Assets.Scripts.BackEnd
         }
 
         /// <summary>
-        /// [설명]: 구글 연동 로그인을 시도합니다.
+        /// [설명]: 구글 연동 로그인을 시도합니다. (GPGS v2 대응)
         /// </summary>
         public async UniTask<BackEndResult> LoginGoogleAsync()
         {
@@ -116,17 +116,31 @@ namespace Assets.Scripts.BackEnd
 
             try
             {
-                // [개선]: 주입된 GPGS 프로바이더를 사용해 토큰을 안전하게 가져옵니다.
-                string token = await m_gpgsProvider.AuthenticateAndGetTokenAsync();
+                // [개선]: GPGS v2에서는 AuthenticateAndGetTokenAsync()가 AuthCode(일회용 코드)를 반환합니다.
+                string authCode = await m_gpgsProvider.AuthenticateAndGetTokenAsync();
 
-                if (!string.IsNullOrEmpty(token))
+                if (!string.IsNullOrEmpty(authCode))
                 {
-                    // SDK 5.11.1 및 기존 성공 사례에 맞춰 4개 인자 오버로드 사용
-                    var callback = await ExecuteAsync(cb => Backend.BMember.AuthorizeFederation(token, global::BackEnd.FederationType.Google, "gpgs", cb));
+                    // [핵심]: GPGS v2 인증 코드를 뒤끝 서버를 통해 액세스 토큰으로 교환합니다.
+                    // 액세스 토큰 교환은 네트워크 통신을 포함하므로 비동기 처리를 고려하되, 
+                    // SDK 사양에 따라 동기 API 호출 후 결과를 확인합니다.
+                    BackendReturnObject tokenBro = Backend.BMember.GetGPGS2AccessToken(authCode);
+                    
+                    if (!tokenBro.IsSuccess())
+                    {
+                        Debug.LogError($"[GPGS] 액세스 토큰 교환 실패: {tokenBro}");
+                        return new BackEndResult(false, tokenBro.ToString(), GetStatusCodeSafe(tokenBro.GetStatusCode()));
+                    }
+
+                    // 발급받은 액세스 토큰 추출
+                    string accessToken = tokenBro.GetReturnValuetoJSON()["access_token"].ToString();
+
+                    // [수정]: GPGS v2 환경에서는 FederationType.GPGS2를 사용해야 합니다.
+                    var callback = await ExecuteAsync(cb => Backend.BMember.AuthorizeFederation(accessToken, global::BackEnd.FederationType.GPGS2, cb));
                     
                     if (callback.IsSuccess())
                     {
-                        Debug.Log("구글 로그인 성공");
+                        Debug.Log("구글 로그인(GPGS v2) 성공");
                         return new BackEndResult(true, null, GetStatusCodeSafe(callback.GetStatusCode()));
                     }
                     else
@@ -137,8 +151,8 @@ namespace Assets.Scripts.BackEnd
                 }
                 else
                 {
-                    // 구글 인증 실패 또는 토큰 획득 실패
-                    return new BackEndResult(false, "GPGS authentication failed or token is missing");
+                    // GPGS 인증 실패 또는 코드 획득 실패
+                    return new BackEndResult(false, "GPGS authentication failed or AuthCode is missing");
                 }
             }
             catch (Exception e)
@@ -149,6 +163,23 @@ namespace Assets.Scripts.BackEnd
 #else
             return new BackEndResult(false, "Google login not supported on this platform");
 #endif
+        }
+
+        // Nickname 관련 API 구현(현재 구현은 안전장치용 기본 구현입니다. 추후 BackEnd API에 맞춰 확장 필요)
+        public async UniTask<bool> HasNicknameAsync()
+        {
+            await UniTask.WaitUntil(() => Backend.IsInitialized);
+            // 현재 플로우에서 닉네임 조회 API가 없을 수 있어, 안전하게 false를 반환합니다.
+            // TODO: Backend.BMember.GetUserInfo() 등 실제 API로 닉네임 존재 여부를 판별하도록 교체
+            return false;
+        }
+
+        public async UniTask<bool> CreateNicknameAsync(string nickname)
+        {
+            await UniTask.WaitUntil(() => Backend.IsInitialized);
+            // 닉네임 생성 로직이 아직 구현되지 않았다면 실패로 간주
+            // TODO: 서버 호출을 통해 닉네임 생성 로직 구현
+            return false;
         }
 
         /// <summary>
