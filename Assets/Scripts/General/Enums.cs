@@ -28,13 +28,12 @@ public enum RecognitionArea
 }
 public enum SceneIndex
 {
-    Sample = 0,
-    Login = 1,
-    Title = 2,
-    Town = 3,
-    BetaGame = 4,
-    DeepSea = 5,
-    SteamPunk = 6,
-    Tutorial = 7,
-    InAppStore = 8
+    Login = 0,
+    Title = 1,
+    Town = 2,
+    BetaGame = 3,
+    DeepSea = 4,
+    SteamPunk = 5,
+    Tutorial = 6,
+    InAppStore = 7
 }

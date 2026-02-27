@@ -26,6 +26,8 @@ description: 타이틀 씬의 로그인 흐름(MVVM), 어드레서블 로딩 및
 | `Assets/Scripts/ViewModel/LoginViewModel.cs` | 로그인 비즈니스 로직 ViewModel |
 | `Assets/Scripts/BackEnd/BackEndService.cs` | 뒤끝 API 래퍼 서비스 |
 | `Assets/Scripts/BackEnd/IBackEndService.cs` | 백엔드 서비스 인터페이스 |
+| `Assets/Scripts/BackEnd/GPGSAuthProvider.cs` | GPGS 인증 처리 클래스 |
+| `LoginUI.cs` | (LEGACY) 루트 로그인 관리자 |
 
 ## Workflow
 
@@ -72,6 +74,24 @@ ViewModel에서 인터페이스 기반 내비게이션 서비스를 주입받아
 grep -n "ISceneNavigationService" Assets/Scripts/ViewModel/LoginViewModel.cs
 ```
 
+### Step 6: 레거시 LoginUI 의존성 검증
+루트의 `LoginUI.cs`가 신규 `BackEndServerManager` 등을 통해 동작하는지, 혹은 제거 대상인지 확인합니다.
+
+```bash
+grep -nE "BackEndServerManager|SceneLoader" LoginUI.cs
+```
+
+### Step 7: 환영 업적 트리거 및 API 검증
+로그인 성공 및 게임 진입 시점에 `GPGSIds.achievement____` 업적이 해제되는지 확인합니다.
+
+```bash
+# 1. UnlockAchievement 호출 및 올바른 ID 사용 확인
+grep -nE "UnlockAchievement.*GPGSIds\.achievement____" Assets/Scripts/ViewModel/LoginViewModel.cs
+
+# 2. PlayGamesPlatform v2 API 직접 사용 확인
+grep -n "PlayGamesPlatform.Instance.UnlockAchievement" Assets/Scripts/BackEnd/GPGSAchievementService.cs
+```
+
 ## Output Format
 
 | 검사 항목 | 상태 | 상세 결과 |
@@ -81,6 +101,7 @@ grep -n "ISceneNavigationService" Assets/Scripts/ViewModel/LoginViewModel.cs
 | 런타임 버튼 이벤트 | PASS/FAIL | |
 | SDK API 오버로드 | PASS/FAIL | |
 | 내비게이션 주입 | PASS/FAIL | |
+| 업적 트리거 검증 | PASS/FAIL | |
 
 ## Exceptions
 

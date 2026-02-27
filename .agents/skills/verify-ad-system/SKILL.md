@@ -26,6 +26,8 @@ description: 신규 AdMob 광고 서비스 아키텍처 및 SDK v10.7+ API 통�
 | `Assets/Scripts/Ad/AdMobService.cs` | SDK 연동 실질 구현체 |
 | `Assets/Scripts/Ad/AdsManager.cs` | 서비스 생명주기 관리 매니저 |
 | `Assets/Scripts/Ad/AdMobConfig.cs` | 광고 ID 설정 데이터 (SO) |
+| `Assets/Scripts/Dungeon/DungeonClearUI.cs` | 던전 성공 UI (광고 호출부) |
+| `Assets/Scripts/Dungeon/DungeonFaildUI.cs` | 던전 실패 UI (광고 호출부) |
 | `Assets/Scripts/Dungeon/DungeonClearUI.cs` | 광고 호출 예시 UI |
 
 ## Workflow

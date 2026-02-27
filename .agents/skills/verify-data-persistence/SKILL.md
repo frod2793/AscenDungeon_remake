@@ -25,6 +25,8 @@ description: 데이터 DTO, 서비스 의존성, 암호화 저장소 및 절대�
 | `Assets/Scripts/BackEnd/UserDataService.cs` | 신규 데이터 저장/로드 서비스 |
 | `Assets/Scripts/Login/BackEndServerManager.cs` | 서버 통신 및 레거시 저장 매니저 |
 | `Assets/Scripts/BackEnd/BackEndService.cs` | 뒤끝 API 원자적 처리 서비스 |
+| `Assets/Scripts/BackEnd/GPGSAuthProvider.cs` | GPGS 인증 프로바이더 구현체 |
+| `Assets/Scripts/BackEnd/IGPGSAuthProvider.cs` | GPGS 인증 프로바이더 인터페이스 |
 | `Assets/Scripts/Singletons/GameLoger.cs` | 클라이언트 상태 데이터 저장소 |
 
 ## Workflow

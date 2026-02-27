@@ -112,7 +112,8 @@ public class GameLoger : Singleton<GameLoger>
         }
         else
         {
-            UnlockDungeonIndex = 2;
+            // [수정]: 신규 사용자 혹은 튜토리얼 미완료 상태인 1을 기본값으로 설정합니다.
+            UnlockDungeonIndex = 1;
 
             DontDestroyOnLoad(gameObject);
 

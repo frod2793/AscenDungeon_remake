@@ -12,21 +12,24 @@ namespace Assets.Scripts.BackEnd
     /// <summary>
     /// [설명]: 뒤끝 서버와의 통신을 담당하는 서비스 클래스입니다.
     /// </summary>
-public class BackEndService : IBackEndService
-{
+    public class BackEndService : IBackEndService
+    {
         #region 내부 변수
-        private readonly IGPGSAuthProvider m_gpgsProvider;
+        private readonly IGPGSAuthService m_gpgsAuthService;
+        private readonly IGPGSAchievementService m_gpgsAchievementService;
         #endregion
 
         #region 초기화
         /// <summary>
-        /// [설명]: 생성자입니다. GPGS 인증 프로바이더를 주입받습니다.
+        /// [설명]: 생성자입니다. GPGS 인증 및 업적 서비스들을 주입받습니다.
+        /// DI(Dependency Injection) 컨벤션에 따라 인터페이스를 통해 결합도를 낮춥니다.
         /// </summary>
-        /// <param name="gpgsProvider">주입할 GPGS 프로바이더 (null일 경우 기본값 생성)</param>
-        public BackEndService(IGPGSAuthProvider gpgsProvider = null)
+        /// <param name="gpgsAuthService">GPGS 인증 서비스</param>
+        /// <param name="gpgsAchievementService">GPGS 업적 서비스</param>
+        public BackEndService(IGPGSAuthService gpgsAuthService, IGPGSAchievementService gpgsAchievementService)
         {
-            // [해결]: 중복 초기화 제거. BackEndServerManager에서 초기화를 담당합니다.
-            m_gpgsProvider = gpgsProvider ?? new GPGSAuthProvider();
+            m_gpgsAuthService = gpgsAuthService;
+            m_gpgsAchievementService = gpgsAchievementService;
         }
         #endregion
 
@@ -118,7 +121,7 @@ public class BackEndService : IBackEndService
             try
             {
                 // [개선]: GPGS v2에서는 AuthenticateAndGetTokenAsync()가 AuthCode(일회용 코드)를 반환합니다.
-                string authCode = await m_gpgsProvider.AuthenticateAndGetTokenAsync();
+                string authCode = await m_gpgsAuthService.AuthenticateAndGetTokenAsync();
 
                 if (!string.IsNullOrEmpty(authCode))
                 {
@@ -171,27 +174,21 @@ public class BackEndService : IBackEndService
         /// </summary>
         public async UniTask<BackEndResult> UnlockAchievement(string achievementId)
         {
+            Debug.Log($"[Backend] UnlockAchievement 진입: {achievementId}");
             // Ensure backend is initialized
             await UniTask.WaitUntil(() => Backend.IsInitialized);
+            Debug.Log("[Backend] UnlockAchievement: Backend 초기화 확인됨.");
 
             try
             {
-                if (m_gpgsProvider != null && m_gpgsProvider.IsAuthenticated)
+                bool isAuthenticated = m_gpgsAuthService != null && m_gpgsAuthService.IsAuthenticated;
+                Debug.Log($"[Backend] UnlockAchievement: GPGS 인증 상태 = {isAuthenticated}");
+
+                if (isAuthenticated)
                 {
-                    var tcs = new UniTaskCompletionSource<BackEndResult>();
-                    Social.ReportProgress(achievementId, 100.0, (bool success) =>
-                    {
-                        if (success)
-                        {
-                            Debug.Log($"[GPGS] 업적 해제 성공: {achievementId}");
-                        }
-                        else
-                        {
-                            Debug.LogWarning($"[GPGS] 업적 해제 실패: {achievementId}");
-                        }
-                        tcs.TrySetResult(new BackEndResult(success));
-                    });
-                    return await tcs.Task;
+                    // 업적 해제는 Achievement 서비스로 위임
+                    Debug.Log("[Backend] UnlockAchievement: GPGSAchievementService로 위임합니다.");
+                    return await m_gpgsAchievementService.UnlockAchievementAsync(achievementId);
                 }
                 else
                 {

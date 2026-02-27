@@ -37,6 +37,7 @@ public class DungeonClearUI : MonoBehaviour
     #region 유니티 생명주기
     private void Awake()
     {
+        // 1. 아이템 해금 처리
         if (m_unlockItems != null)
         {
             for (int i = 0; i < m_unlockItems.Length; ++i)
@@ -49,14 +50,7 @@ public class DungeonClearUI : MonoBehaviour
             }
         }
 
-        SaveDungeonProgress();
-
-        int clearSec = Mathf.FloorToInt(GameLoger.Instance.ElapsedTime % 60f);
-        int clearMin = Mathf.FloorToInt(GameLoger.Instance.ElapsedTime / 60f);
-
-        if (m_clearTime != null) m_clearTime.text = $"{clearMin:D2} : {clearSec:D2}";
-        if (m_killCount != null) m_killCount.text = $"{GameLoger.Instance.KillCount:D3} 마리";
-
+        // 2. 던전 해금 로직 및 타이틀 설정
         if (m_unlockDungeonInfo != null)
         {
             if (m_dungeonTitle != null) m_dungeonTitle.text = m_unlockDungeonInfo.UnLockedTitle;
@@ -64,7 +58,7 @@ public class DungeonClearUI : MonoBehaviour
             if (m_dungeonComment != null) m_dungeonComment.text = m_unlockDungeonInfo.UnLockedComment;
         }
 
-        // 아직 해금되지 않은 던전일 때에만
+        // [수정]: 아직 해금되지 않은 던전일 때 진행도 갱신 (예: 튜토리얼 클리어 시 1 -> 2)
         if (m_unlockDungeonIndex > GameLoger.Instance.UnlockDungeonIndex)
         {
             GameLoger.Instance.RecordStageUnlock();
@@ -74,6 +68,16 @@ public class DungeonClearUI : MonoBehaviour
         {
             if (m_dungeonUnlockMessage != null) m_dungeonUnlockMessage.text = "이미 해금됨";
         }
+
+        // [중요]: 진행도가 갱신된(RecordStageUnlock) 후 서버에 저장해야 올바른 값이 유지됩니다.
+        SaveDungeonProgress();
+
+        // 3. UI 텍스트 갱신
+        int clearSec = Mathf.FloorToInt(GameLoger.Instance.ElapsedTime % 60f);
+        int clearMin = Mathf.FloorToInt(GameLoger.Instance.ElapsedTime / 60f);
+
+        if (m_clearTime != null) m_clearTime.text = $"{clearMin:D2} : {clearMin:D2}";
+        if (m_killCount != null) m_killCount.text = $"{GameLoger.Instance.KillCount:D3} 마리";
 
         SoundManager.Instance.PlaySound(SoundName.DungeonResult);
     }

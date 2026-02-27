@@ -40,6 +40,8 @@ argument-hint: "[선택사항: 특정 verify 스킬 이름]"
 | 9 | `verify-ingame-mob` | 몹 생태계(풀링, 컴포넌트 설계, 이탈 방지) 구조 검증 |
 | 10 | `verify-player-system` | 플레이어 컨트롤러, 자동 공격(AI) 루프, 카이팅(Kiting) 이동 및 토글 연동 무결성 검증 |
 | 11 | `verify-ad-system` | 신규 AdMob 광고 서비스 아키텍처 및 SDK v10.7+ API 통합 상태를 검증합니다. |
+| 12 | `verify-dungeon-system` | 던전 선택, 성공/실패 UI 흐름 및 상태 관리 무결성 검증 |
+| 13 | `verify-architecture-standards` | 프로젝트 핵심 아키텍처 규칙(No Singleton, MVVM 준수, GPGS 업적 흐름) 검증 |
 
 <!-- 스킬이 추가되면 아래 형식으로 등록:
 | # | 스킬 | 설명 |

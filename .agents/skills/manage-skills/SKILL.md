@@ -41,6 +41,8 @@ argument-hint: "[선택사항: 특정 스킬 이름 또는 집중할 영역]"
 | `verify-ingame-mob` | 인게임 몹(Mob) 시스템의 풀링, 컴포넌트 분리, 화명 밖 이탈 방지를 검증합니다. | `Assets/_Game/Scripts/InGame/Mob/**/*.cs` |
 | `verify-player-system` | 플레이어 컨트롤러, 자동 공격(AI) 루프, 카이팅(Kiting) 이동 및 토글 연동 무결성을 검증합니다. | `Assets/_Game/Scripts/InGame/Player/Player_Base/*.cs` |
 | `verify-ad-system` | 신규 AdMob 광고 서비스 아키텍처 및 SDK v10.7+ API 통합 상태를 검증합니다. | `Assets/Scripts/Ad/*.cs` |
+| `verify-dungeon-system` | 던전 선택, 성공/실패 UI 흐름 및 상태 관리 무결성 검증 | `Assets/Scripts/Dungeon/*.cs` |
+| `verify-architecture-standards` | 프로젝트 핵심 아키텍처 규칙(No Singleton, MVVM 준수, GPGS 업적 흐름) 검증 | `Assets/Scripts/**/*.cs` |
 
 <!-- 스킬이 추가되면 아래 형식으로 등록:
 | 스킬 | 설명 | 커버 파일 패턴 |

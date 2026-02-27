@@ -108,21 +108,27 @@ public class LoginView : MonoBehaviour
 
     private void InitializeViewModel()
     {
-        // 의존성 주입
-        var gpgsProvider = new GPGSAuthProvider();
-#if UNITY_ANDROID
-        gpgsProvider.Initialize(); // GPGS SDK 활성화
-#endif
-        var backEndService = new BackEndService(gpgsProvider);
+        // [수정]: 리팩토링된 GPGS 서비스를 인터페이스 기반으로 인스턴스화합니다.
+        var gpgsAuthService = new GPGSAuthService();
+        
+        // GPGS 플랫폼 초기화 (v2 활성화)
+        gpgsAuthService.Initialize();
+
+        var gpgsAchievementService = new GPGSAchievementService(gpgsAuthService);
+        var backEndService = new BackEndService(gpgsAuthService, gpgsAchievementService);
         var navigationService = new SceneNavigationService();
-        m_viewModel = new LoginViewModel(backEndService, new UserDataService(backEndService), navigationService);
+        
+        m_viewModel = new LoginViewModel(
+            backEndService, 
+            new UserDataService(backEndService), 
+            navigationService
+        );
 
         if (m_viewModel != null)
         {
             m_viewModel.OnErrorMessage = ShowErrorMessage;
             m_viewModel.OnLoginSuccess = OnLoginSuccess;
             m_viewModel.OnTokenLoginFailed = EnableGuestAndGpgsLogin;
-            // 닉네임 설정 필요 시 UI 노출 핸들러 연결
             m_viewModel.OnNicknameSetupRequired = ShowNicknameUI;
         }
     }
@@ -295,7 +301,7 @@ public class LoginView : MonoBehaviour
     {
         SceneManager.LoadScene(index);
 
-        if (index == 1)
+        if (index == (int)SceneIndex.Town)
         {
             // 로비 씬 진입 시 인벤토리 초기화
             if (Inventory.Instance != null)

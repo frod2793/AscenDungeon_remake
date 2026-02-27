@@ -168,8 +168,10 @@ namespace Assets.Scripts.ViewModel
                 if (success)
                 {
                     // 닉네임 설정 성공 시 환영 업적 해제 시도
-                    Debug.Log($"[Login] 닉네임 생성 성공. 환영 업적 해제 시도: {Assets.Scripts.BackEnd.GPGSIds.Welcome}");
-                    await m_backEndService.UnlockAchievement(Assets.Scripts.BackEnd.GPGSIds.Welcome);
+                    Debug.Log($"[Login] 닉네임 생성 성공. 환영 업적 해제 시도: {GPGSIds.achievement____}");
+                    // [수정]: 전역 네임스페이스의 GPGSIds를 사용합니다.
+                    var welcome = await m_backEndService.UnlockAchievement(GPGSIds.achievement____);
+                    var hello = await m_backEndService.UnlockAchievement(GPGSIds.achievement____);
                     await ProceedToGame();
                 }
                 else
@@ -210,18 +212,36 @@ namespace Assets.Scripts.ViewModel
 
         /// <summary>
         /// [설명]: 모든 데이터를 로드하고 인게임 씬으로 이동합니다.
+        /// 스테이지 진행도에 따라 튜토리얼 또는 타이틀 씬으로 분기합니다.
         /// </summary>
         private async UniTask ProceedToGame()
         {
+            // 1. 서버 데이터 로드
+            Debug.Log("[Login] ProceedToGame: 모든 사용자 데이터 로드 시작...");
             await m_userDataService.LoadAllUserDataAsync();
+            Debug.Log("[Login] ProceedToGame: 데이터 로드 완료.");
+            
+            // 2. 환영 업적 해제 시도 (백엔드 서비스 내부에서 중복 체크 등 수행)
+            Debug.Log($"[Login] ProceedToGame: 업적 해제 시도 ID = {GPGSIds.achievement____}");
+            var result = await m_backEndService.UnlockAchievement(GPGSIds.achievement____);
+            Debug.Log($"[Login] ProceedToGame: 업적 해제 시도 결과 = {result.IsSuccess}");
+
+            // 3. 로그인 후 기본 이동 씬 설정 (항상 Town 씬으로 이동)
+            // [수정]: 타이틀을 거치지 않고 바로 마을(Town)로 진입하도록 요구사항 반영됨.
+            int targetSceneIndex = (int)SceneIndex.Town; // 2
+
+            Debug.Log($"[Login] ProceedToGame - User logged in. Moving to Town scene ({targetSceneIndex}).");
+
             try
             {
-                await m_navigationService.LoadSceneAsync(2);
+                await m_navigationService.LoadSceneAsync(targetSceneIndex);
             }
-            catch
+            catch (Exception ex)
             {
-                SceneManager.LoadScene(2);
+                Debug.LogWarning($"[Login] NavigationService error: {ex.Message}. Using fallback SceneManager.");
+                SceneManager.LoadScene(targetSceneIndex);
             }
+
             OnLoginSuccess?.Invoke();
         }
         #endregion

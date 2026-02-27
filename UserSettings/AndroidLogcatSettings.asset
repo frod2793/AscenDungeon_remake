@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "R5CW51K43MJ",
         "name": "com.WoodenShield.AscenDDungeon",
-        "processId": 20789,
+        "processId": 21708,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -17,31 +17,31 @@
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 13619,
+            "processId": 14233,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 15515,
+            "processId": 16505,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 17739,
+            "processId": 17825,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 18876,
+            "processId": 19721,
             "exited": true
         },
         {
             "deviceId": "R5CW51K43MJ",
             "name": "com.WoodenShield.AscenDDungeon",
-            "processId": 20789,
+            "processId": 21708,
             "exited": false
         }
     ],
@@ -99,7 +99,7 @@
         "AutoCapture": true
     },
     "m_FilterOptions": {
-        "m_Filter": "",
+        "m_Filter": "GPGS",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

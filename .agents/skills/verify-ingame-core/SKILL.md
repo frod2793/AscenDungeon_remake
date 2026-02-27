@@ -25,6 +25,7 @@ description: 인게임 핵심 시스템, 초기화 순서 및 씬 내비게이�
 | `Assets/Scripts/Modules/ISceneNavigationService.cs` | 씬 전환 인터페이스 |
 | `Assets/Scripts/Player/Controller/VirtualJoystick/VirtualJoystick.cs` | 조이스틱 핵심 컨트롤러 |
 | `Assets/Scripts/Player/Controller/VirtualJoystick/VirtualJoystickReposer.cs` | 조이스틱 드래그 재배치 옵션 |
+| `Assets/Scripts/Modules/SceneLoader.cs` | (LEGACY) 씬 로드 매니저 |
 
 ## Workflow
 
@@ -37,6 +38,9 @@ grep -n "await UniTask.NextFrame()" Assets/Scripts/Modules/SceneNavigationServic
 
 # 진행률(Progress) 로그 확인
 grep -n "System.Progress.Create" Assets/Scripts/Modules/SceneNavigationService.cs
+
+# 레거시 SceneLoader 사용처 확인 (SceneNavigationService로 교체 권장)
+grep -r "SceneLoader.Instance" Assets/Scripts/
 ```
 
 ### Step 2: 씬별 전처리 로직 검증

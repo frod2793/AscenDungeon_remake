@@ -49,7 +49,7 @@ public class BackEndServerManager : MonoBehaviour
         {
             if (s_instance == null)
             {
-                s_instance = FindObjectOfType<BackEndServerManager>();
+                s_instance = FindFirstObjectByType<BackEndServerManager>();
                 if (s_instance == null)
                 {
                     GameObject obj = new GameObject(typeof(BackEndServerManager).Name);

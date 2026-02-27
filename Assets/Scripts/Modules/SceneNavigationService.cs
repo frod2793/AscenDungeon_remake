@@ -7,7 +7,7 @@ namespace Assets.Scripts.Modules
     public class SceneNavigationService : ISceneNavigationService
     {
         // Town 씬의 빌드 인덱스를 하드코딩으로 안전하게 유지합니다. (Build Settings에 따라 조정 가능)
-        private const int TownSceneIndex = 3;
+        private const int TownSceneIndex = 2;
     public async UniTask LoadSceneAsync(int sceneIndex, bool useLoadingUI = true)
     {
         await LoadSceneInternal(sceneIndex, useLoadingUI);
